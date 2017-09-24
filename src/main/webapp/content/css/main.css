@@ -2,7 +2,7 @@ body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
-    padding-top: 54px;
+    /*padding-top: 54px; */
 }
 
 /* ==========================================================================
@@ -441,4 +441,9 @@ select:-webkit-autofill:focus {
 
 .bg-inverse {
     background: #cd4100 !important;
+}
+
+.object3d {
+    background: hsl(0, 0%, 10%);
+
 }
