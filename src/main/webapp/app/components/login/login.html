@@ -1,3 +1,7 @@
+<!--head>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head-->
+
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
             ng-click="vm.cancel()">&times;</button>
@@ -5,15 +9,15 @@
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4">
+        <div class="card mb-4">
             <h1>Sign in</h1>
         </div>
-        <div class="col-md-8 col-md-offset-2">
+        <div class="card-footer text-muted">
             <div class="alert alert-danger" ng-show="vm.authenticationError">
                 <strong>Failed to sign in!</strong> Please check your credentials and try again.
             </div>
         </div>
-        <div class="col-md-8 col-md-offset-2">
+        <div class="card mb-4">
             <form class="form" role="form" ng-submit="vm.login($event)">
                 <div class="form-group">
                     <label for="username">Login</label>
@@ -33,10 +37,10 @@
                 <button type="submit" class="btn btn-primary">Sign in</button>
             </form>
             <p></p>
-            <div class="alert alert-warning">
+            <div class="card-footer text-muted">
                 <a class="alert-link" href="" ng-click="vm.requestResetPassword()">Did you forget your password?</a>
             </div>
-            <div class="alert alert-warning">
+            <div class="card-footer text-muted">
                 You don't have an account yet? <a class="alert-link" href="" ng-click="vm.register()">Register a new account</a>
             </div>
         </div>

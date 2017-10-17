@@ -1,6 +1,3 @@
-/**
- * Created by Katarzyna on 2017-09-23.
- */
 (function() {
     'use strict';
 
@@ -11,16 +8,16 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('groups', {
-            url: '/groups',
+        $stateProvider.state('cat_obj', {
+            url: '/cat_obj',
             parent: 'app',
             data: {
                 authorities: [],
-                pageTitle: 'Grupy'
+                pageTitle: 'Kategorie: Obiekty'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/groups/groups.html'
+                    templateUrl: 'app/cat_obj/cat_obj.html'
                 }
             }
         });
