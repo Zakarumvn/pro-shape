@@ -15,7 +15,7 @@
             url: '/rank',
             parent: 'app',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: [],
                 pageTitle: 'Ranking'
             },
             views: {
