@@ -3,6 +3,7 @@
     <script src="app/object3d/OrbitControls.js"></script>
     <script src="app/object3d/OBJLoader.js"></script>
     <script src="app/object3d/MTLLoader.js"></script>
+    <script src="app/object3d/TDSLoader.js"></script>
 
     <script>
 
@@ -33,20 +34,31 @@
             backLight = new THREE.DirectionalLight(0xffffff, 1.0);
             backLight.position.set(100, 0, -100).normalize();
             /* Model */
-            var mtlLoader = new THREE.MTLLoader();
-            mtlLoader.setTexturePath('content/objects3d/hotchoco/');
-            mtlLoader.setPath('content/objects3d/hotchoco/');
-            mtlLoader.load('HotChoco.mtl', function (materials) {
+         /*   var mtlLoader = new THREE.MTLLoader();
+            mtlLoader.setTexturePath('content/objects3d/brandenburg/');
+            mtlLoader.setPath('content/objects3d/brandenburg/');
+            mtlLoader.load('BrandenburgGate.mtl', function (materials) {
                 materials.preload();
                 // materials.materials.default.map.magFilter = THREE.NearestFilter;
                 // materials.materials.default.map.minFilter = THREE.LinearFilter;
                 var objLoader = new THREE.OBJLoader();
                 objLoader.setMaterials(materials);
-                objLoader.setPath('content/objects3d/hotchoco/');
-                objLoader.load('HotChoco.obj', function (object) {
+                objLoader.setPath('content/objects3d/brandenburg/');
+                objLoader.load('BrandenburgGate.obj', function (object) {
                     scene.add(object);
                 });
+            });*/
+            var loader3DS = new THREE.TextureLoader();
+            var t = loader3DS.load( 'content/objects3d/earth/4096_EAR.jpg' );
+            var t2 = loader3DS.load( 'content/objects3d/earth/4096_CLO.jpg' );
+            var t3 = loader3DS.load( 'content/objects3d/earth/4096_BUM.jpg' );
+            var loader = new THREE.TDSLoader( );
+            loader.setPath( 'content/objects3d/earth/' );
+            loader.load('content/objects3d/earth/earth.3DS', function ( object ) {
+
+                scene.add( object );
             });
+
             /* Renderer */
             renderer = new THREE.WebGLRenderer();
             renderer.setPixelRatio(window.devicePixelRatio);

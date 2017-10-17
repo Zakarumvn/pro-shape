@@ -14,13 +14,16 @@
         $stateProvider.state('rank', {
             url: '/rank',
             parent: 'app',
+
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'Ranking'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/rank/rank.html'
+                    templateUrl: 'app/rank/rank.html',
+                    controller: 'TestController',
+                    controllerAs: 'testCtrl'
                 }
             }
         });
