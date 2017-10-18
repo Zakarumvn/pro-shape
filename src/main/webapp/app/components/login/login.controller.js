@@ -5,9 +5,9 @@
         .module('proshapeApp')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth', '$uibModalInstance'];
+    LoginController.$inject = ['$rootScope', '$state', '$timeout', 'Auth'];
 
-    function LoginController ($rootScope, $state, $timeout, Auth, $uibModalInstance) {
+    function LoginController ($rootScope, $state, $timeout, Auth) {
         var vm = this;
 
         vm.authenticationError = false;
@@ -19,6 +19,7 @@
         vm.rememberMe = true;
         vm.requestResetPassword = requestResetPassword;
         vm.username = null;
+        vm.isLogged = isLogged;
 
         $timeout(function (){angular.element('#username').focus();});
 
@@ -29,7 +30,6 @@
                 rememberMe: true
             };
             vm.authenticationError = false;
-            $uibModalInstance.dismiss('cancel');
         }
 
         function login (event) {
@@ -40,7 +40,6 @@
                 rememberMe: vm.rememberMe
             }).then(function () {
                 vm.authenticationError = false;
-                $uibModalInstance.close();
                 if ($state.current.name === 'register' || $state.current.name === 'activate' ||
                     $state.current.name === 'finishReset' || $state.current.name === 'requestReset') {
                     $state.go('home');
@@ -61,13 +60,17 @@
         }
 
         function register () {
-            $uibModalInstance.dismiss('cancel');
             $state.go('register');
         }
 
         function requestResetPassword () {
-            $uibModalInstance.dismiss('cancel');
             $state.go('requestReset');
+        }
+
+        function isLogged() {
+            var isLogged = Auth.isLogged();
+            return isLogged;
+
         }
     }
 })();

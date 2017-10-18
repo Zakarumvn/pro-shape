@@ -21,7 +21,8 @@
             resetPasswordInit: resetPasswordInit,
             resetPreviousState: resetPreviousState,
             storePreviousState: storePreviousState,
-            updateAccount: updateAccount
+            updateAccount: updateAccount,
+            isLogged: isLogged
         };
 
         return service;
@@ -70,7 +71,7 @@
 
                         // now, send them to the signin state so they can log in
                         $state.go('accessdenied').then(function() {
-                            LoginService.open();
+                            $state.go('login');
                         });
                     }
                 }
@@ -175,6 +176,11 @@
         function storePreviousState(previousStateName, previousStateParams) {
             var previousState = { "name": previousStateName, "params": previousStateParams };
             $sessionStorage.previousState = previousState;
+        }
+
+        function isLogged(){
+            var isLogged = Principal.isAuthenticated();
+            return isLogged;
         }
     }
 })();
