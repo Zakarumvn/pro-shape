@@ -46,6 +46,10 @@ spring:
     thymeleaf:
         mode: XHTML
 
+    http:
+        multipart:
+            enabled: false
+
 security:
     basic:
         enabled: false

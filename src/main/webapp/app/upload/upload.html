@@ -1,9 +1,18 @@
 Upload
 <form>
     <div class="form-group">
-        <label for="exampleFormControlFile1">Wybierz pliki</label>
-        <input type="file" class="form-control-file" ng-file-model="uploadCtrl.files" id="exampleFormControlFile1" multiple>
+        <label for="uploader">Wybierz pliki</label>
+        <input type="file" ngf-select="uploadFiles($files)"  id="uploader"/><br/>
     </div>
 </form>
 
-{{uploadCtrl.files}}
+<br>Files:
+<ul>
+    <li ng-repeat="f in files">
+        {{f.name}}
+    </li>
+</ul>
+<span class="progress" ng-show="progress >= 0">
+        <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+    </span>
+{{errorMsg}}
