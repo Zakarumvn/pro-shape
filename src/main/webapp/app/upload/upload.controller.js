@@ -8,14 +8,16 @@
         .module('proshapeApp')
         .controller('UploadController', UploadController);
 
-    UploadController.$inject = ['$scope', 'Upload', '$timeout'];
+    UploadController.$inject = ['$scope', 'Upload', '$timeout', '$http'];
 
     /* @ngInject */
-    function UploadController($scope, Upload, $timeout) {
+    function UploadController($scope, Upload, $timeout, $http) {
         var vm = this;
         vm.title = 'UploadController';
         vm.temp = [];
         vm.files = [];
+        vm.data = new FormData();
+        vm.fileGroupName = '';
 
         activate();
 
@@ -28,12 +30,13 @@
         $scope.uploadFiles = function (files) {
             $scope.files = files;
             if (files && files.length) {
+
                 Upload.upload({
                     //url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
                     url: 'api/upload/object',
-                    fields: {'username': 'zizitop'},
-                    file: files
-
+                    fields: {'fileGroupName': vm.fileGroupName},
+                    file: files,
+                    arrayKey: ''
                 }).then(function (response) {
                     $timeout(function () {
                         $scope.result = response.data;

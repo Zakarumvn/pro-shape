@@ -1,9 +1,15 @@
 Upload
-<form>
+<form method="post" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="uploader">Wybierz pliki</label>
-        <input type="file" ngf-select="uploadFiles($files)"  id="uploader"/><br/>
+        <label for="fileGroupName">Nazwa obiektu</label>
+        <input type="text" id="fileGroupName" ng-model="uploadCtrl.fileGroupName">
     </div>
+
+    <div class="form-group" ng-show="uploadCtrl.fileGroupName.length > 3">
+        <label for="uploader">Wybierz pliki</label>
+        <input multiple type="file" ngf-select="uploadFiles($files)" id="uploader"/><br/>
+    </div>
+
 </form>
 
 <br>Files:

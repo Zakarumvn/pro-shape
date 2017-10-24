@@ -34,7 +34,7 @@ spring:
     jpa:
         open-in-view: false
         hibernate:
-            ddl-auto: none
+            ddl-auto: update
             naming:
                 physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
@@ -48,7 +48,9 @@ spring:
 
     http:
         multipart:
-            enabled: false
+            max-file-size: 50MB
+            max-request-size: 50MB
+            enabled: true
 
 security:
     basic:
