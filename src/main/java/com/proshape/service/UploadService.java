@@ -62,9 +62,9 @@ public class UploadService {
             fileDB.setFileExtension(fileExtension);
             fileDB.setPath(user.getId().toString() + "\\" + fileName + fileExtension);
             fileDB.setFileGroup(fileGroupName);
-            //fileDB.setUploadDate(new DateTime());
+            fileDB.setUploadDate(new DateTime());
 
-            fileRepository.save(fileDB);
+           // fileRepository.save(fileDB);
         }
 
 
