@@ -20,7 +20,9 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/object3d/object3d.html'
+                    templateUrl: 'app/object3d/object3d.html',
+                    controller: 'ObjectController',
+                    controllerAs: 'objCtrl'
                 }
             }
         });

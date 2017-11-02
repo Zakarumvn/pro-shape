@@ -1,11 +1,32 @@
 <div class="object3d"  id="object3d">
-    <script src="app/object3d/objectDetector.js"></script>
+<!--    <script src="app/object3d/objectDetector.js"></script>
     <script src="app/object3d/OrbitControls.js"></script>
     <script src="app/object3d/OBJLoader.js"></script>
     <script src="app/object3d/MTLLoader.js"></script>
-    <script src="app/object3d/TDSLoader.js"></script>
+    <script src="app/object3d/TDSLoader.js"></script>-->
 
-    <script>
+    <div id="top">
+    </div>
+    <div id="left">
+        <div id="menu"></div>
+    </div>
+
+    <canvas id="example" width="0" height="0"></canvas>
+    <input type="file" id="file" style="display:none" multiple />
+
+
+    <link rel="stylesheet" type="text/css" href="app/include/importer.css">
+    <link rel="stylesheet" type="text/css" href="app/include/floatingdialog.css">
+
+    <script type="text/javascript" src="app/JSModeler/jsmodeler.js"></script>
+    <script type="text/javascript" src="app/JSModeler/jsmodeler.ext.three.js"></script>
+
+    <script type="text/javascript" src="app/include/floatingdialog.js"></script>
+    <script type="text/javascript" src="app/include/importerviewer.js"></script>
+    <script type="text/javascript" src="app/include/importermenu.js"></script>
+   <!-- <script type="text/javascript" src="app/include/importerapp.js"></script>-->
+
+    <!--<script>
 
         if (!Detector.webgl) {
             Detector.addGetWebGLMessage();
@@ -102,6 +123,6 @@
         function render() {
             renderer.render(scene, camera);
         }
-    </script>
+    </script>-->
 
 </div>
