@@ -15,7 +15,7 @@
             url: '/object3d',
             parent: 'app',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: [],
                 pageTitle: 'Obiekt'
             },
             views: {
