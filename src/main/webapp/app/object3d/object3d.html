@@ -1,32 +1,16 @@
 <div class="container">
-    <div class="sixteen columns add-bottom">
-        <div class="navbar">
-            <div id="info" class="sixteen columns pull-right add-bottom">
-                WebGL/Canvas Model Viewer
-                <div id="stats" class="four columns"></div>
-            </div>
-        </div>
-    </div>
+    <h1 class="mt-4 mb-3">{{materialObj[0].name}} <small>Imię Nazwisko</small></h1>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html">Strona główna</a>
+        </li>
+        <li class="breadcrumb-item active">Obiekty</li>
+    </ol>
+
     <div class="sixteen columns add-bottom">
         <div id="webglContainer" ng-webgl="" width="canvasWidth" height="canvasHeight" fillcontainer="dofillcontainer" scale="scale" material-type="materialType" material-obj="materialObj">
         </div>
     </div>
-    <div class="four columns add-bottom">
-        <label for="scale">Scale Object</label>
-        <input type="range" name="scale" min="0.1" max="1.2" step="0.1" ng-model="scale" class="add-bottom">
-        <label for="canvasWidth">Canvas Width</label>
-        <input type="text" id="canvasWidth" ng-model="canvasWidth" ng-disabled="dofillcontainer">
-        <label for="canvasHeight">Canvas Height</label>
-        <input type="text" id="canvasHeight" ng-model="canvasHeight" ng-disabled="dofillcontainer">
-        <label for="materialsList">Material Type</label>
-        <select id="materialsList" ng-model="materialType">
-            <option value="lambert">Lambert</option>
-            <option value="phong">Phong</option>
-            <option value="wireframe">Wire Frame</option>
-        </select>
-        <label for="dofillcontainer">
-            <input type="checkbox" id="dofillcontainer" ng-model="dofillcontainer" /> <span>Responsive Canvas</span>
-        </label>
-    </div>
-    <div id="footer"></div>
+
 </div>

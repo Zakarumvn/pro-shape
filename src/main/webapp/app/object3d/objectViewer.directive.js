@@ -66,10 +66,11 @@
                 controls = new THREE.OrbitControls(camera);
                 controls.maxPolarAngle = Math.PI / 2;
                 controls.minDistance = 4;
-                controls.maxDistance = 25;
+                controls.maxDistance = Infinity;
 
                 // Scene
                 scene = new THREE.Scene();
+                scene.background = new THREE.Color( 0x333333 );
 
                 // Axes helper
                 //axis = new THREE.\Helper( 100 );
@@ -121,7 +122,7 @@
                 ground.rotation.x = -Math.PI / 2; //-90 degrees around the xaxis
                 ground.doubleSided = true;
                 ground.receiveShadow = true;
-                scene.add(ground);
+               // scene.add(ground);
 
                 // SKYDOME
                 var vertexShader = "varying vec3 vWorldPosition;void main() {vec4 worldPosition = modelMatrix * vec4(position, 1.0);vWorldPosition = worldPosition.xyz;gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);}"
@@ -159,7 +160,7 @@
                 });
 
                 var sky = new THREE.Mesh(skyGeo, skyMat);
-                scene.add(sky);
+                //scene.add(sky);
 
                 // Shadow
                 var canvas = document.createElement('canvas');
@@ -238,7 +239,7 @@
                 icosahedron = new THREE.Mesh(geometry, materials[scope.materialType]);
                 icosahedron.position.x = 0;
                 icosahedron.rotation.x = 0;
-                scene.add(icosahedron);
+                //scene.add(icosahedron);
 
                 if (scope.webglAvailable()) {
                     renderer = new THREE.WebGLRenderer({
@@ -256,8 +257,8 @@
                     });
                 }
 
-                var stats = new Stats();
-                element[0].appendChild(stats.domElement);
+               /* var stats = new Stats();
+                element[0].appendChild(stats.domElement);*/
 
                 // element is provided by the angular directive
                 element[0].appendChild(renderer.domElement);
@@ -272,73 +273,39 @@
             // -----------------------------------
             scope.loadModelAndMaterials = function (storage, manager, data) {
                 THREE.ImageUtils.crossOrigin = '';
+                var mtlLoader = new THREE.MTLLoader;
+                mtlLoader.setTexturePath(data['baseUrl']);
 
                 console.log('begin');
-                var map, normalMap, specularMap, alphaMap = null;
-                if (data['colorMapUrl']) {
-                    console.log('colorMapUrl', data['colorMapUrl']);
-                    map = THREE.ImageUtils.loadTexture(data['colorMapUrl']);
-                    map.wrapS = THREE.RepeatWrapping;
-                }
 
-                if (data['normalMapUrl']) {
-                    console.log('normalMapUrl', data['normalMapUrl']);
-                    normalMap = THREE.ImageUtils.loadTexture(data['normalMapUrl']);
-                    normalMap.wrapS = THREE.MirrorRepeatWrapping;
-                }
 
-                if (data['specularMapUrl']) {
-                    console.log('specularMapUrl', data['specularMapUrl']);
-                    specularMap = THREE.ImageUtils.loadTexture(data['specularMapUrl']);
-                    specularMap.wrapS = THREE.MirrorRepeatWrapping;
-                }
+                mtlLoader.setBaseUrl(data['baseUrl']);
+                mtlLoader.setPath(data['baseUrl']);
+                mtlLoader.load(data['mtlUrl'], function( materials ) {
 
-                if (data['alphaMapUrl']) {
-                    console.log('alphaMapUrl', data['alphaMapUrl']);
-                    alphaMap = THREE.ImageUtils.loadTexture(data['alphaMapUrl']);
-                    alphaMap.wrapS = THREE.MirrorRepeatWrapping;
-                }
-                console.log('end');
+                    materials.preload();
 
-                var material = new THREE.MeshPhongMaterial();
-                if (map) {
-                    material.map = map;
-                }
+                    var objLoader = new THREE.OBJLoader(manager);
+                    objLoader.setMaterials( materials );
+                    objLoader.setPath(data['baseUrl']);
+                    objLoader.load(data['objUrl'], function ( Object ) {
 
-                if (normalMap) {
-                    material.normalMap = normalMap;
-                }
+                        Object.position.x = data['position']['x'];
+                        Object.position.y = data['position']['y'];
+                        Object.position.z = data['position']['z'];
 
-                if (specularMap) {
-                    material.specularMap = specularMap;
-                }
+                        Object.castShadow = true;
+                        Object.receiveShadow = true;
+                        Object.scale.set(1, 1, 1);
+                        Object.name = data['name'];
 
-                if (alphaMap) {
-                    material.alphaMap = alphaMap;
-                }
+                        storage[data['name']] = Object;
+                        scope.createMenu(Object);
+                    }, manager.onProgress, manager.onError);
 
-                var loader = new THREE.OBJLoader(manager);
-                var item = loader.load(data['objUrl'], function (Object) {
+                } );
 
-                    Object.position.x = data['position']['x'];
-                    Object.position.y = data['position']['y'];
-                    Object.position.z = data['position']['z'];
-
-                    Object.traverse(function (child) {
-                        if (child instanceof THREE.Mesh) {
-                            child.material = material;
-                        }
-                    });
-
-                    Object.castShadow = true;
-                    Object.receiveShadow = true;
-                    Object.scale.set(1, 1, 1);
-                    Object.name = data['name'];
-
-                    storage[data['name']] = Object;
-                    scope.createMenu(Object);
-                }, manager.onProgress, manager.onError);
-            }
+            };
 
             // -----------------------------------
             // Create Menu
@@ -428,7 +395,7 @@
             scope.animate = function () {
                 requestAnimationFrame(scope.animate);
                 scope.render();
-                stats.update();
+              //  stats.update();
             };
 
             scope.render = function () {
