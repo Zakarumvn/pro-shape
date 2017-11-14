@@ -3,6 +3,8 @@ package com.proshape.service;
 import com.proshape.domain.User;
 import com.proshape.repository.FileRepository;
 import org.joda.time.DateTime;
+import org.joda.time.Instant;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,39 +37,39 @@ public class UploadService {
         String uploadDirectoryPath = System.getProperty("upload.location");
         Path userDirPath = Paths.get(uploadDirectoryPath + "\\" + user.getId().toString());
         String originalFilename = "";
-        String fileName = "";
         String fileExtension = "";
 
-        try{
-            if(!Files.exists(userDirPath)){
-                Files.createDirectory(userDirPath);
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        Files.createDirectory(userDirPath);
 
         for (int i = 0; i < files.size(); i++) {
             originalFilename = files.get(i).getOriginalFilename();
             fileExtension = originalFilename.substring(originalFilename.length() - 4);
-            fileName = fileGroupName + i;
-            File convertedFile = new File(userDirPath.toString(), fileName + fileExtension);
+            File convertedFile = new File(userDirPath.toString(), originalFilename);
             convertedFile.createNewFile();
             FileOutputStream fos = new FileOutputStream(convertedFile);
             fos.write(files.get(i).getBytes());
             fos.close();
 
+
             com.proshape.domain.File fileDB = new com.proshape.domain.File();
             fileDB.setUser(user);
-            fileDB.setFileName(fileName);
+            fileDB.setFileName(originalFilename);
             fileDB.setFileExtension(fileExtension);
-            fileDB.setPath(user.getId().toString() + "\\" + fileName + fileExtension);
+            fileDB.setPath(user.getId().toString() + "\\" + originalFilename);
             fileDB.setFileGroup(fileGroupName);
-            fileDB.setUploadDate(new DateTime());
-
-           // fileRepository.save(fileDB);
+            fileDB.setUploadDate(Instant.now());
+            fileRepository.save(fileDB);
         }
 
-
     }
+/*    public List<com.proshape.domain.File> getFilesForUserId(Long userId){
+        return fileRepository.getFilesForId(userId);
+    }*/
 
+    public byte[] getObject(String fileName) throws IOException {
+        User user = userService.getUserWithAuthorities();
+        Path path = Paths.get(System.getProperty("upload.location") + "/" + user.getId() + "/" + fileName);
+        byte[] data = Files.readAllBytes(path);
+        return data;
+    }
 }

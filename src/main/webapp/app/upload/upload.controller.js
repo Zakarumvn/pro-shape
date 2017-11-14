@@ -18,6 +18,7 @@
         vm.files = [];
         vm.data = new FormData();
         vm.fileGroupName = '';
+        vm.response = null;
 
         activate();
 
@@ -32,7 +33,6 @@
             if (files && files.length) {
 
                 Upload.upload({
-                    //url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
                     url: 'api/upload/object',
                     fields: {'fileGroupName': vm.fileGroupName},
                     file: files,
@@ -40,6 +40,7 @@
                 }).then(function (response) {
                     $timeout(function () {
                         $scope.result = response.data;
+                        vm.response  = response.data;
                     });
                 }, function (response) {
                     if (response.status > 0) {
