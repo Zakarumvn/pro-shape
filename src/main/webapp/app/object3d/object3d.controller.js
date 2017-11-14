@@ -20,6 +20,7 @@
         ////////////////
 
         function activate() {
+            //test
             $scope.canvasWidth = 400;
             $scope.canvasHeight = 600;
             $scope.dofillcontainer = true;
