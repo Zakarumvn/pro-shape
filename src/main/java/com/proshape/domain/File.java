@@ -3,6 +3,7 @@ package com.proshape.domain;
 import com.proshape.domain.User;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.Instant;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -34,14 +35,14 @@ public class File {
 
     private String path;
 
-    @Column(name = "upload_date", length = 200)
-    private DateTime uploadDate;
+    @Column(name = "upload_date")
+    private Instant uploadDate;
 
     public File(){
 
     }
 
-    public File(User user, String fileName, String fileGroup, String fileExtension, String path, DateTime uploadDate) {
+    public File(User user, String fileName, String fileGroup, String fileExtension, String path, Instant uploadDate) {
         this.user = user;
         this.fileName = fileName;
         this.fileGroup = fileGroup;
@@ -98,11 +99,11 @@ public class File {
         this.path = path;
     }
 
-    public DateTime getUploadDate() {
+    public Instant getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(DateTime uploadDate) {
+    public void setUploadDate(Instant uploadDate) {
         this.uploadDate = uploadDate;
     }
 }

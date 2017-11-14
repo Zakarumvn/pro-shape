@@ -33,7 +33,6 @@ module.exports = function (config) {
             'src/main/webapp/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             'src/main/webapp/bower_components/angular-cache-buster/angular-cache-buster.js',
             'src/main/webapp/bower_components/angular-cookies/angular-cookies.js',
-            'src/main/webapp/bower_components/angular-file-upload/dist/angular-file-upload.min.js',
             'src/main/webapp/bower_components/ngstorage/ngStorage.js',
             'src/main/webapp/bower_components/angular-loading-bar/build/loading-bar.js',
             'src/main/webapp/bower_components/angular-resource/angular-resource.js',

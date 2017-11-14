@@ -1,4 +1,5 @@
 <div class="container">
+    <script src="app/object3d/viewer/js/OBJLoader2.js"></script>
     <h1 class="mt-4 mb-3">{{materialObj[0].name}} <small>Imię Nazwisko</small></h1>
 
     <ol class="breadcrumb">
@@ -7,9 +8,9 @@
         </li>
         <li class="breadcrumb-item active">Obiekty</li>
     </ol>
-
-    <div class="sixteen columns add-bottom">
-        <div id="webglContainer" ng-webgl="" width="canvasWidth" height="canvasHeight" fillcontainer="dofillcontainer" scale="scale" material-type="materialType" material-obj="materialObj">
+    <div class="sixteen columns add-bottom" ng-if="objCtrl.display == true">
+        <ul ng-repeat="url in objCtrl.fileURL track by $index"><li ng-href="{{url}}" download="{{objCtrl.fileName[$index]}}">{{$index}}</li></ul>
+        <div  id="webglContainer" ng-webgl width="canvasWidth" height="canvasHeight" fillcontainer="dofillcontainer" scale="scale" material-type="materialType" material-obj="materialObj">
         </div>
     </div>
 
