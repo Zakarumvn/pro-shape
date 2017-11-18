@@ -44,4 +44,26 @@ public class UploadController {
         }
     }
 
+    @GetMapping(value= "/getMaterial")
+    public byte[] getMaterial(@RequestParam("fileName")String fileName){
+        try{
+            byte[] data = uploadService.getObject(fileName);
+            return data;
+        } catch (IOException e){
+            return null;
+        }
+    }
+
+    @GetMapping(value= "/getTexture")
+    public byte[] getTexture(@RequestParam("fileName")String fileName) {
+        try {
+            byte[] data = uploadService.getObject(fileName);
+            return data;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+
+
 }

@@ -51,6 +51,7 @@
                     }
                 };
 
+
                 var onError = function (xhr) {
                     console.log('Error: ' + xhr);
                 };
@@ -278,13 +279,17 @@
                 scope.loadModelAndMaterials = function (storage, manager, data) {
                     THREE.ImageUtils.crossOrigin = '';
                     var mtlLoader = new THREE.MTLLoader;
-                    mtlLoader.setTexturePath(data['baseUrl']);
+                    mtlLoader.setCrossOrigin(true);
+
+
+                    console.log('end');
 
                     console.log('begin');
 
 
-                    mtlLoader.setBaseUrl(data['baseUrl']);
-                    mtlLoader.setPath(data['baseUrl']);
+                   // mtlLoader.setBaseUrl(data['baseUrl']);
+                    //mtlLoader.setPath(data['baseUrl']);
+                    mtlLoader.setTexturePath(data['baseUrl']);
                     mtlLoader.load(data['mtlUrl'], function( materials ) {
 
                         materials.preload();
