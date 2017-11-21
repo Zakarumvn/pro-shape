@@ -1,4 +1,7 @@
 /**
+ * Created by Katarzyna on 2017-11-18.
+ */
+/**
  * Created by Katarzyna on 2017-09-23.
  */
 (function() {
@@ -11,18 +14,18 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('object3d', {
-            url: '/model/:id',
+        $stateProvider.state('userModels', {
+            url: '/userModels',
             parent: 'app',
             data: {
                 authorities: [],
-                pageTitle: 'Obiekt'
+                pageTitle: 'My models'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/object3d/object3d.html',
-                    controller: 'ObjectController',
-                    controllerAs: 'objCtrl'
+                    templateUrl: 'app/userModels/userModels.html',
+                    controller: 'UserModelsController',
+                    controllerAs: 'userModelsCtrl'
                 }
             }
         });

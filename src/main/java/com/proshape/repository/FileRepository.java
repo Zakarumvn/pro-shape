@@ -2,6 +2,8 @@ package com.proshape.repository;
 
 import com.proshape.domain.File;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +14,6 @@ import java.util.List;
 
 @Repository
 public interface FileRepository extends JpaRepository<File, Long> {
-   // List<com.proshape.domain.File> getFilesForId(Long userId);
-
-
+   List<com.proshape.domain.File> findAllByUserId(Long userId);
+   List<com.proshape.domain.File> findAllByModelId(Long modelId);
 }

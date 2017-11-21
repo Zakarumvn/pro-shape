@@ -8,53 +8,60 @@
         .module('proshapeApp')
         .controller('ObjectController', ObjectController);
 
-    ObjectController.$inject = ['$scope', '$http'];
+    ObjectController.$inject = ['$scope', '$http', '$stateParams'];
 
     /* @ngInject */
-    function ObjectController($scope, $http) {
+    function ObjectController($scope, $http, $stateParams) {
         var vm = this;
         vm.title = 'ObjectController';
         vm.obj = [];
-        vm.fileName = ['M2-04_czaszka_simple100K.obj', 'M2-04_czaszka_simple100K.obj.mtl', 'M2-04_czaszka1_0.jpg'];
+        vm.fileName = [];
         vm.getFile = getFile;
-        vm.fileURL = ['','',''];
+        vm.fileURL = ['', '', ''];
         vm.files = [];
-
+        vm.data = [];
+        vm.model = [];
         $scope.display = 0;
+
         activate();
+
         vm.setMaterialObj = setMaterialObj;
 
-        ////////////////
 
         function activate() {
-                for(var i = 0; i< vm.fileName.length; i++){
-                    vm.getFile(vm.fileName[i]);
-                }
+            vm.data = {
+                id: $stateParams.id
+            };
 
-/*            $scope.materialObj = [{
+            $http({
+                url: 'api/file/getModelById',
+                method: 'get',
+                params: vm.data
+            })
+                .then(function (response) {
+                    vm.model = response.data;
+                    for (var i = 0; i < 3; i++) {
+                        vm.fileName.push(response.data.files[i].fileName);
+                    }
+                    for (var j = 0; j < vm.fileName.length; j++) {
+                        vm.getFile(vm.fileName[j]);
+                    }
 
-                "name": "Czaszka",
-                "objUrl": vm.fileURL[0],
-                "mtlUrl": vm.fileURL[1],
-                "baseUrl": vm.fileURL[2],
-                "position": {
-                    "x": 0,
-                    "y": 2,
-                    "z": 0
-                }
-            }];*/
-            $scope.canvasWidth = 400;
-            $scope.canvasHeight = 600;
-            $scope.dofillcontainer = true;
-            $scope.scale = 1;
-            $scope.materialType = 'lambert';
+                    $scope.canvasWidth = 400;
+                    $scope.canvasHeight = 600;
+                    $scope.dofillcontainer = true;
+                    $scope.scale = 1;
+                    $scope.materialType = 'lambert';
+
+                });
+
 
         }
 
-        function setMaterialObj(){
+        function setMaterialObj() {
             $scope.materialObj = [{
 
-                "name": "Czaszka",
+                "name": vm.model.modelName,
                 "objUrl": vm.fileURL[0],
                 "mtlUrl": vm.fileURL[1],
                 "baseUrl": vm.fileURL[2],
@@ -67,11 +74,11 @@
         }
 
         function getFile(fileName) {
-            if(fileName.slice(-3) === 'png'){
+            if (fileName.slice(-3) === 'png') {
                 $http({
-                    url: 'api/upload/getTexture',
+                    url: 'api/file/getTexture',
                     params: {
-                        'fileName' : fileName
+                        'fileName': fileName
                     },
                     responseType: 'arraybuffer'
                 }).then(function (response) {
@@ -79,15 +86,15 @@
                         type: 'image/png'
                     });
                     vm.files[2] = file;
-                    vm.fileURL[2]= URL.createObjectURL(file);
+                    vm.fileURL[2] = URL.createObjectURL(file);
                     $scope.display++;
                 });
             }
-            else if(fileName.slice(-3) === 'jpg'){
+            else if (fileName.slice(-3) === 'jpg') {
                 $http({
-                    url: 'api/upload/getTexture',
+                    url: 'api/file/getTexture',
                     params: {
-                        'fileName' : fileName
+                        'fileName': fileName
                     },
                     responseType: 'arraybuffer'
                 }).then(function (response) {
@@ -96,26 +103,26 @@
                     });
 
                     vm.files[2] = file;
-                    vm.fileURL[2]= URL.createObjectURL(file);
+                    vm.fileURL[2] = URL.createObjectURL(file);
                     $scope.display++;
                 });
-            } else if(fileName.slice(-3) === 'obj'){
+            } else if (fileName.slice(-3) === 'obj') {
                 $http({
-                    url: 'api/upload/getObject',
+                    url: 'api/file/getObject',
                     params: {
-                        'fileName' : fileName
+                        'fileName': fileName
                     },
                     responseType: 'blob'
                 }).then(function (response) {
                     vm.files[0] = response.data;
-                    vm.fileURL[0]= URL.createObjectURL(vm.files[0]);
+                    vm.fileURL[0] = URL.createObjectURL(vm.files[0]);
                     $scope.display++;
                 });
-            } else if(fileName.slice(-3) === 'mtl'){
+            } else if (fileName.slice(-3) === 'mtl') {
                 $http({
-                    url: 'api/upload/getMaterial',
+                    url: 'api/file/getMaterial',
                     params: {
-                        'fileName' : fileName
+                        'fileName': fileName
                     },
                     responseType: 'blob'
                 }).then(function (response) {
@@ -127,7 +134,6 @@
 
 
             return "";
-
 
 
         }

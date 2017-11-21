@@ -1,0 +1,50 @@
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+        <h1 class="mt-4 mb-3">My models</h1>
+        <a href="#/upload">Upload new model</a>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">My models</li>
+    </ol>
+
+    <div class="alert alert-info" ng-if="userModelsCtrl.userFiles.length === 0">
+        You have no models. <a href="#/upload">Upload</a> some!
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="item in userModelsCtrl.userFiles">
+            <div class="card h-100">
+                <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                <div class="card-block">
+                    <h4 class="card-title"><a href="#/model/{{item.id}}">{{item.modelName}}</a></h4>
+                    <p class="card-text">{{item.modelDescription}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+
+    <ul class="pagination justify-content-center" ng-repeat="page in userModelsCtrl.range(1,userModelsCtrl.getNumberOfPages())">
+        <li class="page-item">
+            <a  ng-disabled="userModelsCtrl.currentPage == 0" ng-click="userModelsCtrl.currentPage = userModelsCtrl.currentPage-1"
+                class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#" ng-click="userModelsCtrl.currentPage = page">{{page}}</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next" ng-click="userModelsCtrl.currentPage=currentPage+1">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+
+</div>
+<!-- /.container -->

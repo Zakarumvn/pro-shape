@@ -19,13 +19,13 @@
         vm.data = new FormData();
         vm.fileGroupName = '';
         vm.response = null;
+        vm.description = '';
 
         activate();
 
         ////////////////
 
         function activate() {
-
         }
 
         $scope.uploadFiles = function (files) {
@@ -33,8 +33,8 @@
             if (files && files.length) {
 
                 Upload.upload({
-                    url: 'api/upload/object',
-                    fields: {'fileGroupName': vm.fileGroupName},
+                    url: 'api/file/upload',
+                    fields: {'fileGroupName': vm.fileGroupName, 'description': vm.description},
                     file: files,
                     arrayKey: ''
                 }).then(function (response) {
