@@ -6,24 +6,24 @@
 
     angular
         .module('proshapeApp')
-        .controller('TestController', TestController);
+        .controller('RankController', RankController);
 
-    TestController.$inject = ['rankService', '$http'];
+    RankController.$inject = ['rankService', '$http'];
 
     /* @ngInject */
-    function TestController(rankService, $http) {
+    function RankController(rankService, $http) {
         var vm = this;
-        vm.title = 'TestController';
-        vm.temp = [];
+        vm.title = 'RankController';
+        vm.models = [];
 
         activate();
 
         ////////////////
 
         function activate() {
-            $http.get('api/test/testujemy').then(function (response) {
-                vm.temp = response.data;
-            })
+            $http.get('api/file/getRank').then(function (response) {
+                vm.models = response.data;
+            });
         }
 
     }

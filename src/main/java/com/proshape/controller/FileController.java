@@ -89,4 +89,9 @@ public class FileController {
         User user = userService.getUserWithAuthorities();
         return fileService.getModels(user.getId());
     }
+
+    @GetMapping(value = "/getRank")
+    public List<Model> getRank(){
+        return fileService.getAllModels();
+    }
 }

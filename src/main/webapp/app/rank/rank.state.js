@@ -22,8 +22,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/rank/rank.html',
-                    controller: 'TestController',
-                    controllerAs: 'testCtrl'
+                    controller: 'RankController',
+                    controllerAs: 'rankCtrl'
                 }
             }
         });

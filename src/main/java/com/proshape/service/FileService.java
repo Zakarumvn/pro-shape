@@ -43,6 +43,10 @@ public class FileService {
         return fileRepository.findAllByModelId(modelId);
     }
 
+    public List<Model> getAllModels(){
+        return modelRepository.findAll();
+    }
+
     public Model findModelById(Long modelId){
         return modelRepository.findModelById(modelId);
     }

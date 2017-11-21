@@ -14,4 +14,5 @@ import java.util.List;
 public interface ModelRepository extends JpaRepository<Model, Long> {
     List<Model> findALlByUserId(Long userId);
     Model findModelById(Long modelId);
+    List<Model> findAll();
 }
