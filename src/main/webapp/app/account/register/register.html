@@ -1,9 +1,9 @@
 <div class="container">
-
+    <h1 class="mt-4 mb-3">Register</h1>
     <!-- Page Heading/Breadcrumbs -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="index.html">Home</a>
+            <a ui-sref="home">Home</a>
         </li>
         <li class="breadcrumb-item active">Register</li>
     </ol>
@@ -11,23 +11,23 @@
     <!-- Blog Post -->
     <div class="card mb-4">
 
-        <div class="card-footer text-muted" ng-show="vm.success">
+        <div class="breadcrumb text-muted" ng-show="vm.success">
             <strong>Registration saved!</strong> Please check your email for confirmation.
         </div>
 
-        <div class="card-footer text-muted" ng-show="vm.error">
+        <div class="breadcrumb text-muted" ng-show="vm.error">
             <strong>Registration failed!</strong> Please try again later.
         </div>
 
-        <div class="card-footer text-muted" ng-show="vm.errorUserExists">
+        <div class="breadcrumb text-muted" ng-show="vm.errorUserExists">
             <strong>Login name already registered!</strong> Please choose another one.
         </div>
 
-        <div class="card-footer text-muted" ng-show="vm.errorEmailExists">
+        <div class="breadcrumb text-muted" ng-show="vm.errorEmailExists">
             <strong>Email is already in use!</strong> Please choose another one.
         </div>
 
-        <div class="card-footer text-muted" ng-show="vm.doNotMatch">
+        <div class="breadcrumb text-muted" ng-show="vm.doNotMatch">
             The password and its confirmation do not match!
         </div>
 
@@ -35,7 +35,6 @@
             <div class="row">
 
                 <div class="col-lg-6">
-                    <h2 class="card-title" ng-show="!vm.success">Register</h2>
 
                     <form ng-show="!vm.success" name="form" role="form" novalidate ng-submit="vm.register()" show-validation>
 

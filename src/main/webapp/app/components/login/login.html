@@ -1,15 +1,15 @@
-<div class="container">
-
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <h1 class="mt-4 mb-3"><b>Sign in</b></h1>
     <!-- Page Heading/Breadcrumbs -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="index.html">Home</a>
+            <a ui-sref="home">Home</a>
         </li>
         <li class="breadcrumb-item active">Sign in</li>
     </ol>
 
-    <div class="card-footer text-muted" ng-show="vm.isLogged()">
-        You are currently logged in!
+    <div class="alert alert-warning" ng-show="vm.isLogged()">
+            <strong>You are currently logged in!</strong>
     </div>
     <!-- Blog Post -->
     <div class="card mb-4" ng-hide="vm.isLogged()">
@@ -19,7 +19,6 @@
                 </div>
             </div>
             <div class="card-block">
-                <h2>Sign in</h2>
                 <form class="form" role="form" ng-submit="vm.login($event)">
                     <div class="form-group">
                         <label for="username">Login</label>
@@ -39,14 +38,14 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Sign in</button>
                 </form>
-                <p></p>
-                <div class="card-footer text-muted">
+                <hr>
+                <div class="breadcrumb text-muted">
                     <a class="alert-link" href="" ng-click="vm.requestResetPassword()">Did you forget your password?</a>
                 </div>
-                <div class="card-footer text-muted">
+                <div class="breadcrumb text-muted">
                     You don't have an account yet? <a class="alert-link" href="" ng-click="vm.register()">Register a new
                     account</a>
                 </div>
             </div>
-        </div>
+    </div>
 </div>
