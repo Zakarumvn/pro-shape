@@ -12,7 +12,7 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('object3d', {
-            url: '/object3d',
+            url: '/model/:id',
             parent: 'app',
             data: {
                 authorities: [],

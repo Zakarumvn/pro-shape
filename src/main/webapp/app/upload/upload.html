@@ -14,17 +14,26 @@
             <div class="alert alert-danger" ng-show="errorMsg">
                 <strong>{{errorMsg}}</strong>
             </div>
+
+            <div class="alert alert-success" ng-show="uploadCtrl.response == '1'">
+                <strong>Object saved.</strong>
+            </div>
         </div>
         <div class="card-block">
             <h2>Upload</h2>
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="fileGroupName">Nazwa obiektu</label>
+                    <label for="fileGroupName">File name</label>
                     <input type="text" id="fileGroupName" ng-model="uploadCtrl.fileGroupName">
                 </div>
                 <div class="form-group" ng-show="uploadCtrl.fileGroupName.length > 3">
-                    <label for="uploader">Wybierz pliki</label>
-                    <input multiple type="file" ngf-select="uploadFiles($files)" id="uploader"/><br/>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" data-ng-model="uploadCtrl.description"></textarea>
+                    <label for="uploader">Choose files (supported extensions: .obj, .mtl, .jpg, .png, supported <strong>one texture</strong> models)</label>
+                    <p>
+                        <input accept=".obj,.mtl,.jpg,.jpeg,.png" multiple type="file" ngf-select="uploadFiles($files)" id="uploader"/>
+
+                    </p>
                 </div>
             </form>
             <div class="card-block" ng-show="files.length > 0">

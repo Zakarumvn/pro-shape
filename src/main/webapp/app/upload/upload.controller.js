@@ -18,13 +18,14 @@
         vm.files = [];
         vm.data = new FormData();
         vm.fileGroupName = '';
+        vm.response = null;
+        vm.description = '';
 
         activate();
 
         ////////////////
 
         function activate() {
-
         }
 
         $scope.uploadFiles = function (files) {
@@ -32,14 +33,14 @@
             if (files && files.length) {
 
                 Upload.upload({
-                    //url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-                    url: 'api/upload/object',
-                    fields: {'fileGroupName': vm.fileGroupName},
+                    url: 'api/file/upload',
+                    fields: {'fileGroupName': vm.fileGroupName, 'description': vm.description},
                     file: files,
                     arrayKey: ''
                 }).then(function (response) {
                     $timeout(function () {
                         $scope.result = response.data;
+                        vm.response  = response.data;
                     });
                 }, function (response) {
                     if (response.status > 0) {

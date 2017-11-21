@@ -25,6 +25,7 @@
             }
         }
 
+
         // query params are strings, and need to be parsed
         function parsePage (page) {
             return parseInt(page);

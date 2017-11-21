@@ -3,9 +3,12 @@ package com.proshape.domain;
 import com.proshape.domain.User;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.Instant;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 
 /**
@@ -13,7 +16,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "files")
-public class File {
+public class File implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,22 +35,33 @@ public class File {
 
     private String fileExtension;
 
+    private String description;
+
     private String path;
 
-    @Column(name = "upload_date", length = 200)
-    private DateTime uploadDate;
+    @Column(name = "upload_date")
+    private Instant uploadDate;
+
+    private byte[] miniature;
+
+    @ManyToOne
+    @JoinColumn(name="modelId")
+    private Model model;
 
     public File(){
 
     }
 
-    public File(User user, String fileName, String fileGroup, String fileExtension, String path, DateTime uploadDate) {
+    public File(User user, String fileName, String fileGroup, String fileExtension, String description, String path, Instant uploadDate, byte[] miniature, Model model) {
         this.user = user;
         this.fileName = fileName;
         this.fileGroup = fileGroup;
         this.fileExtension = fileExtension;
+        this.description = description;
         this.path = path;
         this.uploadDate = uploadDate;
+        this.miniature = miniature;
+        this.model = model;
     }
 
     public Long getId() {
@@ -98,11 +112,35 @@ public class File {
         this.path = path;
     }
 
-    public DateTime getUploadDate() {
+    public Instant getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(DateTime uploadDate) {
+    public void setUploadDate(Instant uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public byte[] getMiniature() {
+        return miniature;
+    }
+
+    public void setMiniature(byte[] miniature) {
+        this.miniature = miniature;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 }
