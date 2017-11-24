@@ -12,6 +12,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
@@ -96,10 +97,13 @@
         <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-messages/angular-messages.js"></script>
         <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
         <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
         <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+        <script src="bower_components/angular-material/angular-material.js"></script>
         <!-- endinject -->
         <!-- endbuild -->
 
@@ -112,6 +116,8 @@
         <script src="app/vendor/bootstrap/js/bootstrap.min.js"></script>
         <script src="app/vendor/bootstrap/js/bootstrap.js"></script>
         <script src="app/app.module.js"></script>
+        <script src="app/userModels/userModels.state.js"></script>
+        <script src="app/userModels/userModels.controller.js"></script>
         <script src="app/upload/upload.state.js"></script>
         <script src="app/upload/upload.controller.js"></script>
         <script src="app/services/user/user.service.js"></script>
@@ -133,7 +139,6 @@
         <script src="app/rank/rank.controller.js"></script>
         <script src="app/object3d/viewer/js/stats.min.js"></script>
         <script src="app/object3d/viewer/js/OrbitControls.js"></script>
-        <script src="app/object3d/viewer/js/OBJLoader2.js"></script>
         <script src="app/object3d/viewer/js/OBJLoader.js"></script>
         <script src="app/object3d/viewer/js/MTLLoader.js"></script>
         <script src="app/object3d/viewer/js/LoaderSupport.js"></script>
@@ -144,12 +149,10 @@
         <script src="app/object3d/object3d.controller.js"></script>
         <script src="app/layouts/navbar/navbar.controller.js"></script>
         <script src="app/layouts/error/error.state.js"></script>
-        <script src="app/include/online3dembedder.js"></script>
-        <script src="app/include/jsmodeler.js"></script>
-        <script src="app/include/jsmodeler.ext.three.js"></script>
         <script src="app/home/home.state.js"></script>
         <script src="app/home/home.controller.js"></script>
         <script src="app/groups/groups.state.js"></script>
+        <script src="app/filters/startFrom.filter.js"></script>
         <script src="app/entities/entity.state.js"></script>
         <script src="app/components/util/truncate-words.filter.js"></script>
         <script src="app/components/util/truncate-characters.filter.js"></script>

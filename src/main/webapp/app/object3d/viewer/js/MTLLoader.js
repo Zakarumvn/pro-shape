@@ -352,15 +352,15 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 
 		};
 
-		function resolveURL( baseUrl, url ) {
+		function resolveURL( baseUrl ) {
 
-			if ( typeof url !== 'string' || url === '' )
-				return '';
+			/*if ( typeof url !== 'string' || url === '' )
+				return '';*/
 
 			// Absolute URL
-			if ( /^https?:\/\//i.test( url ) ) return url;
+			//if ( /^https?:\/\//i.test( url ) ) return url;
 
-			return baseUrl + url;
+			return baseUrl;
 
 		}
 
@@ -369,7 +369,7 @@ THREE.MTLLoader.MaterialCreator.prototype = {
 			if ( params[ mapType ] ) return; // Keep the first encountered texture
 
 			var texParams = scope.getTextureParams( value, params );
-			var map = scope.loadTexture( resolveURL( scope.baseUrl, texParams.url ) );
+			var map = scope.loadTexture( resolveURL( scope.baseUrl) );
 
 			map.repeat.copy( texParams.scale );
 			map.offset.copy( texParams.offset );
