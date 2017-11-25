@@ -168,7 +168,7 @@
                     //scene.add(sky);
 
                     // Shadow
-                    var canvas = document.findElementById('canvas');
+                    var canvas = document.createElement('canvas');
                     canvas.width = 128;
                     canvas.height = 128;
 
@@ -195,6 +195,7 @@
                     shadowMesh.position.y = -250;
                     shadowMesh.rotation.x = -Math.PI / 2;
                     //scene.add(shadowMesh);
+
 
                     var faceIndices = ['a', 'b', 'c', 'd'];
 
