@@ -168,7 +168,7 @@
                     //scene.add(sky);
 
                     // Shadow
-                    var canvas = document.createElement('canvas');
+                    var canvas = document.findElementById('canvas');
                     canvas.width = 128;
                     canvas.height = 128;
 

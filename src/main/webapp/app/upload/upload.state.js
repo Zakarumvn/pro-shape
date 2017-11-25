@@ -17,7 +17,7 @@
 
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Upload'
+                pageTitle: 'Upload model'
             },
             views: {
                 'content@': {
