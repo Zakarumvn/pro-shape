@@ -40,7 +40,7 @@
             })
                 .then(function (response) {
                     vm.model = response.data;
-                    for (var i = 0; i < 3; i++) {
+                    for (var i = 0; i < response.data.files.length; i++) {
                         vm.fileName.push(response.data.files[i].fileName);
                     }
                     for (var j = 0; j < vm.fileName.length; j++) {
@@ -55,22 +55,36 @@
 
                 });
 
-
         }
-
         function setMaterialObj() {
-            $scope.materialObj = [{
+            if(vm.model.files.length == 3){
+                $scope.materialObj = [{
 
-                "name": vm.model.modelName,
-                "objUrl": vm.fileURL[0],
-                "mtlUrl": vm.fileURL[1],
-                "baseUrl": vm.fileURL[2],
-                "position": {
-                    "x": 0,
-                    "y": 2,
-                    "z": 0
-                }
-            }];
+                    "name": vm.model.modelName,
+                    "objUrl": vm.fileURL[0],
+                    "mtlUrl": vm.fileURL[1],
+                    "baseUrl": vm.fileURL[2],
+                    "position": {
+                        "x": 0,
+                        "y": 2,
+                        "z": 0
+                    }
+                }];
+            } else if(vm.model.files.length == 2){
+                $scope.materialObj = [{
+
+                    "name": vm.model.modelName,
+                    "objUrl": vm.fileURL[0],
+                    "mtlUrl": vm.fileURL[1],
+                    "baseUrl": '',
+                    "position": {
+                        "x": 0,
+                        "y": 2,
+                        "z": 0
+                    }
+                }];
+            }
+
         }
 
         function getFile(fileName) {

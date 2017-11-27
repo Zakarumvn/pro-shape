@@ -18,26 +18,36 @@
             <div class="alert alert-success" ng-show="uploadCtrl.response == '1'">
                 <strong>Object saved.</strong>
             </div>
+            <div class="alert alert-danger" ng-show="wrongFormat == true">
+                <strong>Inappropriate extensions of selected files!</strong>
+            </div>
         </div>
         <div class="card-block">
             <h2>Upload</h2>
             <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="fileGroupName">File name</label>
-                    <input type="text" id="fileGroupName" ng-model="uploadCtrl.fileGroupName">
+                    <input type="text" class="form-conrol" id="fileGroupName" ng-model="uploadCtrl.fileGroupName">
                 </div>
-                <div class="form-group" ng-show="uploadCtrl.fileGroupName.length > 3">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" data-ng-model="uploadCtrl.description"></textarea>
-                    <label for="uploader">Choose files (supported extensions: .obj, .mtl, .jpg, .png, supported <strong>one texture</strong> models)</label>
-                    <p>
-                        <input accept=".obj,.mtl,.jpg,.jpeg,.png" multiple type="file" ngf-select="uploadFiles($files)" id="uploader"/>
+                <div ng-show="uploadCtrl.fileGroupName.length > 3">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea maxlength="255" class="form-control" id="description" data-ng-model="uploadCtrl.description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="uploader">Choose files (supported extensions: .obj, .mtl, .jpg, .png)</label>
 
-                    </p>
+                        <br><strong>Viewer only supports 3-file models: .obj + .mtl + 1 texture</strong>
+                        <p>
+                            <input ngf-pattern="'.png,.jpg,.mtl,.obj,.jpeg'" accept=".obj,.mtl,.jpg,.jpeg,.png" multiple type="file" ngf-min-files="2"  ngf-max-files="3" ngf-select="uploadFiles($files)" id="uploader"/>
+                        </p>
+                    </div>
                 </div>
             </form>
             <div class="card-block" ng-show="files.length > 0">
                 <h2>Files</h2>
+                <strong class="text-success">Wait for green alert on the top of the page.</strong>
+                <br/>
                 <ul>
                     <li ng-repeat="f in files">
                         {{f.name}}
@@ -48,6 +58,7 @@
             <p></p>
             <div class="card-footer text-muted">
                 <div class="alert alert-info" ng-show="progress >= 0">
+
                    <span class="progress" ng-show="progress >= 0">
                         <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
                    </span>

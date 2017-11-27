@@ -69,7 +69,7 @@ public class FileService {
         }
 
         Model model = new Model();
-        model.setUploadDate(currentDate);
+        model.setUploadDate(currentDate.toString());
         model.setUser(user);
         model.setModelDescription(description);
         model.setModelName(fileGroupName);
@@ -92,7 +92,7 @@ public class FileService {
             fileDB.setFileExtension(fileExtension);
             fileDB.setPath(user.getId().toString() + "\\" + originalFilename);
             fileDB.setFileGroup(fileGroupName);
-            fileDB.setUploadDate(currentDate);
+            fileDB.setUploadDate(currentDate.toString());
             fileDB.setModel(model);
             fileList.add(fileDB);
             fileRepository.save(fileDB);

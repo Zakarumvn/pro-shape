@@ -290,7 +290,10 @@
 
                    // mtlLoader.setBaseUrl(data['baseUrl']);
                     //mtlLoader.setPath(data['baseUrl']);
-                    mtlLoader.setTexturePath(data['baseUrl']);
+                    if(data['baseUrl'] !== ''){
+                        mtlLoader.setTexturePath(data['baseUrl']);
+                    }
+
                     mtlLoader.load(data['mtlUrl'], function( materials ) {
 
                         materials.preload();

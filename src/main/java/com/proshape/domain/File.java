@@ -40,7 +40,7 @@ public class File implements Serializable {
     private String path;
 
     @Column(name = "upload_date")
-    private Instant uploadDate;
+    private String uploadDate;
 
     private byte[] miniature;
 
@@ -52,7 +52,7 @@ public class File implements Serializable {
 
     }
 
-    public File(User user, String fileName, String fileGroup, String fileExtension, String description, String path, Instant uploadDate, byte[] miniature, Model model) {
+    public File(User user, String fileName, String fileGroup, String fileExtension, String description, String path, String uploadDate, byte[] miniature, Model model) {
         this.user = user;
         this.fileName = fileName;
         this.fileGroup = fileGroup;
@@ -112,11 +112,11 @@ public class File implements Serializable {
         this.path = path;
     }
 
-    public Instant getUploadDate() {
+    public String getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(Instant uploadDate) {
+    public void setUploadDate(String uploadDate) {
         this.uploadDate = uploadDate;
     }
 

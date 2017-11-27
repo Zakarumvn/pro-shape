@@ -21,14 +21,14 @@ public class Model {
     @JoinColumn(name = "userId")
 
     private User user;
-    private Instant uploadDate;
+    private String uploadDate;
 
     @OneToMany(mappedBy = "model")
     private List<File> files;
 
     public Model() {}
 
-    public Model(String modelName, String modelDescription, byte[] modelImage, User user, Instant uploadDate, List<File> files) {
+    public Model(String modelName, String modelDescription, byte[] modelImage, User user, String uploadDate, List<File> files) {
         this.modelName = modelName;
         this.modelDescription = modelDescription;
         this.modelImage = modelImage;
@@ -77,11 +77,11 @@ public class Model {
         this.user = user;
     }
 
-    public Instant getUploadDate() {
+    public String getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(Instant uploadDate) {
+    public void setUploadDate(String uploadDate) {
         this.uploadDate = uploadDate;
     }
 
