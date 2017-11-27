@@ -8,13 +8,19 @@
         .module('proshapeApp')
         .controller('RankController', RankController);
 
-    RankController.$inject = ['rankService', '$http'];
+    RankController.$inject = ['rankService', '$http', '$scope'];
 
     /* @ngInject */
-    function RankController(rankService, $http) {
+    function RankController(rankService, $http, $scope) {
         var vm = this;
         vm.title = 'RankController';
-        vm.models = [];
+        $scope.models = [];
+
+        $scope.filteredModels = []
+            ,$scope.currentPage = 1
+            ,$scope.numPerPage = 6
+            ,$scope.maxSize = 5;
+
 
         activate();
 
@@ -22,11 +28,27 @@
 
         function activate() {
             $http.get('api/file/getRank').then(function (response) {
-                vm.models = response.data;
+                $scope.models = response.data;
+
+                $scope.$watch('currentPage + numPerPage', function() {
+                    var begin = (($scope.currentPage - 1) * $scope.numPerPage)
+                        , end = begin + $scope.numPerPage;
+
+                    $scope.filteredModels = $scope.models.slice(begin, end);
+                });
             });
         }
 
+        $scope.selectPage = function (newPage) {
+            if(newPage > 0 && newPage <= $scope.lastPage()){
+                $scope.currentPage = newPage;
+            }
+
+        };
+
+        $scope.lastPage = function () {
+            return Math.ceil($scope.models.length / $scope.numPerPage );
+        };
     }
 
 })();
-

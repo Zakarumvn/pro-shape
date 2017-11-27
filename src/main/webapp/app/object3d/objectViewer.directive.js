@@ -196,6 +196,7 @@
                     shadowMesh.rotation.x = -Math.PI / 2;
                     //scene.add(shadowMesh);
 
+
                     var faceIndices = ['a', 'b', 'c', 'd'];
 
                     var color, f, p, n, vertexIndex,

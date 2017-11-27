@@ -17,7 +17,7 @@
 
             data: {
                 authorities: [],
-                pageTitle: 'Ranking'
+                pageTitle: 'Rank'
             },
             views: {
                 'content@': {

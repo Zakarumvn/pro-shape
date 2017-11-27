@@ -16,7 +16,7 @@
             parent: 'app',
             data: {
                 authorities: [],
-                pageTitle: 'Obiekt'
+                pageTitle: 'Model'
             },
             views: {
                 'content@': {
