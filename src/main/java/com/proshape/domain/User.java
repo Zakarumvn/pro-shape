@@ -87,6 +87,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Model> models;
 
+    @OneToMany(mappedBy = "user")
+    private List<Exhib> exhibs;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -211,6 +214,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public List<Model> getModels() {
         return models;
+    }
+
+    public List<Exhib> getExhibs() {
+        return exhibs;
+    }
+
+    public void setExhibs(List<Exhib> exhibs) {
+        this.exhibs = exhibs;
     }
 
     public void setModels(List<Model> models) {

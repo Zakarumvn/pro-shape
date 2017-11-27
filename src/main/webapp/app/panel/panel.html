@@ -1,0 +1,57 @@
+<div class="container">
+
+    <h1 class="mt-4 mb-3">User panel</h1>
+    <!-- Page Heading/Breadcrumbs -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a ui-sref="home">Home</a>
+        </li>
+        <li class="breadcrumb-item active">User panel</li>
+    </ol>
+
+    <!-- Blog Post -->
+    <div class="card mb-4">
+        <div class="card-block">
+            <div class="row">
+                <div class="col-md-6">
+                    <hr>
+                    <h3><a ui-sref="userModels">My models</a></h3>
+                    <div class="breadcrumb" ng-repeat="model in panelCtrl.models">
+                        <div class="breadcrumb-item">
+                        <b>{{model.modelName}}</b>
+                        </div>
+                        <div class="breadcrumb-item">
+                            <a>Rename</a>
+                        </div>
+                        <div class="breadcrumb-item">
+                            <a>Delete</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="col-md-6">
+                    <hr>
+                    <h3>My exhibitions (<a ui-sref="exhibs">create</a>)</h3>
+
+                    <div class="breadcrumb" ng-repeat="exhib in panelCtrl.exhibs">
+                        <div class="breadcrumb-item">
+                            <b>{{exhib.name}}</b>
+                        </div>
+                        <div class="breadcrumb-item">
+                            <a>Rename</a>
+                        </div>
+                        <div class="breadcrumb-item">
+                            <a>Edit</a>
+                        </div>
+                        <div class="breadcrumb-item">
+                            <a ng-click="panelService.open()">Delete</a>
+                        </div>
+                    </div>
+                    <!--button ng-click="panelService.open()">Delete</button-->
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

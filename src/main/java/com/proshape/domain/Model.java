@@ -26,6 +26,9 @@ public class Model {
     @OneToMany(mappedBy = "model")
     private List<File> files;
 
+    @ManyToMany(mappedBy = "models")
+    private List<Exhib> exhibitions;
+
     public Model() {}
 
     public Model(String modelName, String modelDescription, byte[] modelImage, User user, Instant uploadDate, List<File> files) {
