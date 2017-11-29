@@ -58,7 +58,7 @@ public class FileService {
         Path userDirPath = Paths.get(uploadDirectoryPath + "\\" + user.getId().toString());
         String originalFilename = "";
         String fileExtension = "";
-        Instant currentDate = Instant.now();
+        String currentDate = Instant.now().toString();
 
         try{
             if(!Files.exists(userDirPath)){

@@ -21,7 +21,7 @@ public class Model {
     @JoinColumn(name = "userId")
 
     private User user;
-    private Instant uploadDate;
+    private String uploadDate;
 
     @OneToMany(mappedBy = "model")
     private List<File> files;
@@ -31,13 +31,14 @@ public class Model {
 
     public Model() {}
 
-    public Model(String modelName, String modelDescription, byte[] modelImage, User user, Instant uploadDate, List<File> files) {
+    public Model(String modelName, String modelDescription, byte[] modelImage, User user, String uploadDate, List<File> files, List<Exhib> exhibitions) {
         this.modelName = modelName;
         this.modelDescription = modelDescription;
         this.modelImage = modelImage;
         this.user = user;
         this.uploadDate = uploadDate;
         this.files = files;
+        this.exhibitions = exhibitions;
     }
 
     public Long getId() {
@@ -80,11 +81,11 @@ public class Model {
         this.user = user;
     }
 
-    public Instant getUploadDate() {
+    public String getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(Instant uploadDate) {
+    public void setUploadDate(String uploadDate) {
         this.uploadDate = uploadDate;
     }
 
@@ -94,5 +95,13 @@ public class Model {
 
     public void setFiles(List<File> files) {
         this.files = files;
+    }
+
+    public List<Exhib> getExhibitions() {
+        return exhibitions;
+    }
+
+    public void setExhibitions(List<Exhib> exhibitions) {
+        this.exhibitions = exhibitions;
     }
 }

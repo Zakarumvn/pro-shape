@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "exhibs")
-public class Exhib implements Serializable {
+public class Exhib{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,6 +30,13 @@ public class Exhib implements Serializable {
     private List<Model> models;
 
     public Exhib(){}
+
+    public Exhib(String name, String description, User user, List<Model> models) {
+        this.name = name;
+        this.description = description;
+        this.user = user;
+        this.models = models;
+    }
 
     public Long getId() {
         return id;
