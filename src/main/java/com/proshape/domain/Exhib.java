@@ -29,6 +29,10 @@ public class Exhib{
     @ManyToMany
     private List<Model> models;
 
+    @ManyToOne
+    @JoinColumn(name="groupId")
+    private Group group;
+
     public Exhib(){}
 
     public Exhib(String name, String description, User user, List<Model> models) {

@@ -15,7 +15,7 @@
         vm.title = 'PanelController';
         var modalInstance = $uibModal.open({
             templateUrl : 'app/panel/components/delete.html'
-        })
+        });
 
         Principal.identity().then(function(account) {
             vm.account = account;

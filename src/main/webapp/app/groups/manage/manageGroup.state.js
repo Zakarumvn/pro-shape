@@ -1,4 +1,7 @@
 /**
+ * Created by Katarzyna on 2017-11-29.
+ */
+/**
  * Created by Katarzyna on 2017-09-23.
  */
 (function () {
@@ -11,21 +14,20 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('groups', {
-            url: '/groups',
+        $stateProvider.state('manageGroup', {
+            url: '/manageGroup',
             parent: 'app',
             data: {
-                authorities: ['ROLE_USER'],
-                pageTitle: 'Groups'
+                authorities: ['ROLE_MODERATOR'],
+                pageTitle: 'Manage group'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/groups/groups.html',
-                    controller: 'GroupController',
-                    controllerAs: 'groupCtrl'
+                    templateUrl: 'app/groups/manage/manageGroup.html',
+                    controller: 'ManageGroupController',
+                    controllerAs: 'mgCtrl'
                 }
             }
         });
-
     }
 })();

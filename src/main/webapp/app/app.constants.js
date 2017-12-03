@@ -5,6 +5,6 @@
         .module('proshapeApp')
         .constant('VERSION', "0.0.1-SNAPSHOT")
         .constant('DEBUG_INFO_ENABLED', false)
-        .constant('BUILD_TIMESTAMP', 1511638423630)
+        .constant('BUILD_TIMESTAMP', 1512219996819)
 ;
 })();

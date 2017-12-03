@@ -17,6 +17,8 @@ import java.time.Instant;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    List<User> findByGroupId(Long groupId);
+
     Optional<User> findOneByActivationKey(String activationKey);
 
     List<User> findAllByActivatedIsFalseAndCreatedDateBefore(Instant dateTime);

@@ -90,6 +90,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Exhib> exhibs;
 
+    @ManyToOne
+    @JoinColumn(name = "groupId")
+    private Group group;
+
+    private boolean isGroupOwner;
+
+    private boolean acceptedInGroup;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -226,6 +234,30 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setModels(List<Model> models) {
         this.models = models;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public boolean isGroupOwner() {
+        return isGroupOwner;
+    }
+
+    public void setGroupOwner(boolean groupOwner) {
+        isGroupOwner = groupOwner;
+    }
+
+    public boolean isAcceptedInGroup() {
+        return acceptedInGroup;
+    }
+
+    public void setAcceptedInGroup(boolean acceptedInGroup) {
+        this.acceptedInGroup = acceptedInGroup;
     }
 
     @Override

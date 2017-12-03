@@ -13,14 +13,17 @@ public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String modelName;
+
     private String modelDescription;
+
     private byte[] modelImage;
 
     @ManyToOne
     @JoinColumn(name = "userId")
-
     private User user;
+
     private String uploadDate;
 
     @OneToMany(mappedBy = "model")
@@ -28,6 +31,10 @@ public class Model {
 
     @ManyToMany(mappedBy = "models")
     private List<Exhib> exhibitions;
+
+    @ManyToOne
+    @JoinColumn(name="groupId")
+    private Group group;
 
     public Model() {}
 
