@@ -55,36 +55,40 @@ public class GroupController {
 
 
     @GetMapping("/getGroupById")
-    public Group getGroupById(@RequestParam("groupId") Long id){
-        return  groupService.getGroupById(id);
+    public Group getGroupById(@RequestParam("groupId") String id){
+        return  groupService.getGroupById(Long.parseLong(id));
     }
 
     @PostMapping("/updateGroup")
-    public void updateGroup(Group group){
-        groupService.updateGroup(group);
+    public void updateGroup(@RequestParam("id") String groupId,
+                            @RequestParam("groupDescription") String groupDescription,
+                            @RequestParam("groupName") String groupName){
+        groupService.updateGroup(Long.parseLong(groupId), groupName, groupDescription);
     }
 
     @PutMapping("/acceptMember")
-    public void acceptUser(@RequestParam("member") User member){
-        member.setAcceptedInGroup(true);
-        groupService.updateMember(member, false);
+    public void acceptUser(@RequestParam("member") String memberId){
+        groupService.acceptUserInGroup(Long.parseLong(memberId));
     }
 
     @PutMapping("/deleteMember")
-    public void deleteMember(@RequestParam("member") User member){
-        member.setAcceptedInGroup(false);
-        member.setGroup(null);
-        groupService.updateMember(member, false);
-        groupService.deleteMemberFromGroup(member);
+    public void deleteMember(@RequestParam("member") String memberId){
+        groupService.deleteMemberFromGroup(Long.parseLong(memberId));
     }
 
     @DeleteMapping("/deleteGroup")
-    public void deleteGroup(Group group){
-        group.setMembers(null);
-        group.setActive(0);
-        groupService.updateGroup(group);
-        groupService.updateMember(userService.getUserWithAuthorities(group.getOwnerId()), true);
+    public void deleteGroup(@RequestParam String groupId){
+        groupService.deleteGroup(Long.parseLong(groupId));
+    }
 
+    @PostMapping("/joinGroup")
+    public void joinGroup(@RequestParam("groupId") String groupId){
+        groupService.joinGroup(Long.parseLong(groupId));
+    }
+
+    @PostMapping("/leaveGroup")
+    public void leaveGroup(@RequestParam("groupId") String groupId){
+        groupService.leaveGroup(Long.parseLong(groupId));
     }
 
 }

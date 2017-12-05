@@ -137,6 +137,8 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
         user.setActivated(true);
+        user.setAcceptedInGroup(false);
+        user.setGroupOwner(false);
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;

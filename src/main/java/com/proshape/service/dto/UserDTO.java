@@ -3,8 +3,10 @@ package com.proshape.service.dto;
 import com.proshape.config.Constants;
 
 import com.proshape.domain.Authority;
+import com.proshape.domain.Group;
 import com.proshape.domain.User;
 
+import com.sun.istack.internal.Nullable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -53,22 +55,36 @@ public class UserDTO {
 
     private Set<String> authorities;
 
+    private boolean isGroupOwner;
+
+    private boolean acceptedInGroup;
+
+    private Long groupId;
+
     public UserDTO() {
         // Empty constructor needed for Jackson.
     }
+
+/*    public UserDTO(User user) {
+        this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
+            user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
+            user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
+            user.getAuthorities().stream().map(Authority::getName)
+                .collect(Collectors.toSet()), user.isGroupOwner(), user.isAcceptedInGroup() );
+    }*/
 
     public UserDTO(User user) {
         this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
             user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
             user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
             user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toSet()), user.isGroupOwner(), user.isAcceptedInGroup(), user.getGroup().getId() );
     }
 
     public UserDTO(Long id, String login, String firstName, String lastName,
         String email, boolean activated, String imageUrl, String langKey,
         String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
-        Set<String> authorities) {
+        Set<String> authorities, boolean isGroupOwner, boolean acceptedInGroup) {
 
         this.id = id;
         this.login = login;
@@ -83,6 +99,35 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
+        this.isGroupOwner = isGroupOwner;
+        this.acceptedInGroup = acceptedInGroup;
+    }
+
+    public UserDTO(Long id, String login, String firstName, String lastName,
+                   String email, boolean activated, String imageUrl, String langKey,
+                   String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+                   Set<String> authorities, boolean isGroupOwner, boolean acceptedInGroup, Long groupId) {
+
+        this.id = id;
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.activated = activated;
+        this.imageUrl = imageUrl;
+        this.langKey = langKey;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedDate = lastModifiedDate;
+        this.authorities = authorities;
+        this.isGroupOwner = isGroupOwner;
+        this.acceptedInGroup = acceptedInGroup;
+        this.groupId = groupId;
+    }
+
+    public Long getGroupId() {
+        return groupId;
     }
 
     public Long getId() {
@@ -149,6 +194,15 @@ public class UserDTO {
         return authorities;
     }
 
+
+    public boolean isGroupOwner() {
+        return isGroupOwner;
+    }
+
+    public boolean isAcceptedInGroup() {
+        return acceptedInGroup;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -164,6 +218,8 @@ public class UserDTO {
             ", lastModifiedBy='" + lastModifiedBy + '\'' +
             ", lastModifiedDate=" + lastModifiedDate +
             ", authorities=" + authorities +
+            ", isGroupOwner=" + isGroupOwner +
+            ", acceptedInGroup=" + acceptedInGroup +
             "}";
     }
 }

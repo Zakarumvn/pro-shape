@@ -91,6 +91,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private List<Exhib> exhibs;
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "groupId")
     private Group group;
 

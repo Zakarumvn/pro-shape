@@ -46,6 +46,8 @@ public class UserMapper {
             if(authorities != null) {
                 user.setAuthorities(authorities);
             }
+            user.setAcceptedInGroup(false);
+            user.setGroupOwner(false);
             return user;
         }
     }

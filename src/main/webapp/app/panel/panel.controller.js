@@ -7,33 +7,62 @@
         .module('proshapeApp')
         .controller('PanelController', PanelController);
 
-    PanelController.$inject = ['$scope', 'Principal', '$http', '$uibModal'];
+    PanelController.$inject = ['$scope', 'Principal', '$http'];
 
     /* @ngInject */
-    function PanelController($scope, Principal, $http, $uibModal) {
+    function PanelController($scope, Principal, $http) {
         var vm = this;
         vm.title = 'PanelController';
-        var modalInstance = $uibModal.open({
-            templateUrl : 'app/panel/components/delete.html'
-        });
 
-        Principal.identity().then(function(account) {
-            vm.account = account;
-        });
+        vm.account = null;
+        vm.currentModel = null;
+        vm.data = null;
+
+        vm.getUserModels = getUserModels;
+        vm.setCurrentModel = setCurrentModel;
+        vm.deleteModel = deleteModel;
+
 
         activate();
 
         ////////////////
 
         function activate() {
-            $http.get('api/file/getRank').then(function (response) {
-                vm.models = response.data;
+            Principal.identity().then(function(account) {
+                vm.account = account;
             });
+
+            vm.getUserModels();
+
             $http.get('api/exhib/getUserExhibs').then(function (response) {
                 vm.exhibs = response.data;
             });
         }
 
+        function getUserModels(){
+            $http.get('api/file/getUserObjects').then(function (response) {
+                vm.models = response.data;
+            });
+        }
+
+        function setCurrentModel(model){
+            vm.currentModel = model;
+        }
+
+        function deleteModel(){
+            vm.data = {
+                'modelId': vm.currentModel.id
+            };
+
+            $http({
+                url: 'api/file/deleteModel',
+                params: vm.data,
+                method: 'post'
+            }).then(function (response) {
+                vm.getUserModels();
+            })
+
+        }
 
     }
 

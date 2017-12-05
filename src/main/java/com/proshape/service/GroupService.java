@@ -55,6 +55,8 @@ public class GroupService {
             user.setGroupOwner(true);
             user.setAuthorities(authorities);
             user.setGroup(group);
+            user.setAcceptedInGroup(true);
+
             userRepository.save(user);
 
             return 1;
@@ -78,38 +80,90 @@ public class GroupService {
 
     }
 
-    public void deleteMemberFromGroup(User member){
-        Group group = getGroupById(member.getGroup().getId());
+    @Transactional
+    public void deleteMemberFromGroup(Long memberId){
+        User user = userService.getUserWithAuthorities(memberId);
+        Group group = getGroupById(user.getGroup().getId());
         List<User> members = group.getMembers();
-        if(members.contains(member)){
-            members.remove(member);
+        if(members.contains(user)){
+            members.remove(user);
         }
-
+        user.setGroup(getGroupById((long)0));
+        user.setAcceptedInGroup(false);
         group.setMembers(members);
+
         groupRepository.save(group);
+        userRepository.save(user);
+    }
+
+    public void acceptUserInGroup(Long memberId){
+        User user = userService.getUserWithAuthorities(memberId);
+        user.setAcceptedInGroup(true);
+
+        userRepository.save(user);
     }
 
     public Group getGroupById(Long id){
-        return groupRepository.findOneById(id);
+        Group group = groupRepository.findOneById(id);
+        group.setMembers(userRepository.findByGroupId(group.getId()));
+        return group;
     }
 
 
-    public void updateGroup(Group group){
+    @Transactional
+    public void updateGroup(Long groupId, String groupName, String groupDescription){
+        Group group = groupRepository.findOneById(groupId);
+        group.setGroupName(groupName);
+        group.setGroupDescription(groupDescription);
+
         groupRepository.save(group);
     }
 
-    public void updateMember(User member, boolean deleteGroup){
-        Set<Authority> authorities = member.getAuthorities();
+    @Transactional
+    public void deleteGroup(Long groupId){
+        Group group = groupRepository.findOneById(groupId);
+        group.setActive(0);
+        group.setMembers(null);
+        User user = userService.getUserWithAuthorities(group.getOwnerId());
+        user.setAcceptedInGroup(false);
+        user.setGroup(getGroupById((long)0));
+        user.setGroupOwner(false);
+
+        Set<Authority> authorities = user.getAuthorities();
         Authority authority = new Authority();
         authority.setName(AuthoritiesConstants.MODERATOR);
+        authorities.remove(authority);
+        user.setAuthorities(authorities);
 
+        userRepository.save(user);
+        groupRepository.save(group);
 
-        if(authorities.contains(authority) && deleteGroup){
-            authorities.remove(authority);
-        }
+    }
 
-        member.setAuthorities(authorities);
-        userRepository.save(member);
+    @Transactional
+    public void joinGroup(Long groupId){
+        User user = userService.getUserWithAuthorities();
+        Group group = groupRepository.findOneById(groupId);
+        user.setGroup(group);
+        List<User> members = group.getMembers();
+        members.add(user);
+
+        userRepository.save(user);
+        groupRepository.save(group);
+
+    }
+
+    @Transactional
+    public void leaveGroup(Long groupId){
+        User user = userService.getUserWithAuthorities();
+        Group group = groupRepository.findOneById(groupId);
+        List<User> members = group.getMembers();
+        members.remove(user);
+        user.setGroup(null);
+        group.setMembers(members);
+
+        userRepository.save(user);
+        groupRepository.save(group);
     }
 
 }

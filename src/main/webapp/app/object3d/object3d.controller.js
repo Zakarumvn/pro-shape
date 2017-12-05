@@ -21,6 +21,7 @@
         vm.files = [];
         vm.data = [];
         vm.model = [];
+        vm.author = 0;
         $scope.display = 0;
 
         activate();
@@ -40,6 +41,7 @@
             })
                 .then(function (response) {
                     vm.model = response.data;
+                    vm.author = vm.model.user.id;
                     for (var i = 0; i < 3; i++) {
                         vm.fileName.push(response.data.files[i].fileName);
                     }
@@ -78,6 +80,7 @@
                 $http({
                     url: 'api/file/getTexture',
                     params: {
+                        'author': vm.author,
                         'fileName': fileName
                     },
                     responseType: 'arraybuffer'
@@ -94,6 +97,7 @@
                 $http({
                     url: 'api/file/getTexture',
                     params: {
+                        'author': vm.author,
                         'fileName': fileName
                     },
                     responseType: 'arraybuffer'
@@ -110,6 +114,7 @@
                 $http({
                     url: 'api/file/getObject',
                     params: {
+                        'author': vm.author,
                         'fileName': fileName
                     },
                     responseType: 'blob'
@@ -122,6 +127,7 @@
                 $http({
                     url: 'api/file/getMaterial',
                     params: {
+                        'author': vm.author,
                         'fileName': fileName
                     },
                     responseType: 'blob'

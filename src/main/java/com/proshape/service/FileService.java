@@ -107,14 +107,27 @@ public class FileService {
         return fileRepository.findAllByUserId(userId);
     }
 
-    public byte[] getObject(String fileName) throws IOException {
-        User user = userService.getUserWithAuthorities();
-        Path path = Paths.get(System.getProperty("upload.location") + "/" + user.getId() + "/" + fileName);
+    public byte[] getObject(String fileName, Long authorId) throws IOException {
+        Path path = Paths.get(System.getProperty("upload.location") + "/" + authorId + "/" + fileName);
         byte[] data = Files.readAllBytes(path);
         return data;
     }
 
     public List<com.proshape.domain.Model> getModels(Long userId) {
         return modelRepository.findALlByUserId(userId);
+    }
+
+    @Transactional
+    public void deleteModel(Long modelId){
+        Model model = modelRepository.findModelById(modelId);
+        List<com.proshape.domain.File> files = fileRepository.findAllByModelId(modelId);
+
+        files.forEach(file ->{
+            new File(file.getPath()).delete();
+        });
+
+        fileRepository.delete(files);
+        modelRepository.delete(model);
+
     }
 }
