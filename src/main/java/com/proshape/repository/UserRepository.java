@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 import java.time.Instant;
+import java.util.Set;
 
 /**
  * Spring Data JPA repository for the User entity.
@@ -17,7 +18,7 @@ import java.time.Instant;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<User> findByGroupId(Long groupId);
+    Set<User> findByGroupId(Long groupId);
 
     Optional<User> findOneByActivationKey(String activationKey);
 

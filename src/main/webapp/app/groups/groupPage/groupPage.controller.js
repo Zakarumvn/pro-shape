@@ -27,6 +27,7 @@
         vm.checkUserStatus = checkUserStatus;
         vm.getStatusMessage = getStatusMessage
         vm.checkIfAlreadyHasGroup = checkIfAlreadyHasGroup;
+        vm.chunk = chunk;
 
 
         activate();
@@ -43,6 +44,8 @@
             }).then(function (response) {
                 vm.group = response.data;
                 vm.status = vm.checkUserStatus();
+                $scope.chunkedMembers = chunk(response.data.members, 2);
+
             });
         }
 
@@ -139,6 +142,14 @@
                 }
                 return message;
             }
+        }
+
+        function chunk(arr, size) {
+            var newArr = [];
+            for (var i=0; i<arr.length; i+=size) {
+                newArr.push(arr.slice(i, i+size));
+            }
+            return newArr;
         }
     }
 

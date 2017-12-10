@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Katarzyna on 2017-10-20.
@@ -86,7 +87,7 @@ public class FileController {
     }
 
     @GetMapping(value = "/getUserObjects")
-    public List<Model> getUserObjects(){
+    public Set<Model> getUserObjects(){
         User user = userService.getUserWithAuthorities();
         return fileService.getModels(user.getId());
     }

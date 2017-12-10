@@ -4,6 +4,7 @@ import org.joda.time.Instant;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Katarzyna on 2017-11-21.
@@ -27,10 +28,10 @@ public class Model {
     private String uploadDate;
 
     @OneToMany(mappedBy = "model")
-    private List<File> files;
+    private Set<File> files;
 
-    @ManyToMany(mappedBy = "models")
-    private List<Exhib> exhibitions;
+    @ManyToMany(mappedBy = "models", fetch=FetchType.EAGER)
+    private Set<Exhib> exhibitions;
 
     @ManyToOne
     @JoinColumn(name="groupId")
@@ -38,7 +39,7 @@ public class Model {
 
     public Model() {}
 
-    public Model(String modelName, String modelDescription, byte[] modelImage, User user, String uploadDate, List<File> files, List<Exhib> exhibitions) {
+    public Model(String modelName, String modelDescription, byte[] modelImage, User user, String uploadDate, Set<File> files, Set<Exhib> exhibitions) {
         this.modelName = modelName;
         this.modelDescription = modelDescription;
         this.modelImage = modelImage;
@@ -96,19 +97,19 @@ public class Model {
         this.uploadDate = uploadDate;
     }
 
-    public List<File> getFiles() {
+    public Set<File> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(Set<File> files) {
         this.files = files;
     }
 
-    public List<Exhib> getExhibitions() {
+    public Set<Exhib> getExhibitions() {
         return exhibitions;
     }
 
-    public void setExhibitions(List<Exhib> exhibitions) {
+    public void setExhibitions(Set<Exhib> exhibitions) {
         this.exhibitions = exhibitions;
     }
 }

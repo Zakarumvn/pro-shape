@@ -17,7 +17,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -39,7 +41,7 @@ public class FileService {
         return fileRepository.findAllByModelId(modelId).stream().map(file -> file.getFileName()).collect(Collectors.toList());
     }
 
-    public List<com.proshape.domain.File> getFilesForModelId(Long modelId){
+    public Set<com.proshape.domain.File> getFilesForModelId(Long modelId){
         return fileRepository.findAllByModelId(modelId);
     }
 
@@ -74,7 +76,7 @@ public class FileService {
         model.setModelDescription(description);
         model.setModelName(fileGroupName);
         modelRepository.save(model);
-        List<com.proshape.domain.File> fileList = new ArrayList<>();
+        Set<com.proshape.domain.File> fileList = new HashSet<>();
 
 
         for (int i = 0; i < files.size(); i++) {
@@ -103,7 +105,7 @@ public class FileService {
 
     }
 
-    public List<com.proshape.domain.File> getFilesForUserId(Long userId){
+    public Set<com.proshape.domain.File> getFilesForUserId(Long userId){
         return fileRepository.findAllByUserId(userId);
     }
 
@@ -113,14 +115,14 @@ public class FileService {
         return data;
     }
 
-    public List<com.proshape.domain.Model> getModels(Long userId) {
+    public Set<com.proshape.domain.Model> getModels(Long userId) {
         return modelRepository.findALlByUserId(userId);
     }
 
     @Transactional
     public void deleteModel(Long modelId){
         Model model = modelRepository.findModelById(modelId);
-        List<com.proshape.domain.File> files = fileRepository.findAllByModelId(modelId);
+        Set<com.proshape.domain.File> files = fileRepository.findAllByModelId(modelId);
 
         files.forEach(file ->{
             new File(file.getPath()).delete();

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ExhibService {
@@ -46,7 +47,7 @@ public class ExhibService {
 
     public List<Exhib> getAllExhibs() { return exhibRepository.findAll(); }
 
-    public List<Exhib> getUserExhibs(Long userId){
+    public Set<Exhib> getUserExhibs(Long userId){
         return exhibRepository.findAllByUserId(userId);
     }
 }

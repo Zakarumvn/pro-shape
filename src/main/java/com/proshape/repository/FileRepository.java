@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Katarzyna on 2017-10-24.
@@ -14,6 +15,6 @@ import java.util.List;
 
 @Repository
 public interface FileRepository extends JpaRepository<File, Long> {
-   List<com.proshape.domain.File> findAllByUserId(Long userId);
-   List<com.proshape.domain.File> findAllByModelId(Long modelId);
+   Set<File> findAllByUserId(Long userId);
+   Set<com.proshape.domain.File> findAllByModelId(Long modelId);
 }

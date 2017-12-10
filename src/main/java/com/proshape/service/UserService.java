@@ -4,6 +4,7 @@ import com.proshape.domain.Authority;
 import com.proshape.domain.User;
 import com.proshape.repository.AuthorityRepository;
 import com.proshape.config.Constants;
+import com.proshape.repository.GroupRepository;
 import com.proshape.repository.UserRepository;
 import com.proshape.security.AuthoritiesConstants;
 import com.proshape.security.SecurityUtils;
@@ -12,6 +13,7 @@ import com.proshape.service.dto.UserDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +43,9 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
+
+    @Autowired
+    private GroupRepository groupRepository;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
@@ -100,6 +105,7 @@ public class UserService {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
+        newUser.setGroup(groupRepository.findOneById((long)0));
         newUser.setImageUrl(imageUrl);
         newUser.setLangKey(langKey);
         // new user is not active
@@ -139,6 +145,7 @@ public class UserService {
         user.setActivated(true);
         user.setAcceptedInGroup(false);
         user.setGroupOwner(false);
+        user.setGroup(groupRepository.findOneById((long)0));
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;

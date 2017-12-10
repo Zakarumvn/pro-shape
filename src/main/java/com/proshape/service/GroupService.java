@@ -33,7 +33,7 @@ public class GroupService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Group> getAllGroups(){
+    public Set<Group> getAllGroups(){
         return groupRepository.findByActive(1);
     }
 
@@ -41,7 +41,7 @@ public class GroupService {
     public int createGroup(Group group){
         User user = userService.getUserWithAuthorities();
         if(!checkIfUserIsModerator(user.getId())){
-            List<User> members = new ArrayList<>();
+            Set<User> members = new HashSet<>();
             members.add(user);
             group.setOwnerId(user.getId());
             group.setMembers(members);
@@ -84,7 +84,7 @@ public class GroupService {
     public void deleteMemberFromGroup(Long memberId){
         User user = userService.getUserWithAuthorities(memberId);
         Group group = getGroupById(user.getGroup().getId());
-        List<User> members = group.getMembers();
+        Set<User> members = group.getMembers();
         if(members.contains(user)){
             members.remove(user);
         }
@@ -104,6 +104,7 @@ public class GroupService {
     }
 
     public Group getGroupById(Long id){
+
         Group group = groupRepository.findOneById(id);
         group.setMembers(userRepository.findByGroupId(group.getId()));
         return group;
@@ -145,7 +146,7 @@ public class GroupService {
         User user = userService.getUserWithAuthorities();
         Group group = groupRepository.findOneById(groupId);
         user.setGroup(group);
-        List<User> members = group.getMembers();
+        Set<User> members = group.getMembers();
         members.add(user);
 
         userRepository.save(user);
@@ -157,7 +158,7 @@ public class GroupService {
     public void leaveGroup(Long groupId){
         User user = userService.getUserWithAuthorities();
         Group group = groupRepository.findOneById(groupId);
-        List<User> members = group.getMembers();
+        Set<User> members = group.getMembers();
         members.remove(user);
         user.setGroup(null);
         group.setMembers(members);

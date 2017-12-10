@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Katarzyna on 2017-11-29.
@@ -16,7 +17,7 @@ import java.util.List;
 public interface GroupRepository extends JpaRepository<Group, Long> {
 
     Group findOneByOwnerIdAndActive(Long ownerId, int active);
-    List<Group> findByActive(int active);
+    Set<Group> findByActive(int active);
     Group findOneById(Long groupId);
 
 /*    @Query("UPDATE groups g SET g.groupDescription = :gD, g.groupName = :gN WHERE g.id = :id")

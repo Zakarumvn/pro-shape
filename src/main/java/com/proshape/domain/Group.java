@@ -3,6 +3,7 @@ package com.proshape.domain;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Katarzyna on 2017-11-29.
@@ -25,13 +26,13 @@ public class Group {
     private Long ownerId;
 
     @OneToMany
-    private List<User> members;
+    private Set<User> members;
 
     @OneToMany(mappedBy = "group")
-    private List<Exhib> groupExhibitions;
+    private Set<Exhib> groupExhibitions;
 
     @OneToMany(mappedBy = "group")
-    private List<Model> groupModels;
+    private Set<Model> groupModels;
 
     private int active;
 
@@ -39,7 +40,7 @@ public class Group {
         this.active = 1;
     }
 
-    public Group(String groupName, byte[] groupImage, String groupDescription, Long ownerId, List<User> members, List<Exhib> groupExhibitions, List<Model> groupModels) {
+    public Group(String groupName, byte[] groupImage, String groupDescription, Long ownerId, Set<User> members, Set<Exhib> groupExhibitions, Set<Model> groupModels) {
         this.groupName = groupName;
         this.groupImage = groupImage;
         this.groupDescription = groupDescription;
@@ -90,27 +91,27 @@ public class Group {
         this.groupDescription = groupDescription;
     }
 
-    public List<User> getMembers() {
+    public Set<User> getMembers() {
         return members;
     }
 
-    public void setMembers(List<User> members) {
+    public void setMembers(Set<User> members) {
         this.members = members;
     }
 
-    public List<Exhib> getGroupExhibitions() {
+    public Set<Exhib> getGroupExhibitions() {
         return groupExhibitions;
     }
 
-    public void setGroupExhibitions(List<Exhib> groupExhibitions) {
+    public void setGroupExhibitions(Set<Exhib> groupExhibitions) {
         this.groupExhibitions = groupExhibitions;
     }
 
-    public List<Model> getGroupModels() {
+    public Set<Model> getGroupModels() {
         return groupModels;
     }
 
-    public void setGroupModels(List<Model> groupModels) {
+    public void setGroupModels(Set<Model> groupModels) {
         this.groupModels = groupModels;
     }
 

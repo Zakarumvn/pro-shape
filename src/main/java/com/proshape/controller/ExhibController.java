@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/exhib")
@@ -30,7 +31,7 @@ public class ExhibController {
     }
 
     @GetMapping(value = "/getUserExhibs")
-    public List<Exhib> getUserExhibs(){
+    public Set<Exhib> getUserExhibs(){
         User user = userService.getUserWithAuthorities();
         return exhibService.getUserExhibs(user.getId());
     }

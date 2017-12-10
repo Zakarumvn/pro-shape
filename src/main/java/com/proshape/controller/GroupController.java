@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Katarzyna on 2017-11-29.
@@ -30,7 +31,7 @@ public class GroupController {
     UserService userService;
 
     @GetMapping("/getAllGroups")
-    public List<Group> getAllGroups(){
+    public Set<Group> getAllGroups(){
         return groupService.getAllGroups();
     }
 
