@@ -1,0 +1,41 @@
+<div class="container">
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">{{exDispCtrl.exhib.name}} <small>by {{exDispCtrl.exhib.user.login}}</small></h1>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Portfolio Item</li>
+    </ol>
+    <!-- Portfolio Item Row -->
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <h3 class="text-left"><a ng-show="!exDispCtrl.prevDeactive" href="#/exhib/{{exDispCtrl.exhib.id}}/{{exDispCtrl.prevModel}}">PREVIOUS</a></h3>
+        </div>
+        <div class="col-lg-4 mb-4">
+            {{exDispCtrl.nextModel}}
+        </div>
+        <div class="col-lg-4 mb-4">
+            <h3 class="text-right"><a ng-show="!exDispCtrl.nextDeactive" href="#/exhib/{{exDispCtrl.exhib.id}}/{{exDispCtrl.nextModel}}">NEXT</a></h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8" ng-if="display === 3" ng-init="exDispCtrl.setMaterialObj()">
+            <div  id="webglContainer" ng-webgl2 width="canvasWidth" height="canvasHeight" fillcontainer="dofillcontainer" scale="scale" material-type="materialType" material-obj="materialObj">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h3 class="my-3">Model Description</h3>
+            <p>{{exDispCtrl.model.modelDescription}}</p>
+            <h3 class="my-3">Others from this exhibition</h3>
+            <ul ng-repeat="model in exDispCtrl.models">
+                <li><a href="#/model/{{model.id}}">{{model.modelName}}</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>

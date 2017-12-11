@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="mt-4 mb-3">{{exModCtrl.exhib.name}} <small>by {{exModCtrl.exhib.user.login}}</small></h1>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a ui-sref="home">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Exhibition: {{exModCtrl.exhib.name}}</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in exModCtrl.models">
+            <div class="card h-100">
+                <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                <div class="card-block">
+                    <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a></h4>
+                    <p class="card-text">{{model.modelDescription}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

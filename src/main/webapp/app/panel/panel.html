@@ -18,7 +18,7 @@
                     <h3><a ui-sref="userModels">My models</a></h3>
                     <div class="breadcrumb" ng-repeat="model in panelCtrl.models">
                         <div class="breadcrumb-item">
-                        <b>{{model.modelName}}</b>
+                            <a href="/#/model/{{model.id}}"><b>{{model.modelName}}</b></a>
                         </div>
                         <div class="breadcrumb-item">
                             <a>Rename</a>
@@ -36,13 +36,13 @@
 
                     <div class="breadcrumb" ng-repeat="exhib in panelCtrl.exhibs">
                         <div class="breadcrumb-item">
-                            <b>{{exhib.name}}</b>
+                            <a href="/#/exhib/{{exhib.id}}"><b>{{exhib.name}}</b></a>
                         </div>
                         <div class="breadcrumb-item">
                             <a>Rename</a>
                         </div>
                         <div class="breadcrumb-item">
-                            <a>Edit</a>
+                            <a href="/#/exhibEdit/{{exhib.id}}">Edit</a>
                         </div>
                         <div class="breadcrumb-item">
                             <a ng-click="panelService.open()">Delete</a>

@@ -13,9 +13,6 @@
     function PanelController($scope, Principal, $http, $uibModal) {
         var vm = this;
         vm.title = 'PanelController';
-        var modalInstance = $uibModal.open({
-            templateUrl : 'app/panel/components/delete.html'
-        })
 
         Principal.identity().then(function(account) {
             vm.account = account;
@@ -26,7 +23,7 @@
         ////////////////
 
         function activate() {
-            $http.get('api/file/getRank').then(function (response) {
+            $http.get('api/file/getUserObjects').then(function (response) {
                 vm.models = response.data;
             });
             $http.get('api/exhib/getUserExhibs').then(function (response) {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +24,9 @@ public class ExhibService {
 
     @Autowired
     ExhibRepository exhibRepository;
+
+    @Autowired
+    ModelRepository modelRepository;
 
     @Autowired
     UserService userService;
@@ -38,15 +42,34 @@ public class ExhibService {
         return newExhib;
     }
 
-    public void deleteExhib(Long exhibId){
-        /*exhibRepository.findOnyById(exhibId).isPresent(exhib -> {
-           exhibRepository.delete(exhib);
-        });*/
+    public void deleteExhib(Long id){
+        Exhib exhib = exhibRepository.findById(id);
+        if(exhib != null) {
+            exhibRepository.delete(exhib);
+        }
     }
 
     public List<Exhib> getAllExhibs() { return exhibRepository.findAll(); }
 
     public List<Exhib> getUserExhibs(Long userId){
         return exhibRepository.findAllByUserId(userId);
+    }
+
+    public Exhib findById(Long id){
+        return exhibRepository.findById(id);
+    }
+
+    //public List<Model> findModelsById(Long id){ return modelRepository.findModelsById(id); }
+
+    public void setExhibModels(Long id, Long[] exhibModels){
+        List<Model> modelList = new ArrayList<Model>();
+        for (Long i : exhibModels) {
+            modelList.add(modelRepository.findModelById(i));
+        }
+        Exhib exhib = exhibRepository.findById(id);
+        if(exhib != null){
+            exhib.setModels(modelList);
+            exhibRepository.save(exhib);
+        }
     }
 }
