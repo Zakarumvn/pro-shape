@@ -3,7 +3,6 @@
 
     angular
         .module('proshapeApp', [
-            'td.easySocialShare',
             'ngStorage',
             'ngResource',
             'ngCookies',
