@@ -4,6 +4,7 @@ import org.joda.time.Instant;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Katarzyna on 2017-11-21.
@@ -13,28 +14,40 @@ public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String modelName;
+
     private String modelDescription;
+
     private byte[] modelImage;
 
     @ManyToOne
     @JoinColumn(name = "userId")
 
     private User user;
+
     private String uploadDate;
 
     @OneToMany(mappedBy = "model")
-    private List<File> files;
+    private Set<File> files;
+
+    @ManyToMany(mappedBy = "models", fetch=FetchType.EAGER)
+    private Set<Exhib> exhibitions;
+
+    @ManyToOne
+    @JoinColumn(name="groupId")
+    private Group group;
 
     public Model() {}
 
-    public Model(String modelName, String modelDescription, byte[] modelImage, User user, String uploadDate, List<File> files) {
+    public Model(String modelName, String modelDescription, byte[] modelImage, User user, String uploadDate, Set<File> files, Set<Exhib> exhibitions) {
         this.modelName = modelName;
         this.modelDescription = modelDescription;
         this.modelImage = modelImage;
         this.user = user;
         this.uploadDate = uploadDate;
         this.files = files;
+        this.exhibitions = exhibitions;
     }
 
     public Long getId() {
@@ -85,11 +98,19 @@ public class Model {
         this.uploadDate = uploadDate;
     }
 
-    public List<File> getFiles() {
+    public Set<File> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(Set<File> files) {
         this.files = files;
+    }
+
+    public Set<Exhib> getExhibitions() {
+        return exhibitions;
+    }
+
+    public void setExhibitions(Set<Exhib> exhibitions) {
+        this.exhibitions = exhibitions;
     }
 }

@@ -82,10 +82,22 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Instant resetDate = null;
 
     @OneToMany(mappedBy = "user")
-    private List<File> files;
+    private Set<File> files;
 
     @OneToMany(mappedBy = "user")
-    private List<Model> models;
+    private Set<Model> models;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Exhib> exhibs;
+
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "groupId")
+    private Group group;
+
+    private boolean isGroupOwner;
+
+    private boolean acceptedInGroup;
 
     @JsonIgnore
     @ManyToMany
@@ -201,20 +213,52 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
-    public List<File> getFiles() {
+    public Set<File> getFiles() {
         return files;
     }
 
-    public void setFiles(List<File> files) {
+    public void setFiles(Set<File> files) {
         this.files = files;
     }
 
-    public List<Model> getModels() {
+    public Set<Model> getModels() {
         return models;
     }
 
-    public void setModels(List<Model> models) {
+    public Set<Exhib> getExhibs() {
+        return exhibs;
+    }
+
+    public void setExhibs(Set<Exhib> exhibs) {
+        this.exhibs = exhibs;
+    }
+
+    public void setModels(Set<Model> models) {
         this.models = models;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public boolean isGroupOwner() {
+        return isGroupOwner;
+    }
+
+    public void setGroupOwner(boolean groupOwner) {
+        isGroupOwner = groupOwner;
+    }
+
+    public boolean isAcceptedInGroup() {
+        return acceptedInGroup;
+    }
+
+    public void setAcceptedInGroup(boolean acceptedInGroup) {
+        this.acceptedInGroup = acceptedInGroup;
     }
 
     @Override

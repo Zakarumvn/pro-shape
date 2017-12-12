@@ -2,6 +2,7 @@ package com.proshape.web.rest;
 
 import com.proshape.ProshapeApp;
 import com.proshape.domain.Authority;
+import com.proshape.domain.Group;
 import com.proshape.domain.User;
 import com.proshape.repository.UserRepository;
 import com.proshape.security.AuthoritiesConstants;
@@ -72,6 +73,21 @@ public class UserResourceIntTest {
 
     private static final String DEFAULT_LANGKEY = "en";
     private static final String UPDATED_LANGKEY = "fr";
+
+    private static final Group DEFAULT_GROUP = null;
+    private static final Group UPDATED_GROUP = null;
+
+    private static final Long DEFAULT_GROUP2 = null;
+    private static final Long UPDATED_GROUP2 = null;
+
+    private static final boolean DEFAULT_GROUPOWNER = true;
+    private static final boolean UPDATED_GROUPOWNER = true;
+
+    private static final boolean DEFAULT_ACCEPTEDINGROUP = true;
+    private static final boolean UPDATED_ACCEPTEDINGROUP = true;
+
+
+
 
     @Autowired
     private UserRepository userRepository;
@@ -158,7 +174,9 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            DEFAULT_ACCEPTEDINGROUP,
+            DEFAULT_GROUPOWNER);
 
         restUserMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -198,7 +216,9 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            DEFAULT_ACCEPTEDINGROUP,
+            DEFAULT_GROUPOWNER);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserMockMvc.perform(post("/api/users")
@@ -234,7 +254,9 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            DEFAULT_ACCEPTEDINGROUP,
+            DEFAULT_GROUPOWNER);
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -270,7 +292,9 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            DEFAULT_ACCEPTEDINGROUP,
+            DEFAULT_GROUPOWNER);
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -353,7 +377,9 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            UPDATED_ACCEPTEDINGROUP,
+            UPDATED_GROUPOWNER);
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -397,7 +423,9 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            UPDATED_ACCEPTEDINGROUP,
+            UPDATED_GROUPOWNER);
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -452,7 +480,9 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            updatedUser.isGroupOwner(),
+            updatedUser.isAcceptedInGroup());
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -496,7 +526,9 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            updatedUser.isGroupOwner(),
+            updatedUser.isAcceptedInGroup());
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -569,7 +601,10 @@ public class UserResourceIntTest {
             null,
             DEFAULT_LOGIN,
             null,
-            Stream.of(AuthoritiesConstants.USER).collect(Collectors.toSet()));
+            Stream.of(AuthoritiesConstants.USER).collect(Collectors.toSet()),
+            DEFAULT_GROUPOWNER,
+            DEFAULT_ACCEPTEDINGROUP
+            );
         User user = userMapper.userDTOToUser(userDTO);
         assertThat(user.getId()).isEqualTo(DEFAULT_ID);
         assertThat(user.getLogin()).isEqualTo(DEFAULT_LOGIN);

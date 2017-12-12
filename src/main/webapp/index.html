@@ -41,6 +41,7 @@
 
 </head>
     <body ng-app="proshapeApp" ng-strict-di>
+
         <!--[if lt IE 9]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -91,6 +92,7 @@
         <script src="bower_components/angular-aria/angular-aria.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
+        <script src="bower_components/angular-easy-social-share/easy-social-share.js"></script>
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
         <script src="bower_components/ngstorage/ngStorage.js"></script>
         <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
@@ -132,6 +134,8 @@
         <script src="app/services/auth/account.service.js"></script>
         <script src="app/rank/rank.state.js"></script>
         <script src="app/rank/rank.controller.js"></script>
+        <script src="app/panel/panel.state.js"></script>
+        <script src="app/panel/panel.controller.js"></script>
         <script src="app/object3d/viewer/js/stats.min.js"></script>
         <script src="app/object3d/viewer/js/OrbitControls.js"></script>
         <script src="app/object3d/viewer/js/OBJLoader.js"></script>
@@ -146,7 +150,16 @@
         <script src="app/layouts/error/error.state.js"></script>
         <script src="app/home/home.state.js"></script>
         <script src="app/home/home.controller.js"></script>
+        <script src="app/groups/manage/manageGroup.state.js"></script>
+        <script src="app/groups/manage/manageGroup.controller.js"></script>
         <script src="app/groups/groups.state.js"></script>
+        <script src="app/groups/groupPage/groupPage.state.js"></script>
+        <script src="app/groups/groupPage/groupPage.controller.js"></script>
+        <script src="app/groups/group.controller.js"></script>
+        <script src="app/groups/create/createGroup.state.js"></script>
+        <script src="app/groups/create/createGroup.controller.js"></script>
+        <script src="app/exhibs/exhibs.state.js"></script>
+        <script src="app/exhibs/exhibs.controller.js"></script>
         <script src="app/entities/entity.state.js"></script>
         <script src="app/components/util/truncate-words.filter.js"></script>
         <script src="app/components/util/truncate-characters.filter.js"></script>
@@ -211,6 +224,11 @@
         <script src="app/admin/audits/audits.service.js"></script>
         <script src="app/admin/audits/audits.controller.js"></script>
         <script src="app/admin/admin.state.js"></script>
+        <script src="app/account/social/social-register.controller.js"></script>
+        <script src="app/account/social/social-auth.controller.js"></script>
+        <script src="app/account/social/social.state.js"></script>
+        <script src="app/account/social/social.service.js"></script>
+        <script src="app/account/social/directive/social.directive.js"></script>
         <script src="app/account/settings/settings.state.js"></script>
         <script src="app/account/settings/settings.controller.js"></script>
         <script src="app/account/reset/request/reset.request.state.js"></script>

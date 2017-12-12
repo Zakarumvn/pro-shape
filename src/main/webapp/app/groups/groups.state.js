@@ -1,7 +1,7 @@
 /**
  * Created by Katarzyna on 2017-09-23.
  */
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -20,10 +20,13 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/groups/groups.html'
+                    templateUrl: 'app/groups/groups.html',
+                    controller: 'GroupController',
+                    controllerAs: 'groupCtrl'
                 }
                 
             }
         });
+
     }
 })();

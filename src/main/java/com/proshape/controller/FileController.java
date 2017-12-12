@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Katarzyna on 2017-10-20.
@@ -43,9 +44,9 @@ public class FileController {
     }
 
     @GetMapping(value= "/getObject")
-    public byte[] getObject(@RequestParam("fileName")String fileName){
+    public byte[] getObject(@RequestParam("fileName")String fileName, @RequestParam("author")String id){
         try{
-            byte[] data = fileService.getObject(fileName);
+            byte[] data = fileService.getObject(fileName, Long.parseLong(id));
             return data;
         } catch (IOException e){
             return null;
@@ -53,19 +54,20 @@ public class FileController {
     }
 
     @GetMapping(value= "/getMaterial")
-    public byte[] getMaterial(@RequestParam("fileName")String fileName){
+    public byte[] getMaterial(@RequestParam("fileName")String fileName, @RequestParam("author")String id){
         try{
-            byte[] data = fileService.getObject(fileName);
+            byte[] data = fileService.getObject(fileName, Long.parseLong(id));
             return data;
         } catch (IOException e){
             return null;
         }
     }
 
+
     @GetMapping(value= "/getTexture")
-    public byte[] getTexture(@RequestParam("fileName")String fileName) {
+    public byte[] getTexture(@RequestParam("fileName")String fileName, @RequestParam("author")String id) {
         try {
-            byte[] data = fileService.getObject(fileName);
+            byte[] data = fileService.getObject(fileName, Long.parseLong(id));
             return data;
         } catch (IOException e) {
             return null;
@@ -85,7 +87,7 @@ public class FileController {
     }
 
     @GetMapping(value = "/getUserObjects")
-    public List<Model> getUserObjects(){
+    public Set<Model> getUserObjects(){
         User user = userService.getUserWithAuthorities();
         return fileService.getModels(user.getId());
     }
@@ -93,5 +95,10 @@ public class FileController {
     @GetMapping(value = "/getRank")
     public List<Model> getRank(){
         return fileService.getAllModels();
+    }
+
+    @PostMapping("/deleteModel")
+    public void deleteModel(@RequestParam("modelId") String modelId){
+        fileService.deleteModel(Long.parseLong(modelId));
     }
 }

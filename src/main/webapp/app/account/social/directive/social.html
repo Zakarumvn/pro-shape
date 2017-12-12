@@ -1,0 +1,7 @@
+<form action="{{ providerURL }}" method="POST">
+    <button type="submit" class="btn btn-block jh-btn-social jh-btn-{{ provider }}">
+        <img src="/content/images/btn_google_signin_light_normal_web.png" alt="Sign in with Google">
+    </button>
+    <input name="scope" type="hidden" value="{{ providerSetting }}"/>
+    <input name="_csrf" type="hidden" value="{{ csrf }}"/>
+</form>

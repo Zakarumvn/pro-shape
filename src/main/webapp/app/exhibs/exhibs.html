@@ -1,0 +1,68 @@
+<div class="container">
+
+    <h1 class="mt-4 mb-3">My exhibitions</h1>
+    <!-- Page Heading/Breadcrumbs -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a ui-sref="home">Home</a>
+        </li>
+
+        <li class="breadcrumb-item">
+            <a ui-sref="panel">User panel</a>
+        </li>
+
+        <li class="breadcrumb-item active">My exhibitions</li>
+    </ol>
+
+    <!-- Blog Post -->
+    <div class="card mb-4">
+
+        <div class="breadcrumb text-muted" ng-show="vm.success">
+            <strong>Exhibition created!</strong> Click <a ui-sref="panel">here</a> to edit.
+        </div>
+
+        <div class="breadcrumb text-muted" ng-show="vm.error">
+            <strong>Creation failed!</strong> Please try again later.
+        </div>
+
+        <div ng-show="!vm.success" class="card-block">
+            <div class="row">
+                <div class="col-lg-6">
+                    <form ng-show="!vm.success" name="form" role="form" novalidate ng-submit="vm.createExhibUser()" show-validation>
+
+                        <div class="form-group">
+                            <label class="control-label" for="name">Exhibition name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Exhibition name..."
+                                   ng-model="vm.exhib.name" ng-minlength=3 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/" required>
+                            <div ng-show="form.name.$dirty && form.name.$invalid">
+                                <p class="help-block"
+                                   ng-show="form.name.$error.required">
+                                    Your username is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.name.$error.minlength">
+                                    Your username is required to be at least 3 character.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.name.$error.maxlength">
+                                    Your username cannot be longer than 50 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="form.name.$error.pattern">
+                                    Your username can only contain lower-case letters and digits.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="description">Description</label>
+                            <textarea rows="10" cols="100" ng-model="vm.exhib.description" id="description" name="description" maxlength=200></textarea>
+                        </div>
+
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Create</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
