@@ -14,6 +14,8 @@
         vm.data = [];
         vm.exhib = [];
         vm.models = [];
+        vm.modelsIds = [];
+        vm.empty = null;
 
         activate();
 
@@ -29,7 +31,17 @@
                 .then(function (response) {
                     vm.exhib = response.data;
                     vm.models = vm.exhib.models;
+
+                    angular.forEach(vm.models, function (value) {
+                        vm.modelsIds.push(value.id);
+                    });
+
+                    if(vm.modelsIds.length == 0){
+                        vm.empty = "True";
+                    }
                 });
+
+
         }
 
     }

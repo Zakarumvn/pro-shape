@@ -13,7 +13,7 @@
         vm.title = 'ExeditController';
         vm.error = null;
         vm.success = null;
-        vm.empty = "Y";
+        vm.empty = null;
 
         vm.data = [];
         vm.exhib = [];
@@ -30,6 +30,7 @@
         vm.saveModels = saveModels;
         vm.removeTempModel = removeTempModel;
         vm.selected = [];
+        vm.modelsIds = [];
         vm.selectedModels = [];
         vm.newTemp = {};
 
@@ -38,8 +39,6 @@
         });
 
         activate();
-        checkIfModelIsThere();
-
 
         ////////////////
 
@@ -59,8 +58,19 @@
                 params: vm.data
             })
                 .then(function (response) {
-                if(!response.data.isEmpty) vm.exhib = response.data;
-                });
+                    if(!response.data.isEmpty) {
+                            vm.exhib = response.data;
+
+                            angular.forEach(vm.exhib.models, function (value) {
+                                vm.modelsIds.push(value.id);
+                            });
+
+                            if(vm.modelsIds.length == 0){
+                                vm.empty = "True";
+                            }
+                        }
+                    }
+                );
 
         }
 
@@ -75,11 +85,6 @@
             vm.tempExhibModels.splice(givenId, 1);
         }
 
-        function checkIfModelIsThere(){
-            vm.availabeModels = vm.userModels;
-            vm.exhibModels = vm.exhib.models;
-            //$log.info("checkIfModelIsThere " + vm.exhibModels.first.name);
-        }
 
         function setAvailableModels(){
             //vm.tempExhibModels = vm.exhib.models;

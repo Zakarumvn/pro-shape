@@ -58,7 +58,15 @@
                     vm.currentModel = vm.modelData.id;
                     getModel(vm.modelList[vm.currentModel]);
 
-                    if((vm.currentModel + 1) > vm.modelList.length){
+                    //Don't ask... JavaScript is a lol.
+                    vm.tempCheckNext = vm.currentModel;
+                    vm.tempCheckNext++;
+                    vm.tempCheckPrev = vm.currentModel;
+                    vm.tempNextLength = vm.modelList.length;
+                    vm.tempNextLength--;
+
+
+                    if(vm.tempCheckNext > vm.tempNextLength){
                         vm.nextModel = vm.currentModel;
                         vm.nextDeactive = "True";
                     }else{
@@ -66,7 +74,7 @@
                         vm.nextModel++;
                     }
 
-                    if((vm.currentModel - 1) < 0){
+                    if((vm.tempCheckPrev - 1) < 0){
                         vm.prevDeactive = "True";
                         vm.prevModel = 0;
                     }else{
