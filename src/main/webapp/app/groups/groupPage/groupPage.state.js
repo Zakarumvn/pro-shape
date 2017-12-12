@@ -15,7 +15,7 @@
             url: '/group/:id',
             parent: 'app',
             data: {
-                authorities: ['ROLE_USER', 'ROLE_MODERATOR'],
+                authorities: [],
                 pageTitle: 'Group'
             },
             views: {
@@ -28,3 +28,4 @@
         });
     }
 })();
+

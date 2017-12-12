@@ -41,6 +41,7 @@ public class CacheConfiguration {
             cm.createCache(com.proshape.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.proshape.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.proshape.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.proshape.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

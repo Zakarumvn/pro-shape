@@ -3,10 +3,8 @@ package com.proshape.service.dto;
 import com.proshape.config.Constants;
 
 import com.proshape.domain.Authority;
-import com.proshape.domain.Group;
 import com.proshape.domain.User;
 
-import com.sun.istack.internal.Nullable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 

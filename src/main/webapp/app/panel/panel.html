@@ -14,10 +14,10 @@
         <div class="card-block">
             <h2 class="card-title">My group</h2>
             <p class="card-text">
-                <div ng-show="panelCtrl.account.group !== null && panelCtrl.account.group.id !== 0">
-                    <a href="#/group/{{panelCtrl.account.group.id}}">Visit group</a>
+                <div ng-show="panelCtrl.account.groupId > 0">
+                    <a href="#/group/{{panelCtrl.account.groupId}}">Visit group</a>
                 </div>
-                <div ng-show="panelCtrl.account.groupId == null || panelCtrl.account.groupId == 0">
+                <div ng-show="panelCtrl.account.groupId == 0">
                     You don't have any group. <a href="#/createGroup">Create group</a>
                 </div>
 

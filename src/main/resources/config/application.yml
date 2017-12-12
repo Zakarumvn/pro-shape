@@ -46,6 +46,25 @@ spring:
     thymeleaf:
         mode: XHTML
 
+    social:
+        # see https://developers.google.com/+/web/signin/server-side-flow#step_1_create_a_client_id_and_client_secret
+        google:
+            client-id: 692363999207-a8tki2d8kgioicfft6dvp7dt3o1e22rd.apps.googleusercontent.com
+            client-secret: zkX-ydixtrIY1CobTdlZL8Yj
+
+        # see https://developers.facebook.com/docs/facebook-login/v2.2
+        facebook:
+            client-id: 1967508366903827
+            client-secret: f8f0fe90c5132b6a2d9c64f1e7c96d5a
+
+        # see https://apps.twitter.com/app/
+        twitter:
+            client-id: xxx
+            client-secret: xxx
+
+        # jhipster-needle-add-social-configuration
+
+
     http:
         multipart:
             max-file-size: 50MB
@@ -97,6 +116,8 @@ jhipster:
         contact-email:
         license:
         license-url:
+    social:
+        redirect-after-sign-in: "/#/social-auth"
     ribbon:
         display-on-active-profiles: dev
 
