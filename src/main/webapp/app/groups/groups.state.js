@@ -22,6 +22,7 @@
                 'content@': {
                     templateUrl: 'app/groups/groups.html'
                 }
+                
             }
         });
     }
