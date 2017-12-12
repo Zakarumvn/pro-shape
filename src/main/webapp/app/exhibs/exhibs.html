@@ -28,12 +28,12 @@
         <div ng-show="!vm.success" class="card-block">
             <div class="row">
                 <div class="col-lg-6">
-                    <form ng-show="!vm.success" name="form" role="form" novalidate ng-submit="vm.createExhibUser()" show-validation>
+                    <form ng-show="!vm.success" name="form" role="form" novalidate show-validation>
 
                         <div class="form-group">
                             <label class="control-label" for="name">Exhibition name</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Exhibition name..."
-                                   ng-model="vm.exhib.name" ng-minlength=3 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/" required>
+                                   ng-model="exhibsCtrl.exhib.name" ng-minlength=3 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/" required>
                             <div ng-show="form.name.$dirty && form.name.$invalid">
                                 <p class="help-block"
                                    ng-show="form.name.$error.required">
@@ -55,10 +55,10 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label" for="description">Description</label>
-                            <textarea rows="10" cols="100" ng-model="vm.exhib.description" id="description" name="description" maxlength=200></textarea>
+                            <textarea rows="10" cols="100" ng-model="exhibsCtrl.exhib.description" id="description" name="description" maxlength=200></textarea>
                         </div>
 
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Create</button>
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" ng-click="exhibsCtrl.createExhibUser()">Create</button>
 
                     </form>
                 </div>

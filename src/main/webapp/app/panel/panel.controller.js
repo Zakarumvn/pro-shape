@@ -34,6 +34,9 @@
 
             vm.getUserModels();
 
+            $http.get('api/file/getUserObjects').then(function (response) {
+                vm.models = response.data;
+            });
             $http.get('api/exhib/getUserExhibs').then(function (response) {
                 vm.exhibs = response.data;
             });

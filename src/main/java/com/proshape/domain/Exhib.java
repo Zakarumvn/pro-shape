@@ -3,6 +3,7 @@ package com.proshape.domain;
 import org.joda.time.Instant;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
@@ -26,7 +27,10 @@ public class Exhib{
     @JoinColumn(name = "userId")
     private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    /*@JoinTable(name = "exhib_model",
+        joinColumns = @JoinColumn(name = "exhib_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "model_id", referencedColumnName = "id"))*/
     private List<Model> models;
 
     @ManyToOne

@@ -1,0 +1,51 @@
+<div class="container">
+
+    <h1 class="mt-4 mb-3">Exhibition edit: <a href="/#/exhib/{{exedCtrl.exhib.id}}">{{exedCtrl.exhib.name}}</a></h1>
+    <!-- Page Heading/Breadcrumbs -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a ui-sref="home">Home</a>
+        </li>
+
+        <li class="breadcrumb-item">
+            <a ui-sref="panel">User panel</a>
+        </li>
+
+        <li class="breadcrumb-item active">Exhibition edit</li>
+    </ol>
+
+    <!-- Blog Post -->
+    <div class="card mb-4">
+        <div class="card-block">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Your models</h3>
+                    <form ng-show="!vm.success" name="form" role="form" novalidate show-validation>
+                        <div ng-repeat="model in exedCtrl.availabeModels" ng-show="!model.added">
+                            <hr>
+                            <!--input type="checkbox" ng-model="exedCtrl.selected[model.id]" name="{{model.modelName}}" value="{{model.id}}"-->
+                            <a href="/#/model/{{model.id}}"><b>{{model.modelName}}</b></a>
+                            <button type="button" class="btn btn-link" ng-click="exedCtrl.addModel($index)">Add model</button>
+                        </div>
+                        <hr>
+                        <!--button type="submit" class="btn btn-primary" ng-click="exedCtrl.addModels()">Add</button-->
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h3>{{exedCtrl.exhib.name}}</h3>
+                    <div ng-show="exedCtrl.empty">This exhibition has no models, add some!</div>
+                    <div ng-repeat="exhModel in exedCtrl.exhib.models">
+                        <a href="/#/model/{{exhModel.id}}"><b>{{exhModel.modelName}}</b></a>
+                    </div>
+                    <hr>
+                    <div ng-repeat="tempModel in exedCtrl.tempExhibModels">
+                        <a href="/#/model/{{tempModel.id}}"><b>{{tempModel.modelName}}</b></a>
+                        <button type="button" class="btn btn-link" ng-click="exedCtrl.removeTempModel($index)">Remove model</button>
+                    </div>
+                    <button type="button" class="btn btn-primary" ng-click="exedCtrl.saveModels()">Save</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

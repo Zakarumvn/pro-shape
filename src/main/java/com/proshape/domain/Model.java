@@ -21,7 +21,7 @@ public class Model {
 
     private byte[] modelImage;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
 
     private User user;

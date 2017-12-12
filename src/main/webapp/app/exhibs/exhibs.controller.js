@@ -13,7 +13,7 @@
     function ExhibsController($scope, Principal, $http) {
         var vm = this;
         vm.title = 'ExhibsController';
-        vm.exhib = {};
+        vm.exhib = {name : '', description : ''};
         vm.error = null;
         vm.success = null;
         vm.createExhibUser = createExhibUser;
@@ -30,13 +30,13 @@
 
         }
 
-        function createExhibUser(event){
-            event.preventDefault();
+        function createExhibUser(){
             vm.exhib = {
                 name : vm.exhib.name,
                 description : vm.exhib.description
             };
-            $http.post('/api/exhib/createExhibUser', vm.exhib);
+            $http.post('/api/exhib/createExhibUser', vm.exhib)
+                .success(vm.success = 'OK');
         }
 
     }
