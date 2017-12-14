@@ -31,8 +31,8 @@ public class Model {
     @OneToMany(mappedBy = "model")
     private Set<File> files;
 
-    @ManyToMany(mappedBy = "models", fetch=FetchType.EAGER)
-    private Set<Exhib> exhibitions;
+    @ManyToMany(mappedBy = "models")
+    private List<Exhib> exhibitions;
 
     @ManyToOne
     @JoinColumn(name="groupId")
@@ -40,7 +40,7 @@ public class Model {
 
     public Model() {}
 
-    public Model(String modelName, String modelDescription, byte[] modelImage, User user, String uploadDate, Set<File> files, Set<Exhib> exhibitions) {
+    public Model(String modelName, String modelDescription, byte[] modelImage, User user, String uploadDate, Set<File> files, List<Exhib> exhibitions) {
         this.modelName = modelName;
         this.modelDescription = modelDescription;
         this.modelImage = modelImage;
@@ -106,11 +106,4 @@ public class Model {
         this.files = files;
     }
 
-    public Set<Exhib> getExhibitions() {
-        return exhibitions;
-    }
-
-    public void setExhibitions(Set<Exhib> exhibitions) {
-        this.exhibitions = exhibitions;
-    }
 }

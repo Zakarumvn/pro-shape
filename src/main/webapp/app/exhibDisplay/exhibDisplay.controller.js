@@ -19,6 +19,7 @@
         vm.exhibData = [];
         vm.modelData = [];
         vm.model = [];
+        vm.author = 0;
 
         //exhib
         vm.exhib = [];
@@ -29,6 +30,8 @@
         vm.nextDeactive = null;
         vm.prevModel = 0;
         vm.prevDeactive = null;
+
+
         $scope.display = 0;
 
         activate();
@@ -58,7 +61,15 @@
                     vm.currentModel = vm.modelData.id;
                     getModel(vm.modelList[vm.currentModel]);
 
-                    if((vm.currentModel + 1) > vm.modelList.length){
+                    //Don't ask... JavaScript is a lol.
+                    vm.tempCheckNext = vm.currentModel;
+                    vm.tempCheckNext++;
+                    vm.tempCheckPrev = vm.currentModel;
+                    vm.tempNextLength = vm.modelList.length;
+                    vm.tempNextLength--;
+
+
+                    if(vm.tempCheckNext > vm.tempNextLength){
                         vm.nextModel = vm.currentModel;
                         vm.nextDeactive = "True";
                     }else{
@@ -66,7 +77,7 @@
                         vm.nextModel++;
                     }
 
-                    if((vm.currentModel - 1) < 0){
+                    if((vm.tempCheckPrev - 1) < 0){
                         vm.prevDeactive = "True";
                         vm.prevModel = 0;
                     }else{
@@ -86,6 +97,7 @@
             })
                 .then(function (response) {
                     vm.model = response.data;
+                    vm.author = vm.model.user.id;
                     for (var i = 0; i < 3; i++) {
                         vm.fileName.push(response.data.files[i].fileName);
                     }
@@ -124,6 +136,7 @@
                 $http({
                     url: 'api/file/getTexture',
                     params: {
+                        'author': vm.author,
                         'fileName': fileName
                     },
                     responseType: 'arraybuffer'
@@ -140,6 +153,7 @@
                 $http({
                     url: 'api/file/getTexture',
                     params: {
+                        'author': vm.author,
                         'fileName': fileName
                     },
                     responseType: 'arraybuffer'
@@ -156,6 +170,7 @@
                 $http({
                     url: 'api/file/getObject',
                     params: {
+                        'author': vm.author,
                         'fileName': fileName
                     },
                     responseType: 'blob'
@@ -168,6 +183,7 @@
                 $http({
                     url: 'api/file/getMaterial',
                     params: {
+                        'author': vm.author,
                         'fileName': fileName
                     },
                     responseType: 'blob'
@@ -177,7 +193,6 @@
                     $scope.display++;
                 });
             }
-
 
             return "";
 

@@ -8,13 +8,33 @@
         <li class="breadcrumb-item active">Exhibition: {{exModCtrl.exhib.name}}</li>
     </ol>
 
-    <div class="row">
-        <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in exModCtrl.models">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-block">
-                    <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a></h4>
-                    <p class="card-text">{{model.modelDescription}}</p>
+    <div class="row" ng-show="exModCtrl.empty">
+        <div class="card-block">
+            <div class="alert-warning " style="float: none; margin: 0 auto;">
+                <h4 class="text-center">This exhibiton has no models!</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4" ng-show="!exModCtrl.empty">
+        <div class="card-block">
+
+            <div class="row">
+                <div class="span6" style="float: none; margin: 0 auto;">
+                    <a href="#/exhib/{{exModCtrl.exhib.id}}/0" class="btn btn-primary">View this exhibition!</a>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in exModCtrl.models">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-block">
+                            <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a></h4>
+                            <p class="card-text">{{model.modelDescription}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

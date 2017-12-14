@@ -20,7 +20,9 @@
 
         vm.getUserModels = getUserModels;
         vm.setCurrentModel = setCurrentModel;
+        vm.setCurrentExhib = setCurrentExhib;
         vm.deleteModel = deleteModel;
+        vm.deleteExhib = deleteExhib;
 
 
         activate();
@@ -48,8 +50,18 @@
             });
         }
 
+        function getUserExhibs(){
+            $http.get('api/exhib/getUserExhibs').then(function (response) {
+                vm.exhibs = response.data;
+            });
+        }
+
         function setCurrentModel(model){
             vm.currentModel = model;
+        }
+
+        function setCurrentExhib(exhib){
+            vm.currentExhib = exhib;
         }
 
         function deleteModel(){
@@ -63,6 +75,21 @@
                 method: 'post'
             }).then(function (response) {
                 vm.getUserModels();
+            })
+
+        }
+
+        function deleteExhib(){
+            vm.data = {
+                'id': vm.currentExhib.id
+            };
+
+            $http({
+                url: 'api/exhib/deleteExhib',
+                params: vm.data,
+                method: 'post'
+            }).then(function (response) {
+                vm.getUserExhibs;
             })
 
         }

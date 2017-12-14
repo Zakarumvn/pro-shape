@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("api/exhib")
@@ -32,7 +31,7 @@ public class ExhibController {
     }
 
     @GetMapping(value = "/getUserExhibs")
-    public Set<Exhib> getUserExhibs(){
+    public List<Exhib> getUserExhibs(){
         User user = userService.getUserWithAuthorities();
         return exhibService.getUserExhibs(user.getId());
     }
@@ -55,6 +54,11 @@ public class ExhibController {
     @PostMapping(value = "/setExhibModels")
     public void setExhibModels(@RequestParam("id") Long id, @RequestParam(value = "models") Long[] models) throws IOException, SQLException{
         exhibService.setExhibModels(id, models);
+    }
+
+    @PostMapping("/deleteExhib")
+    public void deleteExhib(@RequestParam("id") String id){
+        exhibService.deleteExhib(Long.parseLong(id));
     }
 
 }

@@ -8,11 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Repository
 public interface ExhibRepository extends JpaRepository<Exhib, Long> {
     Optional<Exhib> findOnyById(Long id);
-    Set<Exhib> findAllByUserId(Long userId);
+    List<Exhib> findAllByUserId(Long userId);
     Exhib findById(Long id);
 }

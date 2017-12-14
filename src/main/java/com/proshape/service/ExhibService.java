@@ -52,7 +52,7 @@ public class ExhibService {
 
     public List<Exhib> getAllExhibs() { return exhibRepository.findAll(); }
 
-    public Set<Exhib> getUserExhibs(Long userId){
+    public List<Exhib> getUserExhibs(Long userId){
         return exhibRepository.findAllByUserId(userId);
     }
 
@@ -73,4 +73,5 @@ public class ExhibService {
             exhibRepository.save(exhib);
         }
     }
+
 }

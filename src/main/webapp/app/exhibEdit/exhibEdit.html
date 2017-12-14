@@ -18,9 +18,25 @@
     <div class="card mb-4">
         <div class="card-block">
             <div class="row">
+                <div class="span6" style="float: none; margin: 0 auto;">
+                    <h3 class="text-center">{{exedCtrl.exhib.name}}</h3>
+                    <hr>
+                    <p class="text-center">{{exedCtrl.exhib.description}}</p>
+                </div>
+
+            </div>
+            <div ng-show="exedCtrl.success" class="row">
+                <div class="col-md-6" style="float: none; margin: 0 auto;">
+                    <div class="alert alert-success">
+                        <strong class="text-center">Exhibition updated! <br><a href="/#/exhib/{{exedCtrl.exhib.id}}">View</a> or go <a href="/#/panel">back</a>.</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="!exedCtrl.success" class="row">
                 <div class="col-md-6">
                     <h3>Your models</h3>
-                    <form ng-show="!vm.success" name="form" role="form" novalidate show-validation>
+                    <form name="form" role="form" novalidate show-validation>
                         <div ng-repeat="model in exedCtrl.availabeModels" ng-show="!model.added">
                             <hr>
                             <!--input type="checkbox" ng-model="exedCtrl.selected[model.id]" name="{{model.modelName}}" value="{{model.id}}"-->
@@ -32,8 +48,8 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <h3>{{exedCtrl.exhib.name}}</h3>
-                    <div ng-show="exedCtrl.empty">This exhibition has no models, add some!</div>
+                    <p ng-show="exedCtrl.empty">This exhibition has no models, add some!</p>
+                    <h3 ng-show="!exedCtrl.empty">Exhibition's models:</h3>
                     <div ng-repeat="exhModel in exedCtrl.exhib.models">
                         <a href="/#/model/{{exhModel.id}}"><b>{{exhModel.modelName}}</b></a>
                     </div>
@@ -43,9 +59,10 @@
                         <button type="button" class="btn btn-link" ng-click="exedCtrl.removeTempModel($index)">Remove model</button>
                     </div>
                     <button type="button" class="btn btn-primary" ng-click="exedCtrl.saveModels()">Save</button>
+                    <a href="#/exhib/{{exedCtrl.exhib.id}}" class="btn btn-primary"  style="float: none">View</a>
+                    <a href="#/panel" class="btn btn-primary"  style="float: right">Cancel</a>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

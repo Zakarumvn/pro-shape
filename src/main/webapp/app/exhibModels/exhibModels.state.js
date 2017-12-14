@@ -9,7 +9,7 @@
 
     function stateConfig($stateProvider) {
         $stateProvider.state('exhibModels', {
-            url: '/exhib/:id/models',
+            url: '/exhib/:id',
             parent: 'app',
             data: {
                 authorities: [],
