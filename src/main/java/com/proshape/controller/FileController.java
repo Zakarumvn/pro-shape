@@ -1,11 +1,23 @@
 package com.proshape.controller;
 
+import com.codahale.metrics.annotation.Timed;
 import com.proshape.domain.File;
 import com.proshape.domain.Model;
 import com.proshape.domain.User;
 import com.proshape.service.FileService;
 import com.proshape.service.UserService;
+import com.proshape.service.dto.UserDTO;
+import com.proshape.web.rest.util.PaginationUtil;
+import io.swagger.annotations.ApiParam;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -110,6 +122,16 @@ public class FileController {
     public void deleteModel(@RequestParam("modelId") String modelId){
         fileService.deleteModel(Long.parseLong(modelId));
     }
+
+    @PostMapping("/rank")
+    @Timed
+    public ResponseEntity<List<Model>> getAllModels(@RequestParam("size") Integer size, @RequestParam("sort") String sort, @RequestParam("page") Integer pageNr) {
+        Pageable pageable = new PageRequest(pageNr, size);
+        final Page<Model> page = fileService.getAllModels(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/file/rank");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
 
 
 

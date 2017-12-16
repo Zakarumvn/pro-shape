@@ -11,7 +11,7 @@
     </ol>
 
     <div class="row" >
-        <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in filteredModels">
+        <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in rankCtrl.models">
             <div class="card h-100">
                 <a href="#/model/{{model.id}}"><img ng-show="!model.modelImage" class="card-img-top img-fluid" src="http://placehold.it/700x400" alt="">
                     <img ng-show="model.modelImage" class="card-img-top img-fluid" ng-src="data:image/jpeg;base64,{{model.modelImage}}" alt=""></a>
@@ -25,7 +25,7 @@
     </div>
 
     <!-- Pagination -->
-    <ul class="pagination justify-content-center">
+<!--    <ul class="pagination justify-content-center">
         <li class="page-item" ng-class="{disabled: currentPage === 1}" ng-click="selectPage(currentPage - 1)">
             <button ng-class="{disabled: currentPage === 1}" class="page-link"  aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
@@ -38,7 +38,12 @@
                 <span aria-hidden="true">&raquo;</span>
             </button>
         </li>
-    </ul>
+    </ul>-->
+
+    <div class="text-center">
+        <jhi-item-count page="rankCtrl.page" total="rankCtrl.queryCount" items-per-page="rankCtrl.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="rankCtrl.totalItems" ng-model="rankCtrl.page" ng-change="rankCtrl.transition()"></uib-pagination>
+    </div>
 
 </div>
 <!-- /.container -->
