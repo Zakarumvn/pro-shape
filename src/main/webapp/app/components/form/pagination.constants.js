@@ -4,6 +4,6 @@
     angular
         .module('proshapeApp')
         .constant('paginationConstants', {
-            'itemsPerPage': 20
+            'itemsPerPage': 6
         });
 })();
