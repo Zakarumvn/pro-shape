@@ -1,0 +1,40 @@
+<div class="container">
+
+    <h1 class="mt-4 mb-3">Category: {{catCtrl.category.name}}</h1>
+    <!-- Page Heading/Breadcrumbs -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a ui-sref="home">Home</a>
+        </li>
+
+        <li class="breadcrumb-item active">Category: {{catCtrl.category.name}}</li>
+    </ol>
+
+    <!-- Blog Post -->
+    <div class="card mb-4">
+        <div class="card-block">
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in catCtrl.models">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-block">
+                            <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a></h4>
+                            <p class="card-text">{{model.modelDescription}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="exhib in catCtrl.category.exhibs">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                        <div class="card-block">
+                            <h4 class="card-title"><a href="#/exhib/{{exhib.id}}">{{exhib.name}}</a></h4>
+                            <p class="card-text">{{exhib.description}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

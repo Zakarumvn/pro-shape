@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -7,19 +7,19 @@
 
     stateConfig.$inject = ['$stateProvider'];
 
-    function stateConfig($stateProvider) {
-        $stateProvider.state('cat_obj', {
-            url: '/cat_obj',
+    function stateConfig ($stateProvider) {
+        $stateProvider.state('category', {
             parent: 'app',
+            url: '/category/:id',
             data: {
                 authorities: [],
-                pageTitle: 'Kategorie: Obiekty'
+                pageTitle: 'Category'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/cat_obj/cat_obj.html',
-                    controller: 'ModelCategController',
-                    controllerAs : 'modCCtrl'
+                    templateUrl: 'app/category/category.html',
+                    controller : 'CategoryController',
+                    controllerAs : 'catCtrl'
                 }
             }
         });

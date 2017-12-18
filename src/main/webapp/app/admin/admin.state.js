@@ -9,8 +9,17 @@
 
     function stateConfig ($stateProvider) {
         $stateProvider.state('admin', {
-            abstract: true,
-            parent: 'app'
+            parent: 'app',
+            url: '/admin',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'Administration'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/admin/admin.html'
+                }
+            }
         });
     }
 })();

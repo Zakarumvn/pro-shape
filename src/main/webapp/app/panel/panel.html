@@ -30,7 +30,17 @@
 
     <!-- Blog Post -->
     <div class="card mb-4">
-        <div class="card-block">
+        <div class="card-block" ng-show="panelCtrl.success">
+            <div class="row">
+                <div class="col-md-6" style="float: none; margin: 0 auto;">
+                    <div class="alert alert-success">
+                        <strong class="text-center">{{panelCtrl.success}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-block" ng-show="!panelCtrl.success">
             <div class="row">
                 <div class="col-md-6">
                     <hr>
@@ -40,7 +50,11 @@
                             <a href="/#/model/{{model.id}}"><b>{{model.modelName}}</b></a>
                         </div>
                         <div class="breadcrumb-item">
-                            <a>Rename</a>
+                            <button type="button" class="btn btn-primary btn-sm"
+                                    data-toggle="modal" data-target="#editModelModal"
+                                    ng-click="panelCtrl.setEditedModel(model)">
+                                Edit description
+                            </button>
                         </div>
                         <div class="breadcrumb-item">
                             <button type="button" class="btn btn-primary btn-sm"
@@ -62,6 +76,13 @@
                             <a href="/#/exhib/{{exhib.id}}"><b>{{exhib.name}}</b></a>
                         </div>
                         <div class="breadcrumb-item">
+                            <button type="button" class="btn btn-primary btn-sm"
+                                    data-toggle="modal" data-target="#editExhibModal"
+                                    ng-click="panelCtrl.setEditedExhib(exhib)">
+                                Edit description
+                            </button>
+                        </div>
+                        <div class="breadcrumb-item">
                             <a class="btn btn-primary btn-sm" href="/#/exhibEdit/{{exhib.id}}">Edit</a>
                         </div>
                         <div class="breadcrumb-item">
@@ -72,13 +93,50 @@
                             </button>
                         </div>
                     </div>
-                    <!--button ng-click="panelService.open()">Delete</button-->
                     <hr>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- model edit -->
+<div class="modal fade" id="editModelModal" tabindex="-1" role="dialog" aria-labelledby="editModelModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit model</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label" for="changeModelName">Model name</label>
+                    <input type="text" class="form-control" id="changeModelName" name="changeModelName" placeholder="Model name..."
+                           ng-model="panelCtrl.editedModel.modelName" ng-minlength=3 ng-maxlength=50 required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="changeModelCategory">Category type: </label>
+                    <select class="form-control" id="changeModelCategory" name="changeModelCategory" ng-model="panelCtrl.editedModel.category">
+                        <option value="">No category</option>
+                        <option ng-repeat="catM in panelCtrl.modelCategories" value="{{catM.categoryId}}">{{catM.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="changeModelDescription">Description</label>
+                    <textarea rows="10" cols="51" ng-model="panelCtrl.editedModel.modelDescription" id="changeModelDescription" name="changeDescription" maxlength=200></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="panelCtrl.updateModel()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- model delete Modal -->
 <div class="modal fade" id="modelDeleteModal" tabindex="-1" role="dialog" aria-labelledby="modelDeleteModalLabel"
@@ -99,6 +157,43 @@
                 <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="panelCtrl.modelDeleteModel()">
                     Accept
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- exhib edit -->
+<div class="modal fade" id="editExhibModal" tabindex="-1" role="dialog" aria-labelledby="editExhibModal"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit model</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label" for="changeModelName">Model name</label>
+                    <input type="text" class="form-control" id="changeExhibName" name="changeExhibName" placeholder="Model name..."
+                           ng-model="panelCtrl.editedExhib.name" ng-minlength=3 ng-maxlength=50 required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="changeExhibCategory">Category type: </label>
+                    <select class="form-control" id="changeExhibCategory" name="changeExhibCategory" ng-model="panelCtrl.editedExhib.category">
+                        <option value="">No category</option>
+                        <option ng-repeat="catE in panelCtrl.exhibCategories" value="{{catE.categoryId}}">{{catE.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="changeExhibDescription">Description</label>
+                    <textarea rows="10" cols="51" ng-model="panelCtrl.editedExhib.description" id="changeExhibDescription" name="changeExhibDescription" maxlength=200></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="panelCtrl.updateExhib()" >Save</button>
             </div>
         </div>
     </div>

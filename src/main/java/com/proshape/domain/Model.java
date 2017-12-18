@@ -23,7 +23,6 @@ public class Model {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
-
     private User user;
 
     private String uploadDate;
@@ -37,6 +36,10 @@ public class Model {
     @ManyToOne
     @JoinColumn(name="groupId")
     private Group group;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
     public Model() {}
 
@@ -106,4 +109,11 @@ public class Model {
         this.files = files;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }

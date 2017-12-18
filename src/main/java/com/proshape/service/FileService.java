@@ -1,7 +1,9 @@
 package com.proshape.service;
 
+import com.proshape.domain.Category;
 import com.proshape.domain.Model;
 import com.proshape.domain.User;
+import com.proshape.repository.CategoryRepository;
 import com.proshape.repository.FileRepository;
 import com.proshape.repository.ModelRepository;
 import org.joda.time.Instant;
@@ -36,6 +38,9 @@ public class FileService {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     public List<String> getFileNamesForModelId(Long modelId){
         return fileRepository.findAllByModelId(modelId).stream().map(file -> file.getFileName()).collect(Collectors.toList());
@@ -130,6 +135,16 @@ public class FileService {
 
         fileRepository.delete(files);
         modelRepository.delete(model);
-
     }
+
+    public void updateModel(Long modelId, String modelName, String modelDescription, Long categoryId){
+        Model model = modelRepository.findModelById(modelId);
+        model.setModelName(modelName);
+        model.setModelDescription(modelDescription);
+
+        Category category = categoryRepository.findByCategoryId(categoryId);
+        model.setCategory(category);
+        modelRepository.save(model);
+    }
+
 }

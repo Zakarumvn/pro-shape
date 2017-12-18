@@ -18,12 +18,19 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="text-center">
-                        <h4>{{exDispCtrl.exhib.name}}:</h4> <h5>{{materialObj[0].name}}</h5>
+                        <h4>{{exDispCtrl.exhib.name}}:</h4> <h5>{{exDispCtrl.exhib.model.modelName}}</h5>
+
                     </div>
                     <hr>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h3 class="text-right"><a ng-show="!exDispCtrl.nextDeactive" href="#/exhib/{{exDispCtrl.exhib.id}}/{{exDispCtrl.nextModel}}">NEXT</a></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div style="margin: 0 auto;">
+                    <p class="text-center">{{exDispCtrl.exhib.description}}</p>
+                    <hr>
                 </div>
             </div>
 

@@ -1,5 +1,6 @@
 package com.proshape.repository;
 
+import com.proshape.domain.Category;
 import com.proshape.domain.Model;
 import com.proshape.domain.Exhib;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,7 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     Set<Model> findALlByUserId(Long userId);
     Model findModelById(Long modelId);
     List<Model> findAll();
+    List<Model> findAllByCategory(Category category);
 
     /*
     @Query("SELECT m FROM Model m JOIN Exhib e WHERE e.id = m.ex")

@@ -101,4 +101,14 @@ public class FileController {
     public void deleteModel(@RequestParam("modelId") String modelId){
         fileService.deleteModel(Long.parseLong(modelId));
     }
+
+
+
+    @PostMapping("/updateModel")
+    public void updateModel(@RequestParam("modelId") Long modelId,
+                            @RequestParam("modelName") String modelName,
+                            @RequestParam("modelDescription") String modelDescription,
+                            @RequestParam("categoryId") Long categoryId){
+        fileService.updateModel(modelId, modelName, modelDescription, categoryId);
+    }
 }

@@ -13,11 +13,13 @@
             parent: 'app',
             data: {
                 authorities: [],
-                pageTitle: 'Kategorie: Wystawy'
+                pageTitle: 'Categories: exhibitions'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/cat_exhib/cat_exhib.html'
+                    templateUrl: 'app/cat_exhib/cat_exhib.html',
+                    controller: 'ExhibCategController',
+                    controllerAs: 'exCCtrl'
                 }
             }
         });
