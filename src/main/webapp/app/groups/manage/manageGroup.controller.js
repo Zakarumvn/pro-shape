@@ -53,7 +53,6 @@
             });
         }
 
-
         function updateGroup() {
             vm.data = {
                 'id': vm.group.id,
@@ -70,7 +69,7 @@
                     vm.success = true;
                 }
             }).catch(function error(response) {
-                if (response.status == 400) {
+                if (response.status == 400 || response.status == 403) {
                     $scope.errorMsg = response.status;
                 }
 

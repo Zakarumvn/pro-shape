@@ -2,6 +2,7 @@ package com.proshape.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +50,6 @@ public class Group {
         this.groupExhibitions = groupExhibitions;
         this.groupModels = groupModels;
     }
-
 
     public Long getOwnerId() {
         return ownerId;

@@ -26,6 +26,7 @@ import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +50,7 @@ public class FileController {
                             @RequestParam("fileGroupName") String fileGroupName,
                             @RequestParam(value = "description", required = false) String description) throws IOException, SQLException {
         try{
-            fileService.saveUploadedFiles(files, fileGroupName, description);
+            if(fileService.saveUploadedFiles(files, fileGroupName, description) == 0) return 2;
         } catch (IOException e){
             return 0;
         }
@@ -103,15 +104,23 @@ public class FileController {
     @GetMapping(value= "getModelById")
     public Model getModelById(@RequestParam("id") Long modelId){
         Model model = fileService.findModelById(modelId);
-        model.setFiles(fileService.getFilesForModelId(modelId));
+        Set f = new HashSet(fileService.getFilesForModelId(modelId));
+        model.setFiles(f);
         return model;
     }
 
     @GetMapping(value = "/getUserObjects")
-    public Set<Model> getUserObjects(){
+    public List<Model> getUserObjects(){
         User user = userService.getUserWithAuthorities();
         return fileService.getModels(user.getId());
     }
+
+    @GetMapping(value = "/getUserFileNames")
+    public List<String> getUserFileNames(){
+        User user = userService.getUserWithAuthorities();
+        return fileService.getUserFileNames(user.getId());
+    }
+
 
     @GetMapping(value = "/getRank")
     public List<Model> getRank(){
@@ -119,8 +128,8 @@ public class FileController {
     }
 
     @PostMapping("/deleteModel")
-    public void deleteModel(@RequestParam("modelId") String modelId){
-        fileService.deleteModel(Long.parseLong(modelId));
+    public boolean deleteModel(@RequestParam("modelId") String modelId){
+        return fileService.deleteModel(Long.parseLong(modelId));
     }
 
     @PostMapping("/rank")
@@ -130,6 +139,12 @@ public class FileController {
         final Page<Model> page = fileService.getAllModels(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/file/rank");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/homeModels")
+    public List<Model> getThreeRecentModels(){
+        Pageable pageable = new PageRequest(0, 3, Sort.Direction.DESC, "uploadDate");
+        return fileService.getThreeRecentModels(pageable);
     }
 
 

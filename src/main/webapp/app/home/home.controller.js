@@ -5,11 +5,11 @@
         .module('proshapeApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http'];
 
-    function HomeController ($scope, Principal, LoginService, $state) {
+    function HomeController ($scope, Principal, LoginService, $state, $http) {
         var vm = this;
-
+        vm.models = null;
         vm.account = null;
         vm.isAuthenticated = null;
         vm.login = LoginService.open;
@@ -19,6 +19,7 @@
         });
 
         getAccount();
+        getModels();
 
         function getAccount() {
             Principal.identity().then(function(account) {
@@ -28,6 +29,12 @@
         }
         function register () {
             $state.go('register');
+        }
+
+        function getModels() {
+            $http.get('api/file/homeModels').then(function (response) {
+                vm.models = response.data;
+            });
         }
     }
 })();

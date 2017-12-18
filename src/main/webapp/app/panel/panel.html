@@ -16,7 +16,7 @@
                 <div ng-show="panelCtrl.account.groupId > 0">
                     <a href="#/group/{{panelCtrl.account.groupId}}">Visit group</a>
                 </div>
-                <div ng-show="panelCtrl.account.groupId == 0">
+                <div ng-if="panelCtrl.account.groupId == 0">
                     You don't have any group. <a href="#/createGroup">Create group</a>
                 </div>
             </p>
@@ -51,6 +51,9 @@
         <div class="card-block" ng-show="!panelCtrl.success && !panelCtrl.error">
             <div class="row">
                 <div class="col-md-6">
+                    <div class="breadcrumb text-muted" ng-show="vm.deleteResult == true">
+                        <strong>Unsuccesful deleted model.</strong>
+                    </div>
                     <hr>
                     <h3><a ui-sref="userModels">My models</a> (<a ui-sref="upload">upload</a>)</h3>
                     <hr>
@@ -188,8 +191,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="panelCtrl.modelDeleteModel()">
-                    Accept
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="panelCtrl.deleteModel()">
+                    Delete
                 </button>
             </div>
         </div>

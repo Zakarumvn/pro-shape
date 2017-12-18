@@ -20,7 +20,9 @@ public class Exhib implements Serializable {
     @Column(name = "name", length = 150, nullable = false)
     private String name;
 
-    @Column(name = "description")
+
+    @Size(max = 500)
+    @Column(name = "description", length = 500)
     private String description;
 
     @ManyToOne

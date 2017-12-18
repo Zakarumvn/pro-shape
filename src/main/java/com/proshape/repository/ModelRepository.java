@@ -18,7 +18,7 @@ import java.util.Set;
 
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Long> {
-    Set<Model> findALlByUserId(Long userId);
+    List<Model> findALlByUserId(Long userId);
     Model findModelById(Long modelId);
     List<Model> findAll();
     List<Model> findAllByCategory(Category category);
@@ -26,5 +26,5 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
 
     /*
     @Query("SELECT m FROM Model m JOIN Exhib e WHERE e.id = m.ex")
-    List<Model> findBy(Long id);*/
+    List<Model> findBy(Loretng id);*/
 }

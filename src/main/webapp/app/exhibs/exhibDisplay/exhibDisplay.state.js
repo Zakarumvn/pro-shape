@@ -8,18 +8,18 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('exhibEdit', {
-            url: '/exhibEdit/:id',
+        $stateProvider.state('exhibDisplay', {
+            url: '/exhib/:id/:mId',
             parent: 'app',
             data: {
                 authorities: [],
-                pageTitle: 'Exhibition edit'
+                pageTitle: 'Exhibition'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/exhibEdit/exhibEdit.html',
-                    controller: 'ExeditController',
-                    controllerAs: 'exedCtrl'
+                    templateUrl: 'app/exhibs/exhibDisplay/exhibDisplay.html',
+                    controller: 'ExhibDisplayController',
+                    controllerAs: 'exDispCtrl'
                 }
             }
         });

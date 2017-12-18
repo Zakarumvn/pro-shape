@@ -18,7 +18,7 @@
             url: '/manageGroup',
             parent: 'app',
             data: {
-                authorities: ['ROLE_MODERATOR'],
+                authorities: ['ROLE_MODERATOR', 'ROLE_ADMIN'],
                 pageTitle: 'Manage group'
             },
             views: {

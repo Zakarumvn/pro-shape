@@ -25,6 +25,9 @@
             <div class="alert alert-danger">
                 <strong>Inappropriate extensions of selected files!</strong>
             </div>
+            <div class="alert alert-danger" ng-show="uploadCtrl.existsError == 1">
+                <strong>You've already uploaded that file(s)!</strong>
+            </div>
         </div>
         <div class="card-block">
             <form method="post" enctype="multipart/form-data">

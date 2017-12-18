@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface ExhibRepository extends JpaRepository<Exhib, Long> {
-    Optional<Exhib> findOnyById(Long id);
     List<Exhib> findAllByUserId(Long userId);
     Exhib findById(Long id);
     List<Exhib> findAllByCategory(Category category);

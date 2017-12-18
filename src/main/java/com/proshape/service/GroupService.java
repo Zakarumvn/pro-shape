@@ -2,11 +2,16 @@ package com.proshape.service;
 
 import com.proshape.domain.Authority;
 import com.proshape.domain.Group;
+import com.proshape.domain.Message;
 import com.proshape.domain.User;
 import com.proshape.repository.GroupRepository;
+import com.proshape.repository.MessageRepository;
 import com.proshape.repository.UserRepository;
 import com.proshape.security.AuthoritiesConstants;
+import org.joda.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +37,9 @@ public class GroupService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     public Set<Group> getAllGroups(){
         return groupRepository.findByActive(1);
@@ -67,9 +75,13 @@ public class GroupService {
     }
 
     private boolean checkIfUserIsModerator(Long userId){
-        if(groupRepository.findOneByOwnerIdAndActive(userId, 1).equals(null)){
+        Group group= groupRepository.findOneByOwnerIdAndActive(userId, 1);
+        if(group != null){
+            if(group.getId() == 0)
+                return false;
+            else return true;
+        } else
             return false;
-        } else return true;
     }
 
     public Group getGroupByUserId(){
@@ -165,6 +177,31 @@ public class GroupService {
 
         userRepository.save(user);
         groupRepository.save(group);
+    }
+
+    public Page<Message> getMessages(Pageable pageable, Long groupId){
+        return messageRepository.findAllByGroupId(pageable, groupId);
+    }
+
+    public void sendMessage(String content, Long groupId, Long userId){
+        Message message = new Message();
+        message.setMessageContent(content);
+        message.setGroup(groupRepository.findOneById(groupId));
+        message.setUser(userRepository.findOne(userId));
+        message.setPostDate(Instant.now().toString());
+
+        messageRepository.save(message);
+    }
+
+    public void editMessage(String content, Long messageId){
+        Message message = messageRepository.findOne(messageId);
+        message.setMessageContent(content);
+
+        messageRepository.save(message);
+    }
+
+    public void deleteMessage(Long messageId){
+        messageRepository.delete(messageId);
     }
 
 }

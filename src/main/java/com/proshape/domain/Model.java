@@ -6,6 +6,7 @@ import org.joda.time.Instant;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Size;
 import java.sql.Blob;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,8 @@ public class Model {
 
     private String modelName;
 
+    @Size(max = 500)
+    @Column(name = "model_description", length = 500)
     private String modelDescription;
 
     @Lob
@@ -121,5 +124,20 @@ public class Model {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+    public List<Exhib> getExhibitions() {
+        return exhibitions;
+    }
+
+    public void setExhibitions(List<Exhib> exhibitions) {
+        this.exhibitions = exhibitions;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

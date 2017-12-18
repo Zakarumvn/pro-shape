@@ -8,8 +8,8 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('exhibDisplay', {
-            url: '/exhib/:id/:mId',
+        $stateProvider.state('exhibModels', {
+            url: '/exhib/:id',
             parent: 'app',
             data: {
                 authorities: [],
@@ -17,11 +17,12 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/exhibDisplay/exhibDisplay.html',
-                    controller: 'ExhibDisplayController',
-                    controllerAs: 'exDispCtrl'
+                        templateUrl: 'app/exhibs/exhibModels/exhibModels.html',
+                        controller: 'exhibModelsController',
+                        controllerAs: 'exModCtrl'
                 }
             }
         });
     }
 })();
+
