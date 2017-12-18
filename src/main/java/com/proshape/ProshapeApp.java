@@ -16,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -52,6 +53,8 @@ public class ProshapeApp {
             log.error("You have misconfigured your application! It should not " +
                 "run with both the 'dev' and 'cloud' profiles at the same time.");
         }
+
+
     }
 
     /**
@@ -80,5 +83,13 @@ public class ProshapeApp {
             InetAddress.getLocalHost().getHostAddress(),
             env.getProperty("server.port"),
             env.getActiveProfiles());
+
+
+        String userHome = System.getProperty("user.home");
+        File dir = new File(userHome + "\\uploadResources");
+        if (!dir.exists()) {
+            dir.mkdir();
+            log.info("Creating uploadResources directory");
+        }
     }
 }

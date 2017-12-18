@@ -14,58 +14,81 @@
         <li class="breadcrumb-item active">Create group</li>
     </ol>
 
-    <!-- Blog Post -->
-    <div class="card mb-4">
+    <!-- if you have a group... -->
+    <div class="card mb-4" ng-show="cgCtrl.isUserGroupMember()">
         <div class="card-footer text-muted">
         </div>
-        <div class="breadcrumb text-muted" ng-show="cgCtrl.success">
-            <strong>Group created!</strong> Click <a ui-sref="panel">here</a> to show.
-        </div>
-
-        <div class="breadcrumb text-muted" ng-show="cgCtrl.error">
-            <strong>Creation failed!</strong> Please try again later.
-        </div>
-
-        <div ng-show="!cgCtrl.success" class="card-block">
-            <div class="alert alert-danger"
-                   ng-show="errorMsg == 400">
-                    You already have a group. If you want to create a new one, delete existing.
-            </div>
+        <div class="card-block">
             <div class="row">
-                <div class="col-lg-6">
-                    <form ng-show="!cgCtrl.success" name="form" role="form" novalidate show-validation>
+                <div class="col-12">
+                    You already have a group. If you want to create a new one, delete existing.
+                    <div class="row">
+                        <button class="btn btn-primary btn-sm" ui-sref="group">Visit group</button>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="form-group">
-                            <label class="control-label" for="name">Group name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Group name..."
-                                   ng-model="cgCtrl.groupName" ng-minlength=3 ng-maxlength=255 required>
-                            <div ng-show="form.name.$dirty && form.name.$invalid">
-                                <p class="help-block"
-                                   ng-show="form.name.$error.required">
-                                    Group name is required.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.name.$error.minlength">
-                                    Group name is required to be at least 3 character.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.name.$error.maxlength">
-                                    Group name cannot be longer than 255 characters.
-                                </p>
 
+        </div>
+    </div>
+
+        <!-- Blog Post -->
+        <div class="card mb-4" ng-show="!cgCtrl.isUserGroupMember()">
+            <div class="card-footer text-muted">
+            </div>
+            <div class="breadcrumb text-muted" ng-show="cgCtrl.success">
+                <strong>Group created!</strong> Click <a ui-sref="panel">here</a> to show.
+            </div>
+
+            <div class="breadcrumb text-muted" ng-show="cgCtrl.error">
+                <strong>Creation failed!</strong> Please try again later.
+            </div>
+
+            <div ng-show="!cgCtrl.success" class="card-block">
+                <div class="alert alert-danger"
+                     ng-show="errorMsg == 400">
+                    You already have a group. If you want to create a new one, delete existing.
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <form ng-show="!cgCtrl.success" name="form" role="form" novalidate show-validation>
+
+                            <div class="form-group">
+                                <label class="control-label" for="name">Group name</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                       placeholder="Group name..."
+                                       ng-model="cgCtrl.groupName" ng-minlength=3 ng-maxlength=255 required>
+                                <div ng-show="form.name.$dirty && form.name.$invalid">
+                                    <p class="help-block"
+                                       ng-show="form.name.$error.required">
+                                        Group name is required.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="form.name.$error.minlength">
+                                        Group name is required to be at least 3 character.
+                                    </p>
+                                    <p class="help-block"
+                                       ng-show="form.name.$error.maxlength">
+                                        Group name cannot be longer than 255 characters.
+                                    </p>
+
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="description">Description</label>
-                            <textarea rows="10" cols="100" ng-model="cgCtrl.description" id="description" name="description" maxlength=500></textarea>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label" for="description">Description</label>
+                                <textarea rows="10" cols="100" ng-model="cgCtrl.description" id="description"
+                                          name="description" maxlength=500></textarea>
+                            </div>
 
-                        <button type="submit" ng-click="cgCtrl.createGroup()" ng-disabled="form.$invalid" class="btn btn-primary">Create</button>
+                            <button type="submit" ng-click="cgCtrl.createGroup()" ng-disabled="form.$invalid"
+                                    class="btn btn-primary">Create
+                            </button>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
+</div>

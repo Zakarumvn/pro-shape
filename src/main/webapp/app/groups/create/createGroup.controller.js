@@ -8,12 +8,13 @@
         .module('proshapeApp')
         .controller('CreateGroupController', CreateGroupController);
 
-    CreateGroupController.$inject = ['$http', '$scope', 'Upload'];
+    CreateGroupController.$inject = ['$http', '$scope', 'Upload', 'Principal'];
 
     /* @ngInject */
-    function CreateGroupController($http, $scope, Upload) {
+    function CreateGroupController($http, $scope, Upload, Principal) {
         var vm = this;
         vm.title = 'CreateGroupController';
+        vm.account = null;
         vm.description = '';
         vm.groupName = '';
         vm.file = [];
@@ -21,21 +22,37 @@
         vm.error = null;
         vm.errorUserExists = null;
         vm.success = null;
-
-
         vm.createGroup = createGroup;
         vm.validate = validate;
         vm.attachFile = attachFile;
+        vm.isUserGroupMember = isUserGroupMember;
 
         activate();
 
         ////////////////
 
         function activate() {
+            Principal.identity().then(function(account) {
+                vm.account = account;
+            });
+
             $scope.errorMsg = null;
             $scope.file = null;
         }
 
+        function isUserGroupMember(){
+            if(vm.account != undefined && vm.account != null){
+                if(vm.account.groupId != null){
+                    if(vm.account.groupId == 0) {
+                        return false;
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+
+        }
 
         function attachFile(file) {
             vm.file = file;
@@ -47,6 +64,7 @@
             } else return true;
         }
 
+
         function createGroup() {
             if (vm.validate()) {
 
@@ -55,10 +73,12 @@
                     'groupDescription': vm.description
                 };
 
-                $http.post('api/group/createGroup', vm.data).then(function (response) {
-                    if (response.status == 200) {
-                        vm.success = true;
-                    }
+                $http({
+                    method: 'post',
+                    url: 'api/group/createGroup',
+                    params: vm.data
+                }).then(function (response) {
+                    vm.success = true;
                 }).catch(function error(response) {
                     if (response.status == 400) {
                         $scope.errorMsg = response.status;

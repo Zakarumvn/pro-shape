@@ -17,6 +17,7 @@
         vm.account = null;
         vm.currentModel = null;
         vm.data = null;
+        vm.deleteResult = null;
 
         vm.getUserModels = getUserModels;
         vm.setCurrentModel = setCurrentModel;
@@ -74,6 +75,7 @@
                 params: vm.data,
                 method: 'post'
             }).then(function (response) {
+                vm.deleteResult = response.data;
                 vm.getUserModels();
             })
 

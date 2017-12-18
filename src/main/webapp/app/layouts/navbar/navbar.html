@@ -24,9 +24,7 @@
                     <a class="nav-link" ui-sref="home">Home</a>
                 </li>
 
-                <li class="nav-item" ui-sref-active="active" ng-switch-when="true">
-                    <a class="nav-link" ui-sref="panel">Panel</a>
-                </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link" ui-sref="rank">Rank</a>
@@ -45,14 +43,22 @@
                     <a class="nav-link" ui-sref="groups">Groups</a>
                 </li>
 
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="panelDropdown" data-toggle="dropdown" ng-switch-when="true" aria-haspopup="true" aria-expanded="false">
+                        Panel
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="panelDropdown">
+                        <a class="dropdown-item" ui-sref="panel">Manage</a>
+                        <a class="dropdown-item" ui-sref="upload">Upload model</a>
+                        <a class="dropdown-item" ui-sref="exhibs">Create exhibition</a>
+                        <a class="dropdown-item" ui-sref="createGroup">Create group</a>
+                    </div>
+                </li>
+
                 <li class="nav-item" ui-sref-active="active" ng-switch-when="false">
                     <a class="nav-link" ui-sref="login" id="login">Sign In</a>
                 </li>
-
-                <li class="nav-item" ui-sref-active="active" ng-switch-when="true">
-                    <a class="nav-link" ui-sref="upload">Upload</a>
-                </li>
-
 
                 <li class="nav-item dropdown" ng-switch-when="true">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownAccout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

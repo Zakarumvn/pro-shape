@@ -1,7 +1,9 @@
 package com.proshape.service;
 
+import com.proshape.domain.Exhib;
 import com.proshape.domain.Model;
 import com.proshape.domain.User;
+import com.proshape.repository.ExhibRepository;
 import com.proshape.repository.FileRepository;
 import com.proshape.repository.ModelRepository;
 import org.joda.time.Instant;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,11 +42,14 @@ public class FileService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ExhibRepository exhibRepository;
+
     public List<String> getFileNamesForModelId(Long modelId){
         return fileRepository.findAllByModelId(modelId).stream().map(file -> file.getFileName()).collect(Collectors.toList());
     }
 
-    public Set<com.proshape.domain.File> getFilesForModelId(Long modelId){
+    public List<com.proshape.domain.File> getFilesForModelId(Long modelId){
         return fileRepository.findAllByModelId(modelId);
     }
 
@@ -60,9 +66,11 @@ public class FileService {
     }
 
     @Transactional
-    public void saveUploadedFiles(List<MultipartFile> files, String fileGroupName, String description) throws IOException{
+    public int saveUploadedFiles(List<MultipartFile> files, String fileGroupName, String description) throws IOException{
+        int resultCode = 1;
         User user = userService.getUserWithAuthorities();
-        String uploadDirectoryPath = System.getProperty("upload.location");
+        String uploadDirectoryPath = System.getProperty("user.home") + "\\uploadResources";
+
         Path userDirPath = Paths.get(uploadDirectoryPath + "\\" + user.getId().toString());
         String originalFilename = "";
         String fileExtension = "";
@@ -89,53 +97,87 @@ public class FileService {
             originalFilename = files.get(i).getOriginalFilename();
             fileExtension = originalFilename.substring(originalFilename.length() - 4);
             File convertedFile = new File(userDirPath.toString(), originalFilename);
-            convertedFile.createNewFile();
-            FileOutputStream fos = new FileOutputStream(convertedFile);
-            fos.write(files.get(i).getBytes());
-            fos.close();
 
-            com.proshape.domain.File fileDB = new com.proshape.domain.File();
-            fileDB.setUser(user);
-            fileDB.setFileName(originalFilename);
-            fileDB.setFileExtension(fileExtension);
-            fileDB.setPath(user.getId().toString() + "\\" + originalFilename);
-            fileDB.setFileGroup(fileGroupName);
-            fileDB.setUploadDate(currentDate.toString());
-            fileDB.setModel(model);
-            fileList.add(fileDB);
-            fileRepository.save(fileDB);
+
+            if(convertedFile.exists()){
+                resultCode = 2;
+                break;
+            } else {
+                convertedFile.createNewFile();
+                FileOutputStream fos = new FileOutputStream(convertedFile);
+                fos.write(files.get(i).getBytes());
+                fos.close();
+
+                com.proshape.domain.File fileDB = new com.proshape.domain.File();
+                fileDB.setUser(user);
+                fileDB.setFileName(originalFilename);
+                fileDB.setFileExtension(fileExtension);
+                fileDB.setPath(user.getId().toString() + "\\" + originalFilename);
+                fileDB.setFileGroup(fileGroupName);
+                fileDB.setUploadDate(currentDate.toString());
+                fileDB.setModel(model);
+                fileList.add(fileDB);
+                fileRepository.save(fileDB);
+            }
         }
 
         model.setFiles(fileList);
         modelRepository.save(model);
-
+        return resultCode;
     }
+
 
     public Set<com.proshape.domain.File> getFilesForUserId(Long userId){
         return fileRepository.findAllByUserId(userId);
     }
 
     public byte[] getObject(String fileName, Long authorId) throws IOException {
-        Path path = Paths.get(System.getProperty("upload.location") + "/" + authorId + "/" + fileName);
+        Path path = Paths.get(System.getProperty("user.home") + "/uploadResources" + "/" + authorId + "/" + fileName);
         byte[] data = Files.readAllBytes(path);
         return data;
     }
 
-    public Set<com.proshape.domain.Model> getModels(Long userId) {
+    public List<com.proshape.domain.Model> getModels(Long userId) {
         return modelRepository.findALlByUserId(userId);
     }
 
     @Transactional
-    public void deleteModel(Long modelId){
+    public boolean deleteModel(Long modelId){
+        String uploadDirectoryPath = System.getProperty("user.home") + "\\uploadResources";
         Model model = modelRepository.findModelById(modelId);
-        Set<com.proshape.domain.File> files = fileRepository.findAllByModelId(modelId);
+        List<com.proshape.domain.File> files = fileRepository.findAllByModelId(modelId);
+        boolean result = false;
 
-        files.forEach(file ->{
-            new File(file.getPath()).delete();
-        });
+        for(com.proshape.domain.File file: files){
+            File f = new File(uploadDirectoryPath + "\\"+ file.getPath());
+            result = f.delete();
+        }
+        List<Exhib> exhibs = model.getExhibitions();
+        for(Exhib exhib: exhibs){
+            List<Model> models = exhib.getModels();
+            models.remove(model);
+            exhibRepository.save(exhib);
+        }
+        model.setExhibitions(null);
 
         fileRepository.delete(files);
         modelRepository.delete(model);
 
+        return result;
+
+    }
+
+    public List<Model> getThreeRecentModels(Pageable pageable){
+        return modelRepository.findAll(pageable).getContent();
+    }
+
+    public List<String> getUserFileNames(Long id){
+        Set<com.proshape.domain.File> files = fileRepository.findAllByUserId(id);
+        List<String> fileNames = new ArrayList<>();
+        if(files.size() > 0){
+            files.forEach(f -> fileNames.add(f.getFileName()));
+        }
+
+        return fileNames;
     }
 }

@@ -16,5 +16,5 @@ import java.util.Set;
 @Repository
 public interface FileRepository extends JpaRepository<File, Long> {
    Set<File> findAllByUserId(Long userId);
-   Set<com.proshape.domain.File> findAllByModelId(Long modelId);
+   List<File> findAllByModelId(Long modelId);
 }

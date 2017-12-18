@@ -3,6 +3,7 @@ package com.proshape.domain;
 import org.joda.time.Instant;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -17,13 +18,14 @@ public class Model {
 
     private String modelName;
 
+    @Size(max = 500)
+    @Column(name = "model_description", length = 500)
     private String modelDescription;
 
     private byte[] modelImage;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
-
+    @ManyToOne
+    @JoinColumn(name="userId")
     private User user;
 
     private String uploadDate;
@@ -106,4 +108,19 @@ public class Model {
         this.files = files;
     }
 
+    public List<Exhib> getExhibitions() {
+        return exhibitions;
+    }
+
+    public void setExhibitions(List<Exhib> exhibitions) {
+        this.exhibitions = exhibitions;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 }
