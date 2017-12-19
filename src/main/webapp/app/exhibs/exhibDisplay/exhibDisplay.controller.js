@@ -57,7 +57,7 @@
                     vm.models = response.data.models;
                     angular.forEach(vm.exhib.models, function (value) {
                     vm.modelList.push(value.id);
-                    })
+                    });
                     vm.currentModel = vm.modelData.id;
                     getModel(vm.modelList[vm.currentModel]);
 
@@ -105,12 +105,9 @@
                         vm.getFile(vm.fileName[j]);
                     }
 
-                    $scope.canvasWidth = 400;
+                    $scope.canvasWidth = 600;
                     $scope.canvasHeight = 600;
-                    $scope.dofillcontainer = true;
-                    $scope.scale = 1;
-                    $scope.materialType = 'lambert';
-
+                    $scope.dofillcontainer = false;
                 });
 
         }

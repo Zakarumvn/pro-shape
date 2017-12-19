@@ -9440,3 +9440,41 @@ select:-webkit-autofill:focus {
 .portfolio-item {
     margin-bottom: 30px;
 }
+
+.FlexEmbed {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    margin-top: 1.375em;
+    margin-bottom: 1.375em
+}
+
+.FlexEmbed-ratio {
+    display: block;
+    width: 100%
+}
+
+.FlexEmbed-ratio--3by1 {
+    padding-bottom: 33.33333333333333%
+}
+
+.FlexEmbed-ratio--2by1 {
+    padding-bottom: 50%
+}
+
+.FlexEmbed-ratio--16by9 {
+    padding-bottom: 56.25%
+}
+
+.FlexEmbed-ratio--4by3 {
+    padding-bottom: 75%
+}
+
+.FlexEmbed-content {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%
+}

@@ -296,6 +296,7 @@
 
                     mtlLoader.load(data['mtlUrl'], function( materials ) {
 
+
                         materials.preload();
 
                         var objLoader = new THREE.OBJLoader(manager);
