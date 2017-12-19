@@ -50,6 +50,9 @@ public class FileService {
     @Autowired
     ExhibRepository exhibRepository;
 
+    @Autowired
+    CategoryRepository categoryRepository;
+
     public List<String> getFileNamesForModelId(Long modelId){
         return fileRepository.findAllByModelId(modelId).stream().map(file -> file.getFileName()).collect(Collectors.toList());
     }
@@ -131,6 +134,12 @@ public class FileService {
         return resultCode;
     }
 
+    @Transactional
+    public void saveModelPicture(Long id, byte[] picture){
+        Model model = modelRepository.findModelById(id);
+        model.setModelImage(picture);
+        modelRepository.save(model);
+    }
 
     public Set<com.proshape.domain.File> getFilesForUserId(Long userId){
         return fileRepository.findAllByUserId(userId);
@@ -196,17 +205,4 @@ public class FileService {
         modelRepository.save(model);
     }
 
-    public List<Model> getThreeRecentModels(Pageable pageable){
-        return modelRepository.findAll(pageable).getContent();
-    }
-
-    public List<String> getUserFileNames(Long id){
-        Set<com.proshape.domain.File> files = fileRepository.findAllByUserId(id);
-        List<String> fileNames = new ArrayList<>();
-        if(files.size() > 0){
-            files.forEach(f -> fileNames.add(f.getFileName()));
-        }
-
-        return fileNames;
-    }
 }

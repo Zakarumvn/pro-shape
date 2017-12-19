@@ -158,19 +158,4 @@ public class FileController {
         fileService.updateModel(modelId, modelName, modelDescription, categoryId);
     }
 
-    @PostMapping("/rank")
-    @Timed
-    public ResponseEntity<List<Model>> getAllModels(@RequestParam("size") Integer size, @RequestParam("sort") String sort, @RequestParam("page") Integer pageNr) {
-        Pageable pageable = new PageRequest(pageNr, size);
-        final Page<Model> page = fileService.getAllModels(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/file/rank");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-    }
-
-    @GetMapping("/homeModels")
-    public List<Model> getThreeRecentModels(){
-        Pageable pageable = new PageRequest(0, 3, Sort.Direction.DESC, "uploadDate");
-        return fileService.getThreeRecentModels(pageable);
-    }
-
 }
