@@ -1,10 +1,10 @@
-
 <div ng-cloak>
     <div class="container">
         <div class="card-footer text-muted">
-            <strong>Info:</strong> Due to your best experience we recommend to use the latest version of your web browser with WebGL 2.0 enabled
+            <strong>Info:</strong> Due to your best experience we recommend to use the latest version of your web
+            browser with WebGL 2.0 enabled
         </div>
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" ng-show="vm.models.length === 3">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -12,24 +12,32 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <!-- Slide One - Set the background image for this slide in the line below -->
-                <div class="carousel-item active" style="background-image: url('/content/images/slideshow/1.PNG')">
+                <div class="carousel-item active"
+                     style="background-image: url('data:image/jpeg;base64,{{vm.models[0].modelImage}}')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3>Skull</h3>
-                        <p></p>
+                        <a href="#/model/{{vm.models[0].id}}">
+                            <h3>{{vm.models[0].modelName}}</h3>
+                            <p></p>
+                        </a>
                     </div>
                 </div>
                 <!-- Slide Two - Set the background image for this slide in the line below -->
-                <div class="carousel-item" style="background-image: url('/content/images/slideshow/2.png')">
+                <div class="carousel-item"
+                     style="background-image: url('data:image/jpeg;base64,{{vm.models[1].modelImage}}')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3>Jug</h3>
-                        <p></p>
+                        <a href="#/model/{{vm.models[1].id}}">
+                            <h3>{{vm.models[1].modelName}}</h3>
+                            <p></p>
+                        </a>
                     </div>
                 </div>
-                <!-- Slide Three - Set the background image for this slide in the line below -->
-                <div class="carousel-item" style="background-image: url('/content/images/slideshow/3.PNG')">
+                <div class="carousel-item"
+                     style="background-image: url('data:image/jpeg;base64,{{vm.models[2].modelImage}}')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h3>Dipper</h3>
-                        <p></p>
+                        <a href="#/model/{{vm.models[2].id}}">
+                            <h3>{{vm.models[2].modelName}}</h3>
+                            <p></p>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -50,7 +58,10 @@
         <div class="row">
             <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in vm.models">
                 <div class="card h-100">
-                    <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                    <a href="#"><img ng-show="!model.modelImage" class="card-img-top img-fluid"
+                                     src="http://placehold.it/700x400" alt="">
+                        <img ng-show="model.modelImage" class="card-img-top img-fluid"
+                             ng-src="data:image/jpeg;base64,{{model.modelImage}}" alt=""></a>
                     <div class="card-block">
                         <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a></h4>
                         <p class="card-text">{{model.modelDescription}}</p>

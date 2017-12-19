@@ -165,7 +165,10 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label" for="picFile">Picture</label>
-                        <input type="file" id="picFile" ngf-select="" ng-model="panelCtrl.picFile" name="picFile" ngf-accept="'image/*'">
+                        <div class="card-footer text-muted">
+                            Preferred size of image: 700x400px, maximum size is 15MB
+                        </div>
+                        <input type="file" ngf-validate="{size: {max: '15MB'}}" ngf-resize="{width: 700, height: 400, centerCrop: true}" id="picFile" ngf-select="" ng-model="panelCtrl.picFile" name="picFile" ngf-accept="'image/*'">
                         <img ngf-src="panelCtrl.picFile" class="img-thumbnail">
                     </div>
                     <div class="form-group">
