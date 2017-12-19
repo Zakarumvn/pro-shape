@@ -2,11 +2,10 @@
 
     <!-- Page Heading/Breadcrumbs -->
         <h1 class="mt-4 mb-3">My models</h1>
-        <a href="#/upload">Upload new model</a>
 
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="index.html">Home</a>
+            <a href="#">Home</a>
         </li>
         <li class="breadcrumb-item active">My models</li>
     </ol>
@@ -18,7 +17,8 @@
     <div class="row">
         <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="item in filteredModels">
             <div class="card h-100">
-                <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                <a href="#/model/{{item.id}}"><img ng-show="!item.modelImage" class="card-img-top img-fluid" src="http://placehold.it/700x400" alt="">
+                    <img ng-show="item.modelImage" class="card-img-top img-fluid" ng-src="data:image/jpeg;base64,{{item.modelImage}}" alt=""></a>
                 <div class="card-block">
                     <h4 class="card-title"><a href="#/model/{{item.id}}">{{item.modelName}}</a></h4>
                     <p class="card-text">{{item.modelDescription}}</p>

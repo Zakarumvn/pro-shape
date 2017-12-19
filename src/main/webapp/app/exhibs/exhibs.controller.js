@@ -36,8 +36,11 @@
                 description : vm.exhib.description
             };
             $http.post('/api/exhib/createExhibUser', vm.exhib)
-                .success(function () {
+                .then(function () {
                     vm.success = 'OK';
+                })
+                .catch(function () {
+                    vm.error = "Error. Try again later."
                 });
         }
 

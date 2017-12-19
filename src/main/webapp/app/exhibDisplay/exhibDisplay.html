@@ -35,8 +35,14 @@
             </div>
 
             <div class="row">
+
+                <div class="col-md-8" ng-if="display != 3">
+                    <div style="border:3px solid orangered;" ng-webgl2 id="test" width="canvasWidth" height="canvasHeight"  scale="scale" material-type="materialType" material-obj="materialObj">
+                    </div>
+                </div>
+
                 <div class="col-md-8" ng-if="display === 3" ng-init="exDispCtrl.setMaterialObj()">
-                    <div  id="webglContainer" ng-webgl2 width="canvasWidth" height="canvasHeight" fillcontainer="dofillcontainer" scale="scale" material-type="materialType" material-obj="materialObj">
+                    <div style="border:3px solid orangered;" id="webglContainer" ng-webgl2 width="canvasWidth" height="canvasHeight" fillcontainer="dofillcontainer" scale="scale" material-type="materialType" material-obj="materialObj">
                     </div>
                 </div>
 

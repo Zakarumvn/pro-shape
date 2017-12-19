@@ -13,9 +13,10 @@
     <div class="row" >
         <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in filteredModels">
             <div class="card h-100">
-                <a href="#"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                <a href="#/model/{{model.id}}"><img ng-show="!model.modelImage" class="card-img-top img-fluid" src="http://placehold.it/700x400" alt="">
+                    <img ng-show="model.modelImage" class="card-img-top img-fluid" ng-src="data:image/jpeg;base64,{{model.modelImage}}" alt=""></a>
                 <div class="card-block">
-                    <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a></h4>
+                    <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a> by {{model.user.login}}</h4>
                     <p class="card-text">{{model.modelDescription}}</p>
                 </div>
             </div>

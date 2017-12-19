@@ -6,12 +6,15 @@ import com.proshape.domain.User;
 import com.proshape.repository.CategoryRepository;
 import com.proshape.repository.FileRepository;
 import com.proshape.repository.ModelRepository;
+import org.hibernate.Hibernate;
 import org.joda.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -108,6 +111,13 @@ public class FileService {
         model.setFiles(fileList);
         modelRepository.save(model);
 
+    }
+
+    @Transactional
+    public void saveModelPicture(Long id, byte[] picture){
+        Model model = modelRepository.findModelById(id);
+        model.setModelImage(picture);
+        modelRepository.save(model);
     }
 
     public Set<com.proshape.domain.File> getFilesForUserId(Long userId){

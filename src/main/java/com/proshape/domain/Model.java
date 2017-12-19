@@ -1,8 +1,12 @@
 package com.proshape.domain;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.type.BlobType;
 import org.joda.time.Instant;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.sql.Blob;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +23,8 @@ public class Model {
 
     private String modelDescription;
 
+    @Lob
+    @Column(length=1048576)
     private byte[] modelImage;
 
     @ManyToOne(fetch = FetchType.EAGER)

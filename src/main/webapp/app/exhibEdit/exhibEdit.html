@@ -40,6 +40,9 @@
                         <div ng-repeat="model in exedCtrl.availabeModels" ng-show="!model.added">
                             <hr>
                             <!--input type="checkbox" ng-model="exedCtrl.selected[model.id]" name="{{model.modelName}}" value="{{model.id}}"-->
+                            <div style="float: left; padding-right: 10px" ng-show="model.modelImage">
+                                <img class="img-responsive" ng-src="data:image/jpeg;base64,{{model.modelImage}}" alt="{{model.description}}" height="50" width="50">
+                            </div>
                             <a href="/#/model/{{model.id}}"><b>{{model.modelName}}</b></a>
                             <button type="button" class="btn btn-link" ng-click="exedCtrl.addModel($index)">Add model</button>
                         </div>

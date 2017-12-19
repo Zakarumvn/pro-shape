@@ -16,40 +16,37 @@
 
     <!-- Blog Post -->
     <div class="card mb-4">
-
-        <div class="breadcrumb text-muted" ng-show="vm.success">
-            <strong>Exhibition created!</strong> Click <a ui-sref="panel">here</a> to edit.
-        </div>
-
-        <div class="breadcrumb text-muted" ng-show="vm.error">
-            <strong>Creation failed!</strong> Please try again later.
+        <div class="card-block" ng-show="exhibsCtrl.success">
+            <div class="row">
+                <div class="col-md-6" style="float: none; margin: 0 auto;">
+                    <div class="alert alert-success">
+                        <strong class="text-center">Creation successful! Click <a href="#/panel">here</a> to edit and setup a category!</strong>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div ng-show="!vm.success" class="card-block">
             <div class="row">
                 <div class="col-lg-6">
-                    <form ng-show="!vm.success" name="form" role="form" novalidate show-validation>
+                    <form ng-show="!exhibsCtrl.success" name="form" role="form" novalidate show-validation>
 
                         <div class="form-group">
                             <label class="control-label" for="name">Exhibition name</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Exhibition name..."
-                                   ng-model="exhibsCtrl.exhib.name" ng-minlength=3 ng-maxlength=50 ng-pattern="/^[_'.@A-Za-z0-9-]*$/" required>
+                                   ng-model="exhibsCtrl.exhib.name" ng-minlength=3 ng-maxlength=50 required>
                             <div ng-show="form.name.$dirty && form.name.$invalid">
                                 <p class="help-block"
                                    ng-show="form.name.$error.required">
-                                    Your username is required.
+                                    Your exhibition name is required.
                                 </p>
                                 <p class="help-block"
                                    ng-show="form.name.$error.minlength">
-                                    Your username is required to be at least 3 character.
+                                    Your exhibition name is required to be at least 3 character.
                                 </p>
                                 <p class="help-block"
                                    ng-show="form.name.$error.maxlength">
-                                    Your username cannot be longer than 50 characters.
-                                </p>
-                                <p class="help-block"
-                                   ng-show="form.name.$error.pattern">
-                                    Your username can only contain lower-case letters and digits.
+                                    Your exhibition name cannot be longer than 50 characters.
                                 </p>
                             </div>
                         </div>

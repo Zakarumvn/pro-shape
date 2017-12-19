@@ -434,6 +434,8 @@
                 });
 
                 // Begin
+
+
                 scope.init();
                 scope.animate();
 

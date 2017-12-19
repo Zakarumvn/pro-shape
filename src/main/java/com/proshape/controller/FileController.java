@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +43,13 @@ public class FileController {
         }
 
         return 1;
+    }
+
+    @Transactional
+    @PostMapping(value = "/pictureUpload")
+    public void uploadPicutre(@RequestParam("id") Long id, @RequestParam("picture") MultipartFile picture)throws IOException, SQLException {
+
+        fileService.saveModelPicture(id, picture.getBytes());
     }
 
     @GetMapping(value= "/getObject")
