@@ -10,16 +10,21 @@
     </ol>
 
     <div class="card">
-        <div class="card-block" ng-show="!panelCtrl.success && !panelCtrl.error">
+
+        <div class="card-block">
             <h2 class="card-title">My group</h2>
             <p class="card-text">
                 <div ng-show="panelCtrl.account.groupId > 0">
                     <a href="#/group/{{panelCtrl.account.groupId}}">Visit group</a>
                 </div>
-                <div ng-if="panelCtrl.account.groupId == 0">
+                <div ng-show="panelCtrl.account.groupId == 0">
                     You don't have any group. <a href="#/createGroup">Create group</a>
                 </div>
+
             </p>
+        </div>
+        <div class="card-footer text-muted">
+
         </div>
     </div>
 
@@ -79,6 +84,7 @@
                             </button>
                         </div>
                     </div>
+                    <hr>
                 </div>
 
                 <div class="col-md-6">
@@ -107,6 +113,8 @@
                             </button>
                         </div>
                     </div>
+                    <!--button ng-click="panelService.open()">Delete</button-->
+                    <hr>
                 </div>
             </div>
         </div>
@@ -191,8 +199,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="panelCtrl.deleteModel()">
-                    Delete
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="panelCtrl.modelDeleteModel()">
+                    Accept
                 </button>
             </div>
         </div>

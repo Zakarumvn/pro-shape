@@ -1,3 +1,5 @@
+
+
 (function () {
     'use strict';
 
@@ -45,7 +47,7 @@
         ////////////////
 
         function activate() {
-            Principal.identity().then(function (account) {
+            Principal.identity().then(function(account) {
                 vm.account = account;
             });
 
@@ -81,13 +83,13 @@
             });
         }
 
-        function getUserModels() {
+        function getUserModels(){
             $http.get('api/file/getUserObjects').then(function (response) {
                 vm.models = response.data;
             });
         }
 
-        function getUserExhibs() {
+        function getUserExhibs(){
             $http.get('api/exhib/getUserExhibs').then(function (response) {
                 vm.exhibs = response.data;
             });
@@ -105,11 +107,11 @@
             vm.currentModel = model;
         }
 
-        function setCurrentExhib(exhib) {
+        function setCurrentExhib(exhib){
             vm.currentExhib = exhib;
         }
 
-        function deleteModel() {
+        function deleteModel(){
             vm.data = {
                 'modelId': vm.currentModel.id
             };
@@ -126,7 +128,7 @@
             });
         }
 
-        function deleteExhib() {
+        function deleteExhib(){
             vm.data = {
                 'id': vm.currentExhib.id
             };

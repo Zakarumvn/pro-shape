@@ -195,4 +195,18 @@ public class FileService {
         model.setCategory(category);
         modelRepository.save(model);
     }
+
+    public List<Model> getThreeRecentModels(Pageable pageable){
+        return modelRepository.findAll(pageable).getContent();
+    }
+
+    public List<String> getUserFileNames(Long id){
+        Set<com.proshape.domain.File> files = fileRepository.findAllByUserId(id);
+        List<String> fileNames = new ArrayList<>();
+        if(files.size() > 0){
+            files.forEach(f -> fileNames.add(f.getFileName()));
+        }
+
+        return fileNames;
+    }
 }

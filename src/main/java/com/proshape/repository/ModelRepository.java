@@ -26,5 +26,5 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
 
     /*
     @Query("SELECT m FROM Model m JOIN Exhib e WHERE e.id = m.ex")
-    List<Model> findBy(Loretng id);*/
+    List<Model> findBy(Long id);*/
 }

@@ -37,8 +37,6 @@
 
         activate();
 
-        vm.getImage = getImage;
-
         ////////////////
 
         function activate() {
@@ -118,13 +116,6 @@
         $scope.lastPage = function () {
             return Math.ceil($scope.models.length / $scope.numPerPage);
         };
-
-        function getImage(url){
-            //vm.anImage = window.URL.createObjectURL(url);
-            var img = URL.createObjectURL(url);
-            return img;
-        }
-
     }
 
 })();
