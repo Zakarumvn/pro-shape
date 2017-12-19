@@ -6,7 +6,7 @@
         .controller('ExhibDisplayController', ExhibDisplayController);
 
     ExhibDisplayController.$inject = ['$scope', '$http', '$stateParams'];
-    
+
     /* @ngInject */
     function ExhibDisplayController($scope, $http, $stateParams) {
         var vm = this;
