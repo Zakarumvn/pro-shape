@@ -30,14 +30,15 @@ public class Exhib implements Serializable {
     private User user;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    /*@JoinTable(name = "exhib_model",
-        joinColumns = @JoinColumn(name = "exhib_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "model_id", referencedColumnName = "id"))*/
     private List<Model> models;
 
     @ManyToOne
     @JoinColumn(name="groupId")
     private Group group;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
     public Exhib(){}
 
@@ -86,5 +87,13 @@ public class Exhib implements Serializable {
 
     public void setModels(List<Model> models) {
         this.models = models;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

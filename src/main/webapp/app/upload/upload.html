@@ -1,24 +1,28 @@
 <div class="container">
 
+    <h1 class="mt-4 mb-3">Upload</h1>
     <!-- Page Heading/Breadcrumbs -->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="index.html">Home</a>
+            <a ui-sref="home">Home</a>
         </li>
         <li class="breadcrumb-item active">Upload</li>
     </ol>
 
     <!-- Blog Post -->
     <div class="card mb-4" ng-hide="vm.isLogged()">
-        <div class="card-footer text-muted">
-            <div class="alert alert-danger" ng-show="errorMsg">
+        <div class="card-footer text-muted" ng-show="errorMsg">
+            <div class="alert alert-danger">
                 <strong>{{errorMsg}}</strong>
             </div>
-
-            <div class="alert alert-success" ng-show="uploadCtrl.response == '1'">
+        </div>
+        <div class="card-footer text-muted" ng-show="uploadCtrl.response == '1'">
+            <div class="alert alert-success">
                 <strong>Object saved.</strong>
             </div>
-            <div class="alert alert-danger" ng-show="wrongFormat == true">
+        </div>
+        <div class="card-footer text-muted" ng-show="wrongFormat == true">
+            <div class="alert alert-danger">
                 <strong>Inappropriate extensions of selected files!</strong>
             </div>
             <div class="alert alert-danger" ng-show="uploadCtrl.existsError == 1">
@@ -26,19 +30,18 @@
             </div>
         </div>
         <div class="card-block">
-            <h2>Upload</h2>
             <form method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="fileGroupName">File name</label>
-                    <input type="text" class="form-conrol" id="fileGroupName" ng-model="uploadCtrl.fileGroupName">
+                <div class="form-group col-md-6">
+                    <label class="control-label" for="fileGroupName">File name</label>
+                    <input type="text" class="form-control" id="fileGroupName" ng-model="uploadCtrl.fileGroupName" ng-minlength=3 ng-maxlength=50 required>
                 </div>
                 <div ng-show="uploadCtrl.fileGroupName.length > 3">
                     <div class="form-group">
-                        <label for="description">Description</label>
+                        <label class="control-label" for="description">Description</label>
                         <textarea maxlength="255" class="form-control" id="description" data-ng-model="uploadCtrl.description"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="uploader">Choose files (supported extensions: .obj, .mtl, .jpg, .png)</label>
+                        <label class="control-label" for="uploader">Choose files (supported extensions: .obj, .mtl, .jpg, .png)</label>
 
                         <br><strong>Viewer only supports 3-file models: .obj + .mtl + 1 texture</strong>
                         <p>
@@ -59,8 +62,8 @@
             </div>
 
             <p></p>
-            <div class="card-footer text-muted">
-                <div class="alert alert-info" ng-show="progress >= 0">
+            <div class="breadcrumb" ng-show="progress >= 0">
+                <div class="alert alert-info" >
 
                    <span class="progress" ng-show="progress >= 0">
                         <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>

@@ -1,5 +1,6 @@
 package com.proshape.repository;
 
+import com.proshape.domain.Category;
 import com.proshape.domain.Model;
 import com.proshape.domain.Exhib;
 import org.springframework.data.domain.Page;
@@ -20,9 +21,10 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     List<Model> findALlByUserId(Long userId);
     Model findModelById(Long modelId);
     List<Model> findAll();
+    List<Model> findAllByCategory(Category category);
     Page<Model> findAll(Pageable pageable);
 
     /*
     @Query("SELECT m FROM Model m JOIN Exhib e WHERE e.id = m.ex")
-    List<Model> findBy(Loretng id);*/
+    List<Model> findBy(Long id);*/
 }

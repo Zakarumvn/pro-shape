@@ -22,7 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
@@ -48,12 +50,19 @@ public class FileController {
                             @RequestParam("fileGroupName") String fileGroupName,
                             @RequestParam(value = "description", required = false) String description) throws IOException, SQLException {
         try{
-            if(fileService.saveUploadedFiles(files, fileGroupName, description) == 0) return 2;
+            fileService.saveUploadedFiles(files, fileGroupName, description);
         } catch (IOException e){
             return 0;
         }
 
         return 1;
+    }
+
+    @Transactional
+    @PostMapping(value = "/pictureUpload")
+    public void uploadPicutre(@RequestParam("id") Long id, @RequestParam("picture") MultipartFile picture)throws IOException, SQLException {
+
+        fileService.saveModelPicture(id, picture.getBytes());
     }
 
     @GetMapping(value= "/getObject")
@@ -74,7 +83,6 @@ public class FileController {
         } catch (IOException e){
             return null;
         }
-
     }
 
 
@@ -137,6 +145,17 @@ public class FileController {
     public List<Model> getThreeRecentModels(){
         Pageable pageable = new PageRequest(0, 3, Sort.Direction.DESC, "uploadDate");
         return fileService.getThreeRecentModels(pageable);
+    }
+
+
+
+
+    @PostMapping("/updateModel")
+    public void updateModel(@RequestParam("modelId") Long modelId,
+                            @RequestParam("modelName") String modelName,
+                            @RequestParam("modelDescription") String modelDescription,
+                            @RequestParam("categoryId") Long categoryId){
+        fileService.updateModel(modelId, modelName, modelDescription, categoryId);
     }
 
 }

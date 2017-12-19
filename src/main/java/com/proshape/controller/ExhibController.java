@@ -56,6 +56,14 @@ public class ExhibController {
         exhibService.setExhibModels(id, models);
     }
 
+    @PostMapping(value = "/updateExhib")
+    public void updateExhib(@RequestParam("id") Long id,
+                            @RequestParam("name") String name,
+                            @RequestParam("description") String description,
+                            @RequestParam("categoryId") Long categoryId){
+        exhibService.updateExhib(id, name, description, categoryId);
+    }
+
     @PostMapping("/deleteExhib")
     public void deleteExhib(@RequestParam("id") String id){
         exhibService.deleteExhib(Long.parseLong(id));

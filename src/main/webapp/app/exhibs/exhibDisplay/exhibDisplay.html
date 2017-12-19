@@ -18,7 +18,8 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="text-center">
-                        <h4>{{exDispCtrl.exhib.name}}:</h4> <h5>{{materialObj[0].name}}</h5>
+                        <h4>{{exDispCtrl.exhib.name}}:</h4> <h5>{{exDispCtrl.exhib.model.modelName}}</h5>
+
                     </div>
                     <hr>
                 </div>
@@ -26,10 +27,17 @@
                     <h3 class="text-right"><a ng-show="!exDispCtrl.nextDeactive" href="#/exhib/{{exDispCtrl.exhib.id}}/{{exDispCtrl.nextModel}}">NEXT</a></h3>
                 </div>
             </div>
+            <div class="row">
+                <div style="margin: 0 auto;">
+                    <p class="text-center">{{exDispCtrl.exhib.description}}</p>
+                    <hr>
+                </div>
+            </div>
 
             <div class="row">
+
                 <div class="col-md-8" ng-if="display === 3" ng-init="exDispCtrl.setMaterialObj()">
-                    <div  id="webglContainer" viewer="" width="canvasWidth" height="canvasHeight" fillcontainer="dofillcontainer" material-obj="materialObj">
+                    <div style="border:3px solid orangered;" id="webglContainer" viewer width="canvasWidth" height="canvasHeight" fillcontainer="dofillcontainer" material-obj="materialObj">
                     </div>
                 </div>
 

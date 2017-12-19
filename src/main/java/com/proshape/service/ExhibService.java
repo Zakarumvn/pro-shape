@@ -1,8 +1,10 @@
 package com.proshape.service;
 
+import com.proshape.domain.Category;
 import com.proshape.domain.Exhib;
 import com.proshape.domain.Model;
 import com.proshape.domain.User;
+import com.proshape.repository.CategoryRepository;
 import com.proshape.repository.ModelRepository;
 import com.proshape.repository.UserRepository;
 import com.proshape.repository.ExhibRepository;
@@ -28,6 +30,9 @@ public class ExhibService {
 
     @Autowired
     ModelRepository modelRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @Autowired
     UserService userService;
@@ -61,6 +66,15 @@ public class ExhibService {
     }
 
     //public List<Model> findModelsById(Long id){ return modelRepository.findModelsById(id); }
+
+    public void updateExhib(Long id, String name, String description, Long categoryId){
+        Exhib exhib = exhibRepository.findOne(id);
+        exhib.setName(name);
+        exhib.setDescription(description);
+        Category category = categoryRepository.findByCategoryId(categoryId);
+        exhib.setCategory(category);
+        exhibRepository.save(exhib);
+    }
 
     public void setExhibModels(Long id, Long[] exhibModels){
         List<Model> modelList = new ArrayList<Model>();

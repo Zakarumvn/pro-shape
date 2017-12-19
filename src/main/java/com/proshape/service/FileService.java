@@ -1,11 +1,14 @@
 package com.proshape.service;
 
 import com.proshape.domain.Exhib;
+import com.proshape.domain.Category;
 import com.proshape.domain.Model;
 import com.proshape.domain.User;
 import com.proshape.repository.ExhibRepository;
+import com.proshape.repository.CategoryRepository;
 import com.proshape.repository.FileRepository;
 import com.proshape.repository.ModelRepository;
+import org.hibernate.Hibernate;
 import org.joda.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,6 +49,9 @@ public class FileService {
 
     @Autowired
     ExhibRepository exhibRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     public List<String> getFileNamesForModelId(Long modelId){
         return fileRepository.findAllByModelId(modelId).stream().map(file -> file.getFileName()).collect(Collectors.toList());
@@ -126,6 +134,12 @@ public class FileService {
         return resultCode;
     }
 
+    @Transactional
+    public void saveModelPicture(Long id, byte[] picture){
+        Model model = modelRepository.findModelById(id);
+        model.setModelImage(picture);
+        modelRepository.save(model);
+    }
 
     public Set<com.proshape.domain.File> getFilesForUserId(Long userId){
         return fileRepository.findAllByUserId(userId);
@@ -171,13 +185,24 @@ public class FileService {
         return modelRepository.findAll(pageable).getContent();
     }
 
-    public List<String> getUserFileNames(Long id){
+    public List<String> getUserFileNames(Long id) {
         Set<com.proshape.domain.File> files = fileRepository.findAllByUserId(id);
         List<String> fileNames = new ArrayList<>();
-        if(files.size() > 0){
+        if (files.size() > 0) {
             files.forEach(f -> fileNames.add(f.getFileName()));
         }
 
         return fileNames;
     }
+
+    public void updateModel(Long modelId, String modelName, String modelDescription, Long categoryId){
+        Model model = modelRepository.findModelById(modelId);
+        model.setModelName(modelName);
+        model.setModelDescription(modelDescription);
+
+        Category category = categoryRepository.findByCategoryId(categoryId);
+        model.setCategory(category);
+        modelRepository.save(model);
+    }
+
 }

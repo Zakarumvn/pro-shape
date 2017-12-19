@@ -1,8 +1,13 @@
 package com.proshape.domain;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.type.BlobType;
 import org.joda.time.Instant;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.Size;
+import java.sql.Blob;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
@@ -22,10 +27,12 @@ public class Model {
     @Column(name = "model_description", length = 500)
     private String modelDescription;
 
+    @Lob
+    @Column(length=1048576)
     private byte[] modelImage;
 
-    @ManyToOne
-    @JoinColumn(name="userId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "userId")
     private User user;
 
     private String uploadDate;
@@ -39,6 +46,10 @@ public class Model {
     @ManyToOne
     @JoinColumn(name="groupId")
     private Group group;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
     public Model() {}
 
@@ -106,6 +117,14 @@ public class Model {
 
     public void setFiles(Set<File> files) {
         this.files = files;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public List<Exhib> getExhibitions() {
