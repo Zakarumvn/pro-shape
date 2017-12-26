@@ -1,0 +1,23 @@
+<div class="container">
+
+    <h1 class="mt-4 mb-3">Categories: exhibitions</h1>
+    <!-- Page Heading/Breadcrumbs -->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a ui-sref="home">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Categories: exhibitions</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="category in exCCtrl.categories">
+            <div class="card h-100">
+                <div class="card-block">
+                    <h4 class="card-title"><a href="#/category/{{category.categoryId}}">{{category.name}}</a></h4>
+                    <p class="card-text">{{category.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

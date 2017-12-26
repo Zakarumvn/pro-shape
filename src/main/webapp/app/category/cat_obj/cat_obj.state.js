@@ -13,11 +13,11 @@
             parent: 'app',
             data: {
                 authorities: [],
-                pageTitle: 'Kategorie: Obiekty'
+                pageTitle: 'Categories: Models'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/cat_obj/cat_obj.html',
+                    templateUrl: 'app/category/cat_obj/cat_obj.html',
                     controller: 'ModelCategController',
                     controllerAs : 'modCCtrl'
                 }

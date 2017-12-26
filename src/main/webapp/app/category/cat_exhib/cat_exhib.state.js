@@ -17,7 +17,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/cat_exhib/cat_exhib.html',
+                    templateUrl: 'app/category/cat_exhib/cat_exhib.html',
                     controller: 'ExhibCategController',
                     controllerAs: 'exCCtrl'
                 }

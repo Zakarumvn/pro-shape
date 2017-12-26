@@ -10,6 +10,9 @@
     function stateConfig($stateProvider) {
         $stateProvider.state('app', {
             abstract: true,
+            data: {
+                pageTitle: 'proShape'
+            },
             views: {
                 'navbar@': {
                     templateUrl: 'app/layouts/navbar/navbar.html',

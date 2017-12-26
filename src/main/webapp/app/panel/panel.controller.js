@@ -7,10 +7,10 @@
         .module('proshapeApp')
         .controller('PanelController', PanelController);
 
-    PanelController.$inject = ['$scope', 'Principal', '$http', 'Upload'];
+    PanelController.$inject = ['$scope', 'Principal', '$http', 'Upload', '$timeout', '$state'];
 
     /* @ngInject */
-    function PanelController($scope, Principal, $http, Upload) {
+    function PanelController($scope, Principal, $http, Upload, $timeout, $state) {
         var vm = this;
         vm.title = 'PanelController';
         vm.success = null;
@@ -62,7 +62,8 @@
 
             vm.data = {
                 type : "model"
-            }
+            };
+
             $http({
                 url: 'api/cat/getAllByType',
                 params: vm.data,
@@ -73,7 +74,8 @@
 
             vm.data = {
                 type : "exhib"
-            }
+            };
+
             $http({
                 url: 'api/cat/getAllByType',
                 params: vm.data,
@@ -82,6 +84,7 @@
                 vm.exhibCategories = response.data;
             });
         }
+
 
         function getUserModels(){
             $http.get('api/file/getUserObjects').then(function (response) {
@@ -122,6 +125,9 @@
                 method: 'post'
             }).then(function (response) {
                 vm.success = "Model deleted!";
+                $timeout(function () {
+                    $state.reload();
+                }, 1500);
             }).catch(function (response) {
                 vm.error = "Error. Try again later.";
                 vm.error.response = response;
@@ -139,6 +145,9 @@
                 method: 'post'
             }).then(function (response) {
                 vm.success = "Exhibition deleted!";
+                $timeout(function () {
+                    $state.reload();
+                }, 1500);
             }).catch(function (response) {
                 vm.error = "Error. Try again later.";
                 vm.error.response = response;
@@ -167,7 +176,7 @@
                 'modelId' : vm.editedModel.id,
                 'modelName' : vm.editedModel.modelName,
                 'modelDescription' : vm.editedModel.modelDescription,
-                'categoryId' : vm.editedModel.category.categoryId
+                'categoryId' : vm.editedModel.category == null ?  '' : vm.editedModel.category.categoryId
             };
             $http({
                 url: 'api/file/updateModel',
@@ -175,6 +184,11 @@
                 method: 'post'
             }).then(function (response) {
                 vm.success = "Model updated!";
+
+                $timeout(function () {
+                    $state.reload();
+                }, 1500);
+
             }).catch(function (response) {
                 vm.error = "Error. Try again later.";
                 vm.error.response = response;
@@ -194,6 +208,9 @@
                 method: 'post'
             }).then(function (response) {
                 vm.success = "Exhibition updated!";
+                $timeout(function () {
+                    $state.reload();
+                }, 1500);
             }).catch(function (response) {
                 vm.error = "Error. Try again later.";
                 vm.error.response = response;

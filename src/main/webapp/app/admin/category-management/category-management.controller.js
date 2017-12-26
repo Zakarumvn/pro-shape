@@ -5,9 +5,9 @@
         .module('proshapeApp')
         .controller('CatManagementController', CatManagementController);
 
-    CatManagementController.$inject = ['$scope', '$http'];
+    CatManagementController.$inject = ['$scope', '$http', '$timeout', '$state'];
 
-    function CatManagementController($scope, $http) {
+    function CatManagementController($scope, $http, $timeout, $state) {
         var vm = this;
 
         vm.data = {};
@@ -79,6 +79,9 @@
             $http.post('/api/cat/createCategory', vm.newCategory)
                 .success(function () {
                     vm.success = "New category ("+vm.newCategory.name+") created!";
+                    $timeout(function () {
+                        $state.reload();
+                    }, 3000);
                 });
         }
 
@@ -91,6 +94,9 @@
             $http.post('/api/cat/updateCategoryNames', vm.editCategory)
                 .success(function () {
                     vm.success = "Category "+vm.editCategory.name+" updated!";
+                    $timeout(function () {
+                        $state.reload();
+                    }, 3000);
                 });
         }
 
@@ -101,6 +107,9 @@
             $http.post('/api/cat/deleteCategory', vm.delCategory)
                 .success(function () {
                     vm.success = "Category deleted!";
+                    $timeout(function () {
+                        $state.reload();
+                    }, 3000);
                 });
 
         }

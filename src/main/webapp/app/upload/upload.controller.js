@@ -110,7 +110,7 @@
 
                         });
                         $timeout(function () {
-                            $state.reload();
+                            $state.go('panel');
                         }, 2000);
 
 

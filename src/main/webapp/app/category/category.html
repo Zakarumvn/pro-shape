@@ -7,34 +7,41 @@
             <a ui-sref="home">Home</a>
         </li>
 
+        <li class="breadcrumb-item">
+            <a ui-sref="home">Categories: {{catCtrl.category.type}}</a>
+        </li>
+
         <li class="breadcrumb-item active">Category: {{catCtrl.category.name}}</li>
     </ol>
 
     <!-- Blog Post -->
-    <div class="card mb-4">
-        <div class="card-block">
-            <div class="row">
-                <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in catCtrl.models">
-                    <div class="card h-100">
-                        <a href="#/model/{{model.id}}"><img ng-show="!model.modelImage" class="card-img-top img-fluid" src="http://placehold.it/700x400" alt="">
-                            <img ng-show="model.modelImage" class="card-img-top img-fluid" ng-src="data:image/jpeg;base64,{{model.modelImage}}" alt=""></a>
-                        <div class="card-block">
-                            <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a> by {{model.user.login}}</h4>
-                            <p class="card-text">{{model.modelDescription}}</p>
-                        </div>
-                    </div>
+    <div class="alert alert-info" ng-if="catCtrl.models.length === 0 && catCtrl.exhibs.length === 0">
+        That category is empty.
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="model in catCtrl.models">
+            <div class="card h-100">
+                <a href="#/model/{{model.id}}"><img ng-show="!model.modelImage" class="card-img-top img-fluid"
+                                                    src="http://placehold.it/700x400" alt="">
+                    <img ng-show="model.modelImage" class="card-img-top img-fluid"
+                         ng-src="data:image/jpeg;base64,{{model.modelImage}}" alt=""></a>
+                <div class="card-block">
+                    <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a> by
+                        {{model.user.login}}</h4>
+                    <p class="card-text">{{model.modelDescription}}</p>
                 </div>
+            </div>
+        </div>
 
-                <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="exhib in catCtrl.exhibs">
-                    <div class="card h-100">
-                        <div class="card-block">
-                            <h4 class="card-title"><a href="#/exhib/{{exhib.id}}">{{exhib.name}}</a> by {{exhib.user.login}}</h4>
-                            <p class="card-text">{{exhib.description}}</p>
-                        </div>
-                    </div>
+        <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="exhib in catCtrl.exhibs">
+            <div class="card h-100">
+                <div class="card-block">
+                    <h4 class="card-title"><a href="#/exhib/{{exhib.id}}">{{exhib.name}}</a> by {{exhib.user.login}}
+                    </h4>
+                    <p class="card-text">{{exhib.description}}</p>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
+
