@@ -107,7 +107,7 @@
 
                     $scope.canvasWidth = 600;
                     $scope.canvasHeight = 600;
-                    $scope.dofillcontainer = false;
+                    $scope.dofillcontainer = true;
                 });
 
         }

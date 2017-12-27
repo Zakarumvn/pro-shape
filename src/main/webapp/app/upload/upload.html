@@ -25,7 +25,7 @@
             <div class="alert alert-danger">
                 <strong>Inappropriate extensions of selected files!</strong>
             </div>
-            <div class="alert alert-danger" ng-show="uploadCtrl.existsError == 1">
+            <div class="alert alert-danger" ng-show="uploadCtrl.existsError == '1'">
                 <strong>You've already uploaded that file(s)!</strong>
             </div>
         </div>
@@ -45,7 +45,7 @@
 
                         <br><strong>Viewer only supports 3-file models: .obj + .mtl + 1 texture</strong>
                         <p>
-                            <input ngf-pattern="'.png,.jpg,.mtl,.obj,.jpeg'" accept=".obj,.mtl,.jpg,.jpeg,.png" multiple type="file" ngf-min-files="2"  ngf-max-files="3" ngf-select="uploadFiles($files)" id="uploader"/>
+                            <input ngf-pattern="'.png,.jpg,.mtl,.obj,.jpeg'" accept=".obj,.mtl,.jpg,.jpeg,.png" multiple type="file" ngf-min-files="3"  ngf-max-files="3" ngf-select="uploadFiles($files)" id="uploader"/>
                         </p>
                     </div>
                 </div>

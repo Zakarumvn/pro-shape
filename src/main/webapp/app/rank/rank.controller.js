@@ -28,6 +28,8 @@
         vm.transition = transition;
         vm.loadPage = loadPage;
         vm.getRank = getRank;
+        vm.sliceIfTooLongText = sliceIfTooLongText;
+
 
         $scope.filteredModels = []
             , $scope.currentPage = 1
@@ -116,6 +118,14 @@
         $scope.lastPage = function () {
             return Math.ceil($scope.models.length / $scope.numPerPage);
         };
+
+        function sliceIfTooLongText(text) {
+            if(text.includes('@')){
+                return text.slice(0, text.indexOf('@'));
+            } else {
+                return text;
+            }
+        }
     }
 
 })();

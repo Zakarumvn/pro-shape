@@ -52,7 +52,7 @@
 
 
         function validate(files){
-            if (files && files.length && (files.length === 2 || files.length === 3)) {
+            if (files && files.length && files.length === 3) {
                 var obj=0, mtl=0,jpg=0, png=0;
                 if(!vm.fileExists(files)){
                     for (var i = 0; i < files.length; i++) {
@@ -82,11 +82,13 @@
                         }
                     }
                 } else {
+                    vm.existsError = 1;
                     return false;
                 }
 
 
             } else {
+                $scope.errorMsg = "Something went wrong. Refresh page and try again.";
                 return false;
             }
 
@@ -126,7 +128,9 @@
                         $scope.progress =
                             Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
                     });
-                }
+                } /*else {
+                    $scope.errorMsg = "Error while uploading object. Refresh page and try again."
+                }*/
 
 
             }

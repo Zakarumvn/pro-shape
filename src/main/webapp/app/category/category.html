@@ -27,7 +27,7 @@
                          ng-src="data:image/jpeg;base64,{{model.modelImage}}" alt=""></a>
                 <div class="card-block">
                     <h4 class="card-title"><a href="#/model/{{model.id}}">{{model.modelName}}</a> by
-                        {{model.user.login}}</h4>
+                        {{catCtrl.sliceIfTooLongText(model.user.login)}}</h4>
                     <p class="card-text">{{model.modelDescription}}</p>
                 </div>
             </div>
@@ -36,12 +36,17 @@
         <div class="col-lg-4 col-sm-6 portfolio-item" ng-repeat="exhib in catCtrl.exhibs">
             <div class="card h-100">
                 <div class="card-block">
-                    <h4 class="card-title"><a href="#/exhib/{{exhib.id}}">{{exhib.name}}</a> by {{exhib.user.login}}
+                    <h4 class="card-title"><a href="#/exhib/{{exhib.id}}">{{exhib.name}}</a> by {{catCtrl.sliceIfTooLongText(exhib.user.login)}}
                     </h4>
                     <p class="card-text">{{exhib.description}}</p>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="text-center">
+        <jhi-item-count page="catCtrl.page" total="catCtrl.queryCount" items-per-page="catCtrl.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="catCtrl.totalItems" ng-model="catCtrl.page" ng-change="catCtrl.transition()"></uib-pagination>
     </div>
 </div>
 

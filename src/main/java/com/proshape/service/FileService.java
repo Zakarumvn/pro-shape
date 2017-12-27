@@ -1,16 +1,15 @@
 package com.proshape.service;
 
-import com.proshape.domain.Exhib;
-import com.proshape.domain.Category;
-import com.proshape.domain.Model;
-import com.proshape.domain.User;
+import com.proshape.domain.*;
 import com.proshape.repository.ExhibRepository;
 import com.proshape.repository.CategoryRepository;
 import com.proshape.repository.FileRepository;
 import com.proshape.repository.ModelRepository;
+import org.apache.commons.io.IOUtils;
 import org.hibernate.Hibernate;
 import org.joda.time.Instant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialBlob;
-import java.sql.Blob;
+import java.io.*;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.net.URL;
+import java.sql.Blob;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -80,8 +79,7 @@ public class FileService {
         String uploadDirectoryPath = System.getProperty("user.home") + "\\uploadResources";
 
         Path userDirPath = Paths.get(uploadDirectoryPath + "\\" + user.getId().toString());
-        String originalFilename = "";
-        String fileExtension = "";
+        String fileExtension, filePath, originalFilename = "";
         String currentDate = Instant.now().toString();
 
         try{
@@ -92,38 +90,23 @@ public class FileService {
             e.printStackTrace();
         }
 
-        Model model = new Model();
-        model.setUploadDate(currentDate.toString());
-        model.setUser(user);
-        model.setModelDescription(description);
-        model.setModelName(fileGroupName);
+        InputStream in = getClass().getResourceAsStream("/img/default.jpg");
+        byte[] image = IOUtils.toByteArray(in);
+        Model model = new Model(fileGroupName, description, image, user, currentDate, null, null);
         modelRepository.save(model);
+
         Set<com.proshape.domain.File> fileList = new HashSet<>();
-
-
-        for (int i = 0; i < files.size(); i++) {
-            originalFilename = files.get(i).getOriginalFilename();
+        for (MultipartFile file : files) {
+            originalFilename = file.getOriginalFilename();
             fileExtension = originalFilename.substring(originalFilename.length() - 4);
             File convertedFile = new File(userDirPath.toString(), originalFilename);
 
+            if (!convertedFile.exists()) {
+                saveUploadedFileOnFileSystem(file, convertedFile);
 
-            if(convertedFile.exists()){
-                resultCode = 2;
-                break;
-            } else {
-                convertedFile.createNewFile();
-                FileOutputStream fos = new FileOutputStream(convertedFile);
-                fos.write(files.get(i).getBytes());
-                fos.close();
+                filePath = user.getId().toString() + "\\" + originalFilename;
 
-                com.proshape.domain.File fileDB = new com.proshape.domain.File();
-                fileDB.setUser(user);
-                fileDB.setFileName(originalFilename);
-                fileDB.setFileExtension(fileExtension);
-                fileDB.setPath(user.getId().toString() + "\\" + originalFilename);
-                fileDB.setFileGroup(fileGroupName);
-                fileDB.setUploadDate(currentDate.toString());
-                fileDB.setModel(model);
+                com.proshape.domain.File fileDB = new com.proshape.domain.File(user, originalFilename, fileGroupName, fileExtension, description, filePath, currentDate, null, model);
                 fileList.add(fileDB);
                 fileRepository.save(fileDB);
             }
@@ -132,6 +115,13 @@ public class FileService {
         model.setFiles(fileList);
         modelRepository.save(model);
         return resultCode;
+    }
+
+    private void saveUploadedFileOnFileSystem(MultipartFile file, File convertedFile ) throws IOException {
+            convertedFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(convertedFile);
+            fos.write(file.getBytes());
+            fos.close();
     }
 
     @Transactional

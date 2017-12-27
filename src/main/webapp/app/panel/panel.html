@@ -73,7 +73,7 @@
                             <button type="button" class="btn btn-primary btn-sm"
                                     data-toggle="modal" data-target="#editModelModal"
                                     ng-click="panelCtrl.setEditedModel(model)">
-                                Edit description
+                                Edit
                             </button>
                         </div>
                         <div style="padding-top: 10px; padding-bottom: 10px;" class="breadcrumb-item">
@@ -103,7 +103,7 @@
                             </button>
                         </div>
                         <div class="breadcrumb-item">
-                            <a class="btn btn-primary btn-sm" href="/#/exhibEdit/{{exhib.id}}">Edit</a>
+                            <a class="btn btn-primary btn-sm" href="/#/exhibEdit/{{exhib.id}}">Manage content</a>
                         </div>
                         <div class="breadcrumb-item">
                             <button type="button" class="btn btn-primary btn-sm"
@@ -216,7 +216,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit model</h5>
+                <h5 class="modal-title">Edit exhibition</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -224,8 +224,8 @@
             <form method="post" name="exhibChangeForm" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label" for="changeModelName">Model name</label>
-                        <input type="text" class="form-control" id="changeExhibName" name="changeExhibName" placeholder="Model name..."
+                        <label class="control-label" for="changeModelName">Exhibition name</label>
+                        <input type="text" class="form-control" id="changeExhibName" name="changeExhibName" placeholder="Exhibition name..."
                                ng-model="panelCtrl.editedExhib.name" ng-minlength=3 ng-maxlength=50 required>
                         <div ng-show="exhibChangeForm.changeExhibName.$dirty && exhibChangeForm.changeExhibName.$invalid">
                             <p class="help-block"

@@ -21,7 +21,7 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
     List<Model> findALlByUserId(Long userId);
     Model findModelById(Long modelId);
     List<Model> findAll();
-    List<Model> findAllByCategory(Category category);
+    Page<Model> findAllByCategory(Category category, Pageable pageable);
     Page<Model> findAll(Pageable pageable);
 
     /*

@@ -7,6 +7,8 @@ import com.proshape.repository.CategoryRepository;
 import com.proshape.repository.ExhibRepository;
 import com.proshape.repository.ModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,14 +62,14 @@ public class CategoryService {
         return category;
     }
 
-    public List<Model> findModelsByCategory(Long categoryId){
+    public Page<Model> findModelsByCategory(Long categoryId, Pageable pageable){
         Category category = categoryRepository.getOne(categoryId);
-        return modelRepository.findAllByCategory(category);
+        return modelRepository.findAllByCategory(category, pageable);
     }
 
-    public List<Exhib> findExhibsByCategory(Long categoryId){
+    public Page<Exhib> findExhibsByCategory(Long categoryId, Pageable pageable){
         Category category = categoryRepository.getOne(categoryId);
-        return exhibRepository.findAllByCategory(category);
+        return exhibRepository.findAllByCategory(category, pageable);
     }
 
 }
