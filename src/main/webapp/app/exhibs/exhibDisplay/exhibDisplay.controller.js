@@ -109,9 +109,7 @@
                     $scope.canvasHeight = 600;
                     $scope.dofillcontainer = true;
                 });
-
         }
-
 
         function setMaterialObj() {
             $scope.materialObj = [{

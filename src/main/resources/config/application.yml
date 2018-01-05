@@ -38,6 +38,17 @@ spring:
             naming:
                 physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
                 implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    mail:
+            host: smtp.gmail.com
+            port: 587
+            username: proshape.service@gmail.com  #Replace this field with your Gmail username.
+            password: shapePro666           #Replace this field with your Gmail password.
+            protocol: smtp
+            tls: true
+            properties.mail.smtp:
+                auth: true
+                starttls.enable: true
+                ssl.trust: smtp.gmail.com
     messages:
         basename: i18n/messages
     mvc:
